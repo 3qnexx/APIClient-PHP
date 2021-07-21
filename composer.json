@@ -1,0 +1,19 @@
+{
+  "name": "nexxomnia/apiclient",
+  "type": "library",
+  "description": "Your package description goes here",
+  "keywords": ["relevant","tags","go","here"],
+  "homepage": "https://3q.video",
+  "license": "MIT",
+  "require": {
+	"php": "^7.4 || ^8.0 || ^8.1",
+	"ext-json": "*",
+	"guzzlehttp/guzzle": "^6.3 || ^7.3",
+	"monolog/monolog": "^2.0"
+  },
+  "autoload": {
+	"psr-4": {
+	  "nexxOMNIA\\": "src"
+	}
+  }
+}
