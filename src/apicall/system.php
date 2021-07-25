@@ -27,6 +27,10 @@ class system extends \nexxOMNIA\internal\apicall{
 		$this->path.="facebookcategories";
 	}
 
+	public function rokuCategories():void{
+		$this->path.="rokucategories";
+	}
+
 	public function countryCodes():void{
 		$this->path.="countrycodes";
 	}
@@ -39,6 +43,10 @@ class system extends \nexxOMNIA\internal\apicall{
 		if(strlen($country)==2){
 			$this->path.="regioncodesfor/".$country;
 		}
+	}
+
+	public function personTypes():void{
+		$this->path.="persontypes";
 	}
 
 	public function editableAttributesFor(string $streamtype):void{

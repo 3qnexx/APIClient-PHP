@@ -1,7 +1,10 @@
 <?php
 namespace nexxOMNIA;
 
+use nexxOMNIA\apicall\statistics;
+use nexxOMNIA\apicall\media;
 use nexxOMNIA\enums\defaults;
+use nexxOMNIA\internal\apicall;
 use nexxOMNIA\internal\parameters;
 use nexxOMNIA\internal\modifiers;
 use nexxOMNIA\result\result;
@@ -110,47 +113,31 @@ class apiclient{
 			$this->log($url."?".http_build_query($callparams));
 			$request=$client->request($verb,$url,$clientconfig);
 		}catch(\Exception $e){}
-		return(new result($request));
-	}
-
-	public function startCall(string $type=""):internal\apicall{
-		switch($type){
-			case defaults::API_KIND_MANAGE:
-				$handle=new apicall\manage();
-			break;
-			case defaults::API_KIND_DOMAIN:
-				$handle=new apicall\domain();
-			break;
-			case defaults::API_KIND_SESSION:
-				$handle=new apicall\session();
-			break;
-			case defaults::API_KIND_STATISTICS:
-				$handle=new apicall\statistics();
-			break;
-			default:
-				$handle=new apicall\media();
-			break;
-		}
-		return($handle);
+		return(new result($request,$endpoint));
 	}
 
 	public function call(internal\apicall $call,bool $fetchAllPossibleResults=FALSE):result{
 		if($fetchAllPossibleResults){
-			if($call instanceof apicall\media){
+			if($call instanceof media){
 				$call->getParameters()->setLimit(defaults::MAX_RESULT_LIMIT);
 			}else{
 				$fetchAllPossibleResults=FALSE;
 			}
 		}
+		if($call instanceof statistics){
+			if($this->timeout<30){
+				$this->timeout=30;
+			}
+		}
 		$result=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
-		if($result->wasSuccessfull()){
+		if($result->isSuccess()){
 			if(($fetchAllPossibleResults)&&($result->getPaging()->hasMoreResults())){
 				$callAgain=TRUE;
 				$start=defaults::MAX_RESULT_LIMIT;
 				while($callAgain){
 					$call->getParameters()->setStart($start);
 					$adds=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
-					if($adds->wasSuccessfull()){
+					if($adds->isSuccess()){
 						$result->addResults($adds->getResult());
 						if($result->getPaging()->hasMoreResults()){
 							$start+=defaults::MAX_RESULT_LIMIT;

@@ -11,12 +11,19 @@ class defaults{
 	const API_KIND_DOMAIN='domain';
 	const API_KIND_MANAGE='manage';
 	const API_KIND_SESSION='session';
+	const API_KIND_SYSTEM='system';
 	const API_KIND_STATISTICS='statistics';
 
 	const VERB_GET="GET";
 	const VERB_POST="POST";
+	const VERB_PUT="PUT";
+	const VERB_DELETE="DELETE";
 
 	const MAX_RESULT_LIMIT=100;
 	const MAX_RESULT_LIMIT_STATISTICS=100000;
+
+	public static function getAllVerbs():array{
+		return([self::VERB_GET,self::VERB_POST,self::VERB_PUT,self::VERB_DELETE]);
+	}
 
 }

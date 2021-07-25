@@ -20,7 +20,7 @@ class parameters{
 		}
 	}
 
-	public function setMulti(array $data):void{
+	public function setByArray(array $data):void{
 		foreach($data as $key=>$val){
 			$this->set($key,$val);
 		}

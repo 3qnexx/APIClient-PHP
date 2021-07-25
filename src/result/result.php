@@ -1,26 +1,55 @@
 <?php
 namespace nexxOMNIA\result;
 
+use nexxOMNIA\apicall\media;
+use nexxOMNIA\enums\defaults;
+
 class result{
 
 	protected int $code=0;
+	protected string $endpoint="";
 	protected ?array $raw=NULL;
 	protected ?paging $paging=NULL;
 	protected ?metadata $metadata=NULL;
 
-	public function __construct(?\Psr\Http\Message\ResponseInterface $response){
+	public function __construct(?\Psr\Http\Message\ResponseInterface $response, string $endpoint=''){
 		if($response){
+			$this->endpoint=$endpoint;
 			$this->code=intval($response->getStatusCode());
 			$this->raw=json_decode($response->getBody(),TRUE);
-			if($this->wasSuccessfull()){
+			if($this->raw['metadata']){
+				$this->metadata=new metadata($this->raw['metadata']);
+			}
+			if($this->isSuccess()){
 				if($this->raw['paging']){
 					$this->paging=new paging($this->raw['paging'],sizeof($this->raw['result']));
 				}
-				if($this->raw['metadata']){
-					$this->metadata=new metadata($this->raw['metadata']);
-				}
 			}
 		}
+	}
+
+	private function isManageCall():bool{
+		return(strpos($this->endpoint,defaults::API_KIND_MANAGE)===0);
+	}
+
+	private function isSessionCall():bool{
+		return(strpos($this->endpoint,defaults::API_KIND_SESSION)===0);
+	}
+
+	private function isStatisticsCall():bool{
+		return(strpos($this->endpoint,defaults::API_KIND_STATISTICS)===0);
+	}
+
+	private function isDomainCall():bool{
+		return(strpos($this->endpoint,defaults::API_KIND_DOMAIN)===0);
+	}
+
+	private function isSystemCall():bool{
+		return(strpos($this->endpoint,defaults::API_KIND_SYSTEM)===0);
+	}
+
+	private function isMediaCall():bool{
+		return((!$this->isDomainCall())&&(!$this->isManageCall())&&(!$this->isSessionCall())&&(!$this->isStatisticsCall())&&(!$this->isSystemCall()));
 	}
 
 	public function getRawResponse():?array{
@@ -31,8 +60,12 @@ class result{
 		return($this->code);
 	}
 
-	public function wasSuccessfull():bool{
+	public function isSuccess():bool{
 		return((!empty($this->code))&&($this->code<400));
+	}
+
+	public function isError():bool{
+		return((empty($this->code))||($this->code>=400));
 	}
 
 	public function getErrorReason():?string{
@@ -54,9 +87,17 @@ class result{
 		return($this->raw['result']);
 	}
 
-	public function getResultIterator():iterator{
+	public function getResultObject():?resultobject{
+		$toreturn=NULL;
+		if($this->isSuccess()){
+			$toreturn=new resultobject($this->raw['result']);
+		}
+		return($toreturn);
+	}
+
+	public function getResultIterator(bool $asMediaObjects=FALSE):iterator{
 		if($this->supportsPaging()){
-			$toreturn=new iterator($this->raw['result']);
+			$toreturn=new iterator($this->raw['result'],$asMediaObjects);
 		}else{
 			throw new \Exception("result is not pageable");
 		}

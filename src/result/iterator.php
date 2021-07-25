@@ -4,21 +4,31 @@ namespace nexxOMNIA\result;
 class iterator implements \Iterator{
 
 	private array $data;
+	private bool $asMediaObjects;
 
-	public function __construct(array $data){
+	public function __construct(array $data,bool $asMediaObjects=FALSE){
 		$this->data=$data;
+		$this->asMediaObjects=$asMediaObjects;
 	}
 
 	public function count():int{
 		return(sizeof($this->data));
 	}
 
-	public function current():?array{
-		return(current($this->data));
+	public function current(){
+		$toreturn=current($this->data);
+		if(($toreturn)&&($this->asMediaObjects)){
+			$toreturn=new resultobject($toreturn);
+		}
+		return($toreturn);
 	}
 
 	public function next(){
-		return(next($this->data));
+		$toreturn=next($this->data);
+		if(($toreturn)&&($this->asMediaObjects)){
+			$toreturn=new resultobject($toreturn);
+		}
+		return($toreturn);
 	}
 
 	public function key():?int{

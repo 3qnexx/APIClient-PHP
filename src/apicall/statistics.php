@@ -16,6 +16,7 @@ class statistics extends \nexxOMNIA\internal\apicall{
 		$this->modifiers=NULL;
 		$this->parameters=new statisticparameters();
 		$this->path="statistics/";
+		$this->setDates(date("Y-m-d",strtotime("-30 days")),date("Y-m-d",strtotime("-1 day")));
 	}
 
 	private function dateIsValid(string $date):bool{
@@ -199,5 +200,73 @@ class statistics extends \nexxOMNIA\internal\apicall{
 		}else{
 			throw new \Exception("KPI not supported");
 		}
+	}
+
+	public function chartsByDisplays():void{
+		$this->path.="chartsbydisplays";
+	}
+
+	public function chartsByDPlayerStarts():void{
+		$this->path.="chartsbyplayerstarts";
+	}
+
+	public function chartsByViews():void{
+		$this->path.="chartsbyviews";
+	}
+
+	public function chartsByViewsExternal():void{
+		$this->path.="chartsbyviewsexternal";
+	}
+
+	public function chartsByViewtime():void{
+		$this->path.="chartsbyviewtime";
+	}
+
+	public function chartsByViewtimeAverage():void{
+		$this->path.="chartsbyviewtimeaverage";
+	}
+
+	public function chartsByCompletion():void{
+		$this->path.="chartsbycompletion";
+	}
+
+	public function chartsByDownloads():void{
+		$this->path.="chartsbydownloads";
+	}
+
+	public function chartsByClicks():void{
+		$this->path.="chartsbyclicks";
+	}
+
+	public function distributionByGateway():void{
+		$this->path.="distributionbygateway";
+	}
+
+	public function distributionByDevice():void{
+		$this->path.="distributionbydevice";
+	}
+
+	public function distributionByOS():void{
+		$this->path.="distributionbyos";
+	}
+
+	public function distributionByBrowser():void{
+		$this->path.="distributionbybrowser";
+	}
+
+	public function distributionByPodcastApp():void{
+		$this->path.="distributionbypodcastapp";
+	}
+
+	public function distributionByChannel():void{
+		$this->path.="distributionbychannel";
+	}
+
+	public function distributionByFormat():void{
+		$this->path.="distributionbyformat";
+	}
+
+	public function distributionByLicensor():void{
+		$this->path.="distributionbylicensor";
 	}
 }

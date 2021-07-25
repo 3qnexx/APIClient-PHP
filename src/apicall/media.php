@@ -193,11 +193,11 @@ class media extends \nexxOMNIA\internal\apicall{
 	}
 
 	public function captionsFor(int $id):void{
-		$this->verifyParameter("captionsfor",$id,[streamtypes::VIDEO,streamtypes::AUDIO]);
+		$this->verifyParameter("captionsfor",$id,[streamtypes::VIDEO,streamtypes::AUDIO,streamtypes::ALLMEDIA]);
 	}
 
 	public function stitchedManifestFor(int $id):void{
-		$this->verifyParameter("stitchedmanifestfor",$id,[streamtypes::PLAYLIST,streamtypes::SET,streamtypes::COLLECTION]);
+		$this->verifyParameter("stitchedmanifestfor",$id,[streamtypes::PLAYLIST,streamtypes::SET,streamtypes::COLLECTION,streamtypes::ALLMEDIA]);
 	}
 
 	public function byQuery(string $query,string $queryMode="fulltext",string $queryFields="",int $minimalQueryScore=0,$includeSubsctringMatches=FALSE,$skipReporting=FALSE):void{

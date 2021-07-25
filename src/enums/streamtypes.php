@@ -33,11 +33,11 @@ class streamtypes{
 	public static function getPluralizedStreamtype(string $streamtype):string{
 		$plural=$streamtype;
 		switch($plural){
-			case streamtypes::SERIES:
-			case streamtypes::AUDIO:
-			case streamtypes::LIVE:
-			case streamtypes::RADIO:
-			case streamtypes::ALLMEDIA:
+			case self::SERIES:
+			case self::AUDIO:
+			case self::LIVE:
+			case self::RADIO:
+			case self::ALLMEDIA:
 			break;
 			default:
 				if(substr($plural,-1)!='s'){
@@ -51,6 +51,22 @@ class streamtypes{
 	public static function getAllTypes():array{
 		$reflect=new \ReflectionClass(static::class);
 		return array_values($reflect->getConstants());
+	}
+
+	public static function getUploadableTypes():array{
+		return([self::VIDEO,self::AUDIO,self::IMAGE,self::FILE]);
+	}
+
+	public static function getPlayerTypes():array{
+		return([self::VIDEO,self::PLAYLIST,self::SET,self::COLLECTION,self::AUDIO,self::RADIO,self::AUDIOALBUM,self::LIVE,self::SCENE]);
+	}
+
+	public static function getContainerTypes():array{
+		return([self::PLAYLIST,self::SET,self::ALBUM,self::COLLECTION,self::AUDIOALBUM,self::FOLDER,self::MAGAZINE,self::GROUP,self::BUNDLE,self::SERIES]);
+	}
+
+	public static function getSimpleContainerTypes():array{
+		return([self::PLAYLIST,self::ALBUM,self::AUDIOALBUM,self::MAGAZINE]);
 	}
 
 }

@@ -3,7 +3,7 @@ namespace nexxOMNIA\result;
 
 class metadata{
 
-	protected $data;
+	protected ?array $data=NULL;
 
 	public function __construct($data){
 		$this->data=$data;

@@ -1,9 +1,9 @@
 {
   "name": "nexxomnia/apiclient",
   "type": "library",
-  "description": "Your package description goes here",
-  "keywords": ["relevant","tags","go","here"],
-  "homepage": "https://3q.video",
+  "description": "The nexxOMNIA API SDK for PHP",
+  "keywords": ["3q","3q nexx","nexxOMNIA","nexxtv","omnia"],
+  "homepage": "https://3q.video/nexx-for-publishers",
   "license": "MIT",
   "require": {
 	"php": "^7.4 || ^8.0 || ^8.1",
