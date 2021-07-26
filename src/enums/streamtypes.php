@@ -40,7 +40,9 @@ class streamtypes{
 			case self::ALLMEDIA:
 			break;
 			default:
-				if(substr($plural,-1)!='s'){
+				if(substr($plural,-8)=="category"){
+					$plural=str_replace("category","categories",$plural);
+				}else if(substr($plural,-1)!='s'){
 					$plural.='s';
 				}
 			break;
@@ -69,4 +71,7 @@ class streamtypes{
 		return([self::PLAYLIST,self::ALBUM,self::AUDIOALBUM,self::MAGAZINE]);
 	}
 
+	public static function getExportableTypes():array{
+		return([self::VIDEO,self::LIVE,self::IMAGE,self::SCENE]);
+	}
 }

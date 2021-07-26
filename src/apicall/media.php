@@ -4,6 +4,7 @@ namespace nexxOMNIA\apicall;
 
 use nexxOMNIA\apicall\modifiers\mediamodifiers;
 use nexxOMNIA\apicall\parameters\mediaparameters;
+use nexxOMNIA\enums\querymodes;
 use nexxOMNIA\enums\streamtypes;
 
 class media extends \nexxOMNIA\internal\apicall{
@@ -200,14 +201,14 @@ class media extends \nexxOMNIA\internal\apicall{
 		$this->verifyParameter("stitchedmanifestfor",$id,[streamtypes::PLAYLIST,streamtypes::SET,streamtypes::COLLECTION,streamtypes::ALLMEDIA]);
 	}
 
-	public function byQuery(string $query,string $queryMode="fulltext",string $queryFields="",int $minimalQueryScore=0,$includeSubsctringMatches=FALSE,$skipReporting=FALSE):void{
+	public function byQuery(string $query,string $queryMode=querymodes::FULLTEXT,string $queryFields="",int $minimalQueryScore=0,$includeSubsctringMatches=FALSE,$skipReporting=FALSE):void{
 		if(!empty($query)){
 			$this->method="byquery/".urlencode($query);
 			$this->getParameters()->set("querymode",$queryMode);
 			if(!empty($queryFields)){
 				$this->getParameters()->set("queryfields",$queryFields);
 			}
-			if($queryMode=="fulltext"){
+			if($queryMode==querymodes::FULLTEXT){
 				if(!empty($minimalQueryScore)){
 					$this->getParameters()->set("minimalQueryScore",$minimalQueryScore);
 				}

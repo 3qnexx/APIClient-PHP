@@ -88,6 +88,16 @@ class domain extends \nexxOMNIA\internal\apicall{
 		}
 	}
 
+	public function widgets(bool $addStreamDetails=FALSE, bool $addEmbedDetails=TRUE):void{
+		$this->path.="widgets";
+		if($addStreamDetails){
+			$this->getParameters()->set("addStreamDetails",1);
+		}
+		if($addEmbedDetails){
+			$this->getParameters()->set("addEmbedDetails",1);
+		}
+	}
+
 	public function previewLinks():void{
 		$this->path.="previewlinks";
 	}

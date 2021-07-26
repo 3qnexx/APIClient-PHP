@@ -13,7 +13,6 @@ class resultobject{
 		$toreturn=NULL;
 		$originalName=$name;
 		$name=strtolower($name);
-		print_r($this->data);
 		if(substr($name,0,3)=="get"){
 			$name=substr($name,3);
 			$originalName=lcfirst(substr($originalName,3));
