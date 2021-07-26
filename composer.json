@@ -1,5 +1,5 @@
 {
-  "name": "nexxomnia/apiclient",
+  "name": "nexxomnia/apiclient-php",
   "type": "library",
   "description": "The nexxOMNIA API SDK for PHP",
   "keywords": ["3q","3q nexx","nexxOMNIA","nexxtv","omnia"],
@@ -9,7 +9,7 @@
 	"php": "^7.4 || ^8.0 || ^8.1",
 	"ext-json": "*",
 	"guzzlehttp/guzzle": "^6.3 || ^7.3",
-	"monolog/monolog": "^2.0"
+	"psr/log": "^1.0.1"
   },
   "autoload": {
 	"psr-4": {

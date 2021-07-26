@@ -4,7 +4,6 @@ namespace nexxOMNIA;
 use nexxOMNIA\apicall\statistics;
 use nexxOMNIA\apicall\media;
 use nexxOMNIA\enums\defaults;
-use nexxOMNIA\internal\apicall;
 use nexxOMNIA\internal\parameters;
 use nexxOMNIA\internal\modifiers;
 use nexxOMNIA\result\result;
@@ -15,10 +14,12 @@ class apiclient{
 	protected string $secret="";
 	protected string $session="";
 
+	protected ?\Psr\Log\LoggerInterface $logger=NULL;
+
 	protected int $timeout=10;
 	protected bool $useHTTPS=TRUE;
 	protected string $customHost="";
-	protected string $consumer="apiclient";
+	protected string $consumer="apiclient-php";
 
 	public function __construct(int $domain=0,string $secret="",string $session=""){
 		$this->configure($domain,$secret,$session);
@@ -56,6 +57,10 @@ class apiclient{
 		$this->consumer=$consumer;
 	}
 
+	public function setLogger(\Psr\Log\LoggerInterface $logger):void{
+		$this->logger=$logger;
+	}
+
 	public function setTimeout(int $timeout):void{
 		$this->timeout=$timeout;
 	}
@@ -76,10 +81,10 @@ class apiclient{
 		return("http".($this->useHTTPS?"s":"")."://".$host."/v".defaults::API_VERSION."/".$this->domain."/");
 	}
 
-	private function log(string $msg):void{
-		echo $msg."<br />";
-		ob_flush();
-		flush();
+	public function log(string $message, string $level="info", array $context=[]):void{
+		if($this->logger){
+			$this->logger->log($level,$message,$context);
+		}
 	}
 
 	private function callAPI(string $verb,string $endpoint,?parameters $params=NULL,?modifiers $modifiers=NULL):result{
@@ -110,7 +115,7 @@ class apiclient{
 		}
 		try{
 			$url=$this->buildHost().$endpoint;
-			$this->log($url."?".http_build_query($callparams));
+			$this->log("CALLING URL :".$url."?".http_build_query($callparams));
 			$request=$client->request($verb,$url,$clientconfig);
 		}catch(\Exception $e){}
 		return(new result($request,$endpoint));
@@ -119,6 +124,7 @@ class apiclient{
 	public function call(internal\apicall $call,bool $fetchAllPossibleResults=FALSE):result{
 		if($fetchAllPossibleResults){
 			if($call instanceof media){
+				$this->log("PREPARING FOR CATCHING ALL RESULTS");
 				$call->getParameters()->setLimit(defaults::MAX_RESULT_LIMIT);
 			}else{
 				$fetchAllPossibleResults=FALSE;
@@ -126,6 +132,7 @@ class apiclient{
 		}
 		if($call instanceof statistics){
 			if($this->timeout<30){
+				$this->log("RAISING TIMEOUT TO 30 SECONDS AUTOMATICALLY");
 				$this->timeout=30;
 			}
 		}
