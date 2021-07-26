@@ -1,11 +1,11 @@
 <?php
-namespace nexxOMNIA\internal;
+namespace nexxomnia\internal;
 
-use nexxOMNIA\enums\defaults;
-use nexxOMNIA\enums\distanceunits;
-use nexxOMNIA\enums\gateways;
-use nexxOMNIA\enums\imageformats;
-use nexxOMNIA\enums\temperatureunits;
+use nexxomnia\enums\defaults;
+use nexxomnia\enums\distanceunits;
+use nexxomnia\enums\gateways;
+use nexxomnia\enums\imageformats;
+use nexxomnia\enums\temperatureunits;
 
 class parameters{
 

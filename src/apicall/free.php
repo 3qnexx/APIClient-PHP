@@ -1,10 +1,10 @@
 <?php
 
-namespace nexxOMNIA\apicall;
+namespace nexxomnia\apicall;
 
-use nexxOMNIA\enums\defaults;
+use nexxomnia\enums\defaults;
 
-class free extends \nexxOMNIA\internal\apicall{
+class free extends \nexxomnia\internal\apicall{
 
 	public function __construct(){
 		parent::__construct();

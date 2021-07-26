@@ -1,22 +1,22 @@
 <?php
 
-namespace nexxOMNIA\apicall;
+namespace nexxomnia\apicall;
 
-use nexxOMNIA\enums\ageclasses;
-use nexxOMNIA\enums\autoorderattributes;
-use nexxOMNIA\enums\contentmoderationaspects;
-use nexxOMNIA\enums\defaults;
-use nexxOMNIA\enums\exportparts;
-use nexxOMNIA\enums\externalplatforms;
-use nexxOMNIA\enums\externalstates;
-use nexxOMNIA\enums\highlightvideopurposes;
-use nexxOMNIA\enums\livestreamtypes;
-use nexxOMNIA\enums\querymodes;
-use nexxOMNIA\enums\rejectreasons;
-use nexxOMNIA\enums\scenepurposes;
-use nexxOMNIA\enums\streamtypes;
+use nexxomnia\enums\ageclasses;
+use nexxomnia\enums\autoorderattributes;
+use nexxomnia\enums\contentmoderationaspects;
+use nexxomnia\enums\defaults;
+use nexxomnia\enums\exportparts;
+use nexxomnia\enums\externalplatforms;
+use nexxomnia\enums\externalstates;
+use nexxomnia\enums\highlightvideopurposes;
+use nexxomnia\enums\livestreamtypes;
+use nexxomnia\enums\querymodes;
+use nexxomnia\enums\rejectreasons;
+use nexxomnia\enums\scenepurposes;
+use nexxomnia\enums\streamtypes;
 
-class mediamanagement extends \nexxOMNIA\internal\apicall{
+class mediamanagement extends \nexxomnia\internal\apicall{
 
 	protected string $streamtype="";
 	protected string $method="";

@@ -1,12 +1,12 @@
 <?php
-namespace nexxOMNIA;
+namespace nexxomnia;
 
-use nexxOMNIA\apicall\statistics;
-use nexxOMNIA\apicall\media;
-use nexxOMNIA\enums\defaults;
-use nexxOMNIA\internal\parameters;
-use nexxOMNIA\internal\modifiers;
-use nexxOMNIA\result\result;
+use nexxomnia\apicall\statistics;
+use nexxomnia\apicall\media;
+use nexxomnia\enums\defaults;
+use nexxomnia\internal\parameters;
+use nexxomnia\internal\modifiers;
+use nexxomnia\result\result;
 
 class apiclient{
 

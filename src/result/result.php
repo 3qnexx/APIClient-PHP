@@ -1,8 +1,8 @@
 <?php
-namespace nexxOMNIA\result;
+namespace nexxomnia\result;
 
-use nexxOMNIA\apicall\media;
-use nexxOMNIA\enums\defaults;
+use nexxomnia\apicall\media;
+use nexxomnia\enums\defaults;
 
 class result{
 

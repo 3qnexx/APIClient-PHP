@@ -1,12 +1,12 @@
 <?php
 
-namespace nexxOMNIA\apicall;
+namespace nexxomnia\apicall;
 
-use nexxOMNIA\enums\defaults;
-use nexxOMNIA\enums\networkmodes;
-use nexxOMNIA\enums\streamtypes;
+use nexxomnia\enums\defaults;
+use nexxomnia\enums\networkmodes;
+use nexxomnia\enums\streamtypes;
 
-class domainmanagement extends \nexxOMNIA\internal\apicall{
+class domainmanagement extends \nexxomnia\internal\apicall{
 
 	protected string $streamtype="";
 	protected string $method="";

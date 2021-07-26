@@ -1,5 +1,5 @@
 <?php
-namespace nexxOMNIA\internal;
+namespace nexxomnia\internal;
 
 class modifiers{
 

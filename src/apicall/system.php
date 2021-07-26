@@ -1,10 +1,10 @@
 <?php
 
-namespace nexxOMNIA\apicall;
+namespace nexxomnia\apicall;
 
-use nexxOMNIA\enums\streamtypes;
+use nexxomnia\enums\streamtypes;
 
-class system extends \nexxOMNIA\internal\apicall{
+class system extends \nexxomnia\internal\apicall{
 
 	public function __construct(){
 		parent::__construct();

@@ -1,20 +1,20 @@
 <?php
 
-namespace nexxOMNIA\apicall\parameters;
+namespace nexxomnia\apicall\parameters;
 
-use nexxOMNIA\enums\defaults;
-use nexxOMNIA\enums\devicetypes;
-use nexxOMNIA\enums\gateways;
-use nexxOMNIA\enums\itemreferences;
-use nexxOMNIA\enums\browsers;
-use nexxOMNIA\enums\operatingsystems;
-use nexxOMNIA\enums\consentenvironments;
-use nexxOMNIA\enums\pageintegrationtypes;
-use nexxOMNIA\enums\playbackmodes;
-use nexxOMNIA\enums\datamodes;
-use nexxOMNIA\enums\mediaorigins;
-use nexxOMNIA\enums\startconditions;
-use nexxOMNIA\internal\parameters;
+use nexxomnia\enums\defaults;
+use nexxomnia\enums\devicetypes;
+use nexxomnia\enums\gateways;
+use nexxomnia\enums\itemreferences;
+use nexxomnia\enums\browsers;
+use nexxomnia\enums\operatingsystems;
+use nexxomnia\enums\consentenvironments;
+use nexxomnia\enums\pageintegrationtypes;
+use nexxomnia\enums\playbackmodes;
+use nexxomnia\enums\datamodes;
+use nexxomnia\enums\mediaorigins;
+use nexxomnia\enums\startconditions;
+use nexxomnia\internal\parameters;
 
 class statisticparameters extends parameters{
 

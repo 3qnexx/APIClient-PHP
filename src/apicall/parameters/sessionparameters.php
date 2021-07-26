@@ -1,8 +1,8 @@
 <?php
 
-namespace nexxOMNIA\apicall\parameters;
+namespace nexxomnia\apicall\parameters;
 
-use nexxOMNIA\internal\parameters;
+use nexxomnia\internal\parameters;
 
 class sessionparameters extends parameters{
 

@@ -1,5 +1,5 @@
 <?php
-namespace nexxOMNIA\enums;
+namespace nexxomnia\enums;
 
 class startconditions{
 

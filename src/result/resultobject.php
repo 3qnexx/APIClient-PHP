@@ -1,5 +1,5 @@
 <?php
-namespace nexxOMNIA\result;
+namespace nexxomnia\result;
 
 class resultobject{
 

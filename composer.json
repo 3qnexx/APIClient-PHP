@@ -9,11 +9,11 @@
 	"php": "^7.4 || ^8.0 || ^8.1",
 	"ext-json": "*",
 	"guzzlehttp/guzzle": "^6.3 || ^7.3",
-	"psr/log": "^1.0.1"
+	"psr/log": ">1.0.1"
   },
   "autoload": {
 	"psr-4": {
-	  "nexxOMNIA\\": "src"
+	  "nexxomnia\\": "src"
 	}
   }
 }

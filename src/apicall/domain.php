@@ -1,10 +1,10 @@
 <?php
 
-namespace nexxOMNIA\apicall;
+namespace nexxomnia\apicall;
 
-use nexxOMNIA\apicall\parameters\domainparameters;
+use nexxomnia\apicall\parameters\domainparameters;
 
-class domain extends \nexxOMNIA\internal\apicall{
+class domain extends \nexxomnia\internal\apicall{
 
 	public function __construct(){
 		parent::__construct();

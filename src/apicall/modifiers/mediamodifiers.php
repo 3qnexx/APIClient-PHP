@@ -1,8 +1,8 @@
 <?php
 
-namespace nexxOMNIA\apicall\modifiers;
+namespace nexxomnia\apicall\modifiers;
 
-use nexxOMNIA\internal\modifiers;
+use nexxomnia\internal\modifiers;
 
 class mediamodifiers extends modifiers{
 

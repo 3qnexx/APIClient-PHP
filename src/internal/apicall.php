@@ -1,10 +1,10 @@
 <?php
 
-namespace nexxOMNIA\internal;
+namespace nexxomnia\internal;
 
-use nexxOMNIA\internal\modifiers;
-use nexxOMNIA\internal\parameters;
-use nexxOMNIA\enums\defaults;
+use nexxomnia\internal\modifiers;
+use nexxomnia\internal\parameters;
+use nexxomnia\enums\defaults;
 
 class apicall{
 
