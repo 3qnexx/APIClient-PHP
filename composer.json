@@ -1,7 +1,7 @@
 {
   "name": "nexxomnia/apiclient-php",
   "type": "library",
-  "description": "The nexxOMNIA API SDK for PHP",
+  "description": "The nexxOMNIA API Client for PHP",
   "keywords": ["3q","3q nexx","nexxOMNIA","nexxtv","omnia"],
   "homepage": "https://3q.video/nexx-for-publishers",
   "license": "MIT",
