@@ -2,7 +2,9 @@
 
 namespace nexxomnia\enums;
 
-class defaults{
+class defaults extends \nexxomnia\internal\enum{
+
+	const CLIENT_VERSION='0.1.5';
 
 	const API_URL='api.nexx.cloud';
 	const API_VERSION='3.1';
@@ -13,6 +15,7 @@ class defaults{
 	const API_KIND_SESSION='session';
 	const API_KIND_SYSTEM='system';
 	const API_KIND_STATISTICS='statistics';
+	const API_KIND_PROCESSING='processing';
 
 	const VERB_GET="GET";
 	const VERB_POST="POST";

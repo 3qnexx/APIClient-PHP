@@ -1,14 +1,9 @@
 <?php
 namespace nexxomnia\enums;
 
-class distanceunits{
+class distanceunits extends \nexxomnia\internal\enum{
 
 	const METRIC='metric';
 	const MILES='miles';
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

@@ -1,16 +1,11 @@
 <?php
 namespace nexxomnia\enums;
 
-class dimensioncodes{
+class dimensioncodes extends \nexxomnia\internal\enum{
 
 	const HD="hd";
 	const FULLHD="fullhd";
 	const TWOK="2k";
 	const FOURK="4k";
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

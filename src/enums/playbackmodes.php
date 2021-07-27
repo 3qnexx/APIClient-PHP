@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class playbackmodes{
+class playbackmodes extends \nexxomnia\internal\enum{
 
 	const BUMPER="bumper";
 	const PREVIEW="preview";
@@ -13,10 +13,5 @@ class playbackmodes{
 	const PREMIERE="premiere";
 	const MINI="mini";
 	const MICRO="micro";
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

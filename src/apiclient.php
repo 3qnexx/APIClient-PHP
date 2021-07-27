@@ -81,7 +81,7 @@ class apiclient{
 		return("http".($this->useHTTPS?"s":"")."://".$host."/v".defaults::API_VERSION."/".$this->domain."/");
 	}
 
-	public function log(string $message, string $level="info", array $context=[]):void{
+	public function log(string $message,string $level=\Psr\Log\LogLevel::INFO,array $context=[]):void{
 		if($this->logger){
 			$this->logger->log($level,$message,$context);
 		}
@@ -97,6 +97,8 @@ class apiclient{
 			'headers'=>[
 				'X-Request-CID'=>$this->session,
 				'X-Request-Consumer'=>$this->consumer,
+				'X-Request-Client'=>'apiclient-php',
+				'X-Request-Client-Version'=>defaults::CLIENT_VERSION,
 				'X-Request-Token'=>$this->buildToken($endpoint)
 			]
 		]);
@@ -115,10 +117,12 @@ class apiclient{
 		}
 		try{
 			$url=$this->buildHost().$endpoint;
-			$this->log("CALLING URL :".$url."?".http_build_query($callparams));
+			$this->log("CALLING URL: ".$url."?".http_build_query($callparams));
 			$request=$client->request($verb,$url,$clientconfig);
-		}catch(\Exception $e){}
-		return(new result($request,$endpoint));
+		}catch(\Exception $e){
+			$this->log("APICLIENT EXCEPTION: ".$e->getMessage(),\Psr\Log\LogLevel::ERROR);
+		}
+		return(new result($request,$endpoint,$this->logger));
 	}
 
 	public function call(internal\apicall $call,bool $fetchAllPossibleResults=FALSE):result{

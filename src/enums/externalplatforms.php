@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class externalplatforms{
+class externalplatforms extends \nexxomnia\internal\enum{
 
 	const FACEBOOK='facebook';
 	const INSTAGRAM='instagram';
@@ -9,10 +9,5 @@ class externalplatforms{
 	const VIMEO='vimeo';
 	const YOUTUBE='youtube';
 	const EXTERNALVIEW='externalview';
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

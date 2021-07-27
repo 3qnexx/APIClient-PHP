@@ -15,7 +15,10 @@ class resultobject{
 		$name=strtolower($name);
 		if(substr($name,0,3)=="get"){
 			$name=substr($name,3);
-			$originalName=lcfirst(substr($originalName,3));
+			$originalName=substr($originalName,3);
+			if(!in_array($originalName,["ID","GID"])){
+				$originalName=lcfirst($originalName);
+			}
 		}
 		if(isset($this->data[$name])){
 			if(is_array($this->data[$name])){

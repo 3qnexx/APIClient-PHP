@@ -1,7 +1,6 @@
 <?php
 namespace nexxomnia\result;
 
-use nexxomnia\apicall\media;
 use nexxomnia\enums\defaults;
 
 class result{
@@ -12,10 +11,10 @@ class result{
 	protected ?paging $paging=NULL;
 	protected ?metadata $metadata=NULL;
 
-	public function __construct(?\Psr\Http\Message\ResponseInterface $response, string $endpoint=''){
+	public function __construct(?\Psr\Http\Message\ResponseInterface $response, string $endpoint='',?\Psr\Log\LoggerInterface $logger=NULL){
 		if($response){
 			$this->endpoint=$endpoint;
-			$this->code=intval($response->getStatusCode());
+			$this->code=$response->getStatusCode();
 			$this->raw=json_decode($response->getBody(),TRUE);
 			if($this->raw['metadata']){
 				$this->metadata=new metadata($this->raw['metadata']);
@@ -24,12 +23,20 @@ class result{
 				if($this->raw['paging']){
 					$this->paging=new paging($this->raw['paging'],sizeof($this->raw['result']));
 				}
+			}else if($logger){
+				$logger->error("API CALL ERROR: ".$this->code." (".($this->metadata?$this->metadata->getErrorHint():'NO RESPONSE').")");
 			}
+		}else if($logger){
+			$logger->error("API RESULT GOT NO RESPONSE");
 		}
 	}
 
 	private function isManageCall():bool{
 		return(strpos($this->endpoint,defaults::API_KIND_MANAGE)===0);
+	}
+
+	private function isProcessingCall():bool{
+		return(strpos($this->endpoint,defaults::API_KIND_PROCESSING)===0);
 	}
 
 	private function isSessionCall():bool{
@@ -49,7 +56,7 @@ class result{
 	}
 
 	private function isMediaCall():bool{
-		return((!$this->isDomainCall())&&(!$this->isManageCall())&&(!$this->isSessionCall())&&(!$this->isStatisticsCall())&&(!$this->isSystemCall()));
+		return((!$this->isDomainCall())&&(!$this->isManageCall())&&(!$this->isSessionCall())&&(!$this->isStatisticsCall())&&(!$this->isSystemCall())&&(!$this->isProcessingCall()));
 	}
 
 	public function getRawResponse():?array{

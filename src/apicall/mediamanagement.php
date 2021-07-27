@@ -305,6 +305,93 @@ class mediamanagement extends \nexxomnia\internal\apicall{
 		}
 	}
 
+	public function createAudioFromCaption(int $captionID=0):void{
+		if($captionID>0){
+			$this->setStreamtype(streamtypes::AUDIO);
+			$this->verb=defaults::VERB_POST;
+			$this->method="fromcaption/".$captionID;
+		}else{
+			throw new \Exception("the Caption ID must be given.");
+		}
+	}
+
+	public function createAudioFromText(string $text,string $language=""):void{
+		if(!empty($text)){
+			$this->setStreamtype(streamtypes::AUDIO);
+			$this->verb=defaults::VERB_POST;
+			$this->method="fromtext";
+			$this->getParameters()->set("text",$text);
+			if(strlen($language)==2){
+				$this->getParameters()->set("language",$language);
+			}
+		}else{
+			throw new \Exception("a non-empty Text must be given.");
+		}
+	}
+
+	public function createAudioFromArticle(int $articleID=0,bool $includeTitle=TRUE,bool $includeSubtitle=FALSE,bool $includeTeaser=FALSE,bool $useAsRepresentation=FALSE):void{
+		if($articleID>0){
+			$this->setStreamtype(streamtypes::AUDIO);
+			$this->verb=defaults::VERB_POST;
+			$this->method="fromarticle/".$articleID;
+			if($includeTitle){
+				$this->getParameters()->set('includeTitle',1);
+			}
+			if($includeSubtitle){
+				$this->getParameters()->set('includeSubtitle',1);
+			}
+			if($includeTeaser){
+				$this->getParameters()->set('includeTeaser',1);
+			}
+			if($useAsRepresentation){
+				$this->getParameters()->set('useAsRepresentation',1);
+			}
+		}else{
+			throw new \Exception("the Article ID must be given.");
+		}
+	}
+
+	public function createImageFromVideo(int $videoID=0,float $from=0,float $until=0,string $title="",bool $useAsCover=FALSE):void{
+		if($videoID>0){
+			$this->setStreamtype(streamtypes::IMAGE);
+			$this->verb=defaults::VERB_POST;
+			$this->method="fromvideo/".$videoID;
+			if(!empty($from)){
+				$this->getParameters()->set("from",$from);
+			}
+			if(!empty($until)){
+				$this->getParameters()->set("until",$until);
+			}
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
+			}
+			if($useAsCover){
+				$this->getParameters()->set("useAsCover",1);
+			}
+		}else{
+			throw new \Exception("the Video ID must be given.");
+		}
+	}
+
+	public function createPostFromText(int $accountID=0,string $postText="",int $postImage=0):void{
+		if($accountID>0){
+			$this->setStreamtype(streamtypes::POST);
+			$this->verb=defaults::VERB_POST;
+			$this->method="fromtext";
+			$this->getParameters()->set("account",$accountID);
+			if(!empty($postText)){
+				$this->getParameters()->set("postText",$postText);
+			}else{
+				throw new \Exception("the Posting Text cant be empty.");
+			}
+			if($postImage>0){
+				$this->getParameters()->set("postImage",$postImage);
+			}
+		}else{
+			throw new \Exception("the Account ID must be given.");
+		}
+	}
+
 	public function updateItemFile(string $url):void{
 		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if(substr($url,0,4)=="http"){
@@ -790,5 +877,138 @@ class mediamanagement extends \nexxomnia\internal\apicall{
 
 	public function setItemCoverFamilySafe(string $url="",float $fromTime=0):void{
 		$this->handleCover("familysafe",$url,$fromTime);
+	}
+
+	public function addCaptionsFromURL(string $url="",string $language="",string $title="",bool $withAudioDescription=FALSE):void{
+		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
+			if(substr($url,0,4)=="http"){
+				$this->verb=defaults::VERB_POST;
+				$this->method="captionsfromurl";
+				$this->getParameters()->set("url",$url);
+				if(strlen($language)==2){
+					$this->getParameters()->set("language",$language);
+				}else{
+					throw new \Exception("language must be given in 2-Letter-Code");
+				}
+				if(!empty($title)){
+					$this->getParameters()->set("title",$title);
+				}
+				if($withAudioDescription){
+					$this->getParameters()->set("withAudioDescription",1);
+				}
+			}else{
+				throw new \Exception("a valid Caption URL is missing.");
+			}
+		}else{
+			throw new \Exception("Streamtype must be in video,audio");
+		}
+	}
+
+	public function addCaptionsFromSpeech():void{
+		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
+			$this->verb=defaults::VERB_POST;
+			$this->method="captionsfromspeech";
+		}else{
+			throw new \Exception("Streamtype must be in video,audio");
+		}
+	}
+
+	public function translateCaptionsTo($targetLanguage=""):void{
+		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
+			if(strlen($targetLanguage)==2){
+				$this->verb=defaults::VERB_POST;
+				$this->method="translatecaptionsto/".$targetLanguage;
+			}else{
+				throw new \Exception("Target Language must be given in 2-Letter-Code");
+			}
+		}else{
+			throw new \Exception("Streamtype must be in video,audio");
+		}
+	}
+
+	public function removeCaptions(string $language="",bool $withAudioDescription=FALSE):void{
+		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
+			if(strlen($language)==2){
+				$this->verb=defaults::VERB_DELETE;
+				$this->method="removecaptions";
+				$this->getParameters()->set("language",$language);
+				if($withAudioDescription){
+					$this->getParameters()->set("withAudioDescription",1);
+				}
+			}else{
+				throw new \Exception("Language must be given in 2-Letter-Code");
+			}
+		}else{
+			throw new \Exception("Streamtype must be in video,audio");
+		}
+	}
+
+	public function translateMetadataTo(string $language):void{
+		if(strlen($language)==2){
+			$this->verb=defaults::VERB_POST;
+			$this->method="translateto/".$language;
+		}else{
+			throw new \Exception("Language must be given in 2-Letter-Code");
+		}
+	}
+
+	public function addTranslation(string $language,string $title="",string $subtitle="",string $teaser="",string $description="", string $orderhint=""):void{
+		if(strlen($language)==2){
+			$this->verb=defaults::VERB_POST;
+			$this->method="addtranslation";
+			$this->getParameters()->set("language",$language);
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
+			}
+			if(!empty($subtitle)){
+				$this->getParameters()->set("subtitle",$subtitle);
+			}
+			if(!empty($teaser)){
+				$this->getParameters()->set("teaser",$teaser);
+			}
+			if(!empty($description)){
+				$this->getParameters()->set(($this->streamtype==streamtypes::ARTICLE?"textcontent":"description"),$description);
+			}
+			if(!empty($orderhint)){
+				$this->getParameters()->set("orderhint",$orderhint);
+			}
+		}else{
+			throw new \Exception("Language must be given in 2-Letter-Code");
+		}
+	}
+
+	public function updateTranslation(string $language,string $title="",string $subtitle="",string $teaser="",string $description="", string $orderhint=""):void{
+		if(strlen($language)==2){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="updatetranslation";
+			$this->getParameters()->set("language",$language);
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
+			}
+			if(!empty($subtitle)){
+				$this->getParameters()->set("subtitle",$subtitle);
+			}
+			if(!empty($teaser)){
+				$this->getParameters()->set("teaser",$teaser);
+			}
+			if(!empty($description)){
+				$this->getParameters()->set(($this->streamtype==streamtypes::ARTICLE?"textcontent":"description"),$description);
+			}
+			if(!empty($orderhint)){
+				$this->getParameters()->set("orderhint",$orderhint);
+			}
+		}else{
+			throw new \Exception("Language must be given in 2-Letter-Code");
+		}
+	}
+
+	public function removeTranslation(string $language):void{
+		if(strlen($language)==2){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removetranslation";
+			$this->getParameters()->set("language",$language);
+		}else{
+			throw new \Exception("Language must be given in 2-Letter-Code");
+		}
 	}
 }

@@ -1,14 +1,9 @@
 <?php
 namespace nexxomnia\enums;
 
-class temperatureunits{
+class temperatureunits extends \nexxomnia\internal\enum{
 
 	const CELSIUS='celsius';
 	const FAHRENHEIT='fahrenheit';
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

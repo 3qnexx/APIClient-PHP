@@ -1,16 +1,11 @@
 <?php
 namespace nexxomnia\enums;
 
-class networkmodes{
+class networkmodes extends \nexxomnia\internal\enum{
 
 	const MIXED="mixed";
 	const MASTER="master";
 	const OWN="own";
 	const ALL="all";
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

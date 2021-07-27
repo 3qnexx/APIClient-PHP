@@ -1,15 +1,10 @@
 <?php
 namespace nexxomnia\enums;
 
-class datamodes{
+class datamodes extends \nexxomnia\internal\enum{
 
 	const API='api';
 	const STATIC='static';
 	const OFFLINE='offline';
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

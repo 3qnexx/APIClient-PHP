@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class autoorderattributes{
+class autoorderattributes extends \nexxomnia\internal\enum{
 
 	const TITLE='title';
 	const SUBTITLE='subtitle';
@@ -12,10 +12,5 @@ class autoorderattributes{
 	const FILESIZE='filesize';
 	const RANDOM='random';
 	const IGPOP='igpop';
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

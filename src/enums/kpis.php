@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class kpis{
+class kpis extends \nexxomnia\internal\enum{
 
 	const DISPLAY="display";
 	const PLAYERSTART="playerstart";
@@ -17,10 +17,5 @@ class kpis{
 	const FINISHED="progress100";
 	const ADREQUEST="adrequest";
 	const ADIMPRESSION="adimpression";
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class streamtypes{
+class streamtypes extends  \nexxomnia\internal\enum{
 
 	const VIDEO='video';
 	const AUDIO='audio';
@@ -48,11 +48,6 @@ class streamtypes{
 			break;
 		}
 		return($plural);
-	}
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
 	}
 
 	public static function getUploadableTypes():array{

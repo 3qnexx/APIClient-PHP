@@ -1,16 +1,11 @@
 <?php
 namespace nexxomnia\enums;
 
-class scenepurposes{
+class scenepurposes extends \nexxomnia\internal\enum{
 
 	const CHAPTER='chapter';
 	const OPENING='opening';
 	const RECAP='recap';
 	const CREDITS='credits';
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }

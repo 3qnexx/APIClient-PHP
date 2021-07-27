@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class ageclasses{
+class ageclasses extends \nexxomnia\internal\enum{
 
 	const ZERO=0;
 	const SIX=6;
@@ -10,10 +10,5 @@ class ageclasses{
 	const EIGHTEEN=18;
 	const NOFREE=99;
 	const NOTCHECKED=-1;
-
-	public static function getAllTypes():array{
-		$reflect=new \ReflectionClass(static::class);
-		return array_values($reflect->getConstants());
-	}
 
 }
