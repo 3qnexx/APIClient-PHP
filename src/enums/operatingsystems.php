@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class operatingsystems extends \nexxomnia\internal\enum{
+class operatingsystems extends \nexxomnia\internals\enum{
 
 	const WINDOWS='windows';
 	const MACOS='macOS';

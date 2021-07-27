@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class networkmodes extends \nexxomnia\internal\enum{
+class networkmodes extends \nexxomnia\internals\enum{
 
 	const MIXED="mixed";
 	const MASTER="master";

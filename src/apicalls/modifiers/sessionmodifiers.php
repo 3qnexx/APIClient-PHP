@@ -1,8 +1,8 @@
 <?php
 
-namespace nexxomnia\apicall\modifiers;
+namespace nexxomnia\apicalls\modifiers;
 
-use nexxomnia\internal\modifiers;
+use nexxomnia\internals\modifiers;
 
 class sessionmodifiers extends modifiers{
 

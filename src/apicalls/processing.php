@@ -1,11 +1,11 @@
 <?php
 
-namespace nexxomnia\apicall;
+namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
-use nexxomnia\apicall\helpers\task;
+use nexxomnia\apicalls\helpers\task;
 
-class processing extends \nexxomnia\internal\apicall{
+class processing extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

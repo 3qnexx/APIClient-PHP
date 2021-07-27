@@ -1,12 +1,12 @@
 <?php
 
-namespace nexxomnia\apicall;
+namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
-use nexxomnia\apicall\parameters\sessionparameters;
-use nexxomnia\apicall\modifiers\sessionmodifiers;
+use nexxomnia\apicalls\parameters\sessionparameters;
+use nexxomnia\apicalls\modifiers\sessionmodifiers;
 
-class session extends \nexxomnia\internal\apicall{
+class session extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

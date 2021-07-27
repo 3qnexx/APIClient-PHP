@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class revenuetypes extends \nexxomnia\internal\enum{
+class revenuetypes extends \nexxomnia\internals\enum{
 
 	const SUBSCRIPTION="subscription";
 	const REBILL="rebill";

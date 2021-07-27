@@ -1,5 +1,5 @@
 <?php
-namespace nexxomnia\internal;
+namespace nexxomnia\internals;
 
 use nexxomnia\enums\defaults;
 use nexxomnia\enums\distanceunits;

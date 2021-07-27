@@ -1,15 +1,15 @@
 <?php
 
-namespace nexxomnia\apicall;
+namespace nexxomnia\apicalls;
 
-use nexxomnia\apicall\parameters\statisticparameters;
+use nexxomnia\apicalls\parameters\statisticparameters;
 use nexxomnia\enums\streamtypes;
 use nexxomnia\enums\kpis;
 use nexxomnia\enums\registrationproviders;
 use nexxomnia\enums\subscriptionterminationreasons;
 use nexxomnia\enums\revenuetypes;
 
-class statistics extends \nexxomnia\internal\apicall{
+class statistics extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

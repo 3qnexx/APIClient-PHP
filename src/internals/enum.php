@@ -1,5 +1,5 @@
 <?php
-namespace nexxomnia\internal;
+namespace nexxomnia\internals;
 
 class enum{
 

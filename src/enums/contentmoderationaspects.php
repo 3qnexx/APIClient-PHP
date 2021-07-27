@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class contentmoderationaspects extends \nexxomnia\internal\enum{
+class contentmoderationaspects extends \nexxomnia\internals\enum{
 
 	const SEX='sex';
 	const DRUGS='drugs';

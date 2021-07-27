@@ -1,6 +1,6 @@
 <?php
 
-namespace nexxomnia\apicall\parameters;
+namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\enums\defaults;
 use nexxomnia\enums\devicetypes;
@@ -14,7 +14,7 @@ use nexxomnia\enums\playbackmodes;
 use nexxomnia\enums\datamodes;
 use nexxomnia\enums\mediaorigins;
 use nexxomnia\enums\startconditions;
-use nexxomnia\internal\parameters;
+use nexxomnia\internals\parameters;
 
 class statisticparameters extends parameters{
 

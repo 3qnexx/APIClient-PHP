@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class gateways extends \nexxomnia\internal\enum{
+class gateways extends \nexxomnia\internals\enum{
 
 	const PC='desktop';
 	const MOBILE='mobile';

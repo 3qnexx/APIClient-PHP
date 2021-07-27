@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class dimensioncodes extends \nexxomnia\internal\enum{
+class dimensioncodes extends \nexxomnia\internals\enum{
 
 	const HD="hd";
 	const FULLHD="fullhd";

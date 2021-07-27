@@ -1,9 +1,9 @@
 <?php
 
-namespace nexxomnia\apicall\parameters;
+namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\enums\dimensioncodes;
-use nexxomnia\internal\parameters;
+use nexxomnia\internals\parameters;
 
 class mediaparameters extends parameters{
 

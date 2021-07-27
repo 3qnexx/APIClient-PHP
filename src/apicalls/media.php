@@ -1,13 +1,13 @@
 <?php
 
-namespace nexxomnia\apicall;
+namespace nexxomnia\apicalls;
 
-use nexxomnia\apicall\modifiers\mediamodifiers;
-use nexxomnia\apicall\parameters\mediaparameters;
+use nexxomnia\apicalls\modifiers\mediamodifiers;
+use nexxomnia\apicalls\parameters\mediaparameters;
 use nexxomnia\enums\querymodes;
 use nexxomnia\enums\streamtypes;
 
-class media extends \nexxomnia\internal\apicall{
+class media extends \nexxomnia\internals\apicall{
 
 	private string $streamtype;
 	private string $method;

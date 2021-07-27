@@ -1,9 +1,9 @@
 <?php
 
-namespace nexxomnia\internal;
+namespace nexxomnia\internals;
 
-use nexxomnia\internal\modifiers;
-use nexxomnia\internal\parameters;
+use nexxomnia\internals\modifiers;
+use nexxomnia\internals\parameters;
 use nexxomnia\enums\defaults;
 
 class apicall{

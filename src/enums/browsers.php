@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class browsers extends  \nexxomnia\internal\enum{
+class browsers extends  \nexxomnia\internals\enum{
 
 	const FIREFOX='firefox';
 	const CHROME='chrome';

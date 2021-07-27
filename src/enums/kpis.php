@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class kpis extends \nexxomnia\internal\enum{
+class kpis extends \nexxomnia\internals\enum{
 
 	const DISPLAY="display";
 	const PLAYERSTART="playerstart";

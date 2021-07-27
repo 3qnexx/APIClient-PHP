@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class highlightvideopurposes extends \nexxomnia\internal\enum{
+class highlightvideopurposes extends \nexxomnia\internals\enum{
 
 	const VIDEO='video';
 	const VARIANT='variant';

@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class playbackmodes extends \nexxomnia\internal\enum{
+class playbackmodes extends \nexxomnia\internals\enum{
 
 	const BUMPER="bumper";
 	const PREVIEW="preview";

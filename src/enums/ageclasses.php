@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class ageclasses extends \nexxomnia\internal\enum{
+class ageclasses extends \nexxomnia\internals\enum{
 
 	const ZERO=0;
 	const SIX=6;

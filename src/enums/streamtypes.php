@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class streamtypes extends  \nexxomnia\internal\enum{
+class streamtypes extends  \nexxomnia\internals\enum{
 
 	const VIDEO='video';
 	const AUDIO='audio';

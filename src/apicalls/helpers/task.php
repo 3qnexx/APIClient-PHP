@@ -1,6 +1,6 @@
 <?php
 
-namespace nexxomnia\apicall\helpers;
+namespace nexxomnia\apicalls\helpers;
 
 use nexxomnia\enums\streamtypes;
 

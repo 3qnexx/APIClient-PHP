@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class externalplatforms extends \nexxomnia\internal\enum{
+class externalplatforms extends \nexxomnia\internals\enum{
 
 	const FACEBOOK='facebook';
 	const INSTAGRAM='instagram';

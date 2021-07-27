@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class consentenvironments extends \nexxomnia\internal\enum{
+class consentenvironments extends \nexxomnia\internals\enum{
 
 	const NONE='none';
 	const ONLYSTRING='onlystring';

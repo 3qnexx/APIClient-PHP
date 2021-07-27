@@ -2,7 +2,7 @@
 
 namespace nexxomnia\enums;
 
-class defaults extends \nexxomnia\internal\enum{
+class defaults extends \nexxomnia\internals\enum{
 
 	const CLIENT_VERSION='0.1.5';
 

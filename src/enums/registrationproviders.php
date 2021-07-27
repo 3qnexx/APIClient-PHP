@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class registrationproviders extends \nexxomnia\internal\enum{
+class registrationproviders extends \nexxomnia\internals\enum{
 
 	const FACEBOOK="facebook";
 	const GOOGLE="google";

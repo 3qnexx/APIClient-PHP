@@ -1,11 +1,11 @@
 <?php
 namespace nexxomnia;
 
-use nexxomnia\apicall\statistics;
-use nexxomnia\apicall\media;
+use nexxomnia\apicalls\statistics;
+use nexxomnia\apicalls\media;
 use nexxomnia\enums\defaults;
-use nexxomnia\internal\parameters;
-use nexxomnia\internal\modifiers;
+use nexxomnia\internals\parameters;
+use nexxomnia\internals\modifiers;
 use nexxomnia\result\result;
 
 class apiclient{
@@ -125,7 +125,7 @@ class apiclient{
 		return(new result($request,$endpoint,$this->logger));
 	}
 
-	public function call(internal\apicall $call,bool $fetchAllPossibleResults=FALSE):result{
+	public function call(internals\apicall $call,bool $fetchAllPossibleResults=FALSE):result{
 		if($fetchAllPossibleResults){
 			if($call instanceof media){
 				$this->log("PREPARING FOR CATCHING ALL RESULTS");

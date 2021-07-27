@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class startconditions extends \nexxomnia\internal\enum{
+class startconditions extends \nexxomnia\internals\enum{
 
 	const AUTOPLAY='autoplay';
 	const AUTOPLAYMUTED='autoplaymuted';
