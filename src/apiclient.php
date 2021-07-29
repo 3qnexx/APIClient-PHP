@@ -21,6 +21,9 @@ class apiclient{
 	protected string $customHost="";
 	protected string $consumer="apiclient-php";
 
+	protected string $lastPath="";
+	protected array $lastParameters=[];
+
 	public function __construct(int $domain=0,string $secret="",string $session=""){
 		$this->configure($domain,$secret,$session);
 	}
@@ -87,6 +90,10 @@ class apiclient{
 		}
 	}
 
+	public function getLastPath(bool $addParameters=FALSE):string{
+		return($this->lastPath.($addParameters?"?".http_build_query($this->lastParameters):""));
+	}
+
 	private function callAPI(string $verb,string $endpoint,?parameters $params=NULL,?modifiers $modifiers=NULL):result{
 		$callparams=[];
 		$clientconfig=[
@@ -118,6 +125,8 @@ class apiclient{
 		try{
 			$url=$this->buildHost().$endpoint;
 			$this->log("CALLING URL: ".$url."?".http_build_query($callparams));
+			$this->lastPath=$endpoint;
+			$this->lastParameters=$callparams;
 			$request=$client->request($verb,$url,$clientconfig);
 		}catch(\Exception $e){
 			$this->log("APICLIENT EXCEPTION: ".$e->getMessage(),\Psr\Log\LogLevel::ERROR);
