@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\streamtypes;
@@ -49,6 +48,9 @@ class system extends \nexxomnia\internals\apicall{
 		$this->path.="persontypes";
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype
+	 */
 	public function editableAttributesFor(string $streamtype):void{
 		if(in_array($streamtype,streamtypes::getAllTypes())){
 			$this->path.="editableattributesfor/".$streamtype;
@@ -57,6 +59,9 @@ class system extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype
+	 */
 	public function editableRestrictionsFor(string $streamtype):void{
 		if(in_array($streamtype,streamtypes::getAllTypes())){
 			$this->path.="editablerestrictionsfor/".$streamtype;

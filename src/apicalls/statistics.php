@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\parameters\statisticparameters;
@@ -32,6 +31,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		return($this->parameters);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streantype
+	 */
 	public function setStreamtype(string $streamtype):void{
 		if(in_array($streamtype,streamtypes::getAllTypes())){
 			$this->getParameters()->setStreamtype($streamtype);
@@ -40,6 +42,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Date Format
+	 */
 	public function setDates(string $from,string $to):void{
 		if($this->dateIsValid($from)){
 			$this->getParameters()->setFrom($from);
@@ -101,6 +106,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		$this->path.="adclicksbyday";
 	}
 
+	/**
+	 * @throws \Exception on invalid Provider
+	 */
 	public function loginsByDay(string $provider=""):void{
 		$this->path.="loginsbyday";
 		if(!empty($provider)){
@@ -112,6 +120,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Provider
+	 */
 	public function registrationsByDay(string $provider=""):void{
 		$this->path.="registrationsbyday";
 		if(!empty($provider)){
@@ -123,6 +134,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Type
+	 */
 	public function revenueByDay(string $type=""):void{
 		$this->path.="revenuebyday";
 		if(!empty($type)){
@@ -147,6 +161,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Reason
+	 */
 	public function subscriptionTerminationsByDay(string $reason=""):void{
 		$this->path.="revenuebyday";
 		if(!empty($reason)){
@@ -158,6 +175,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Timeframe
+	 */
 	public function realtime($timeframe=30):void{
 		$this->path.="realtime";
 		if($this->timeframeIsValid($timeframe)){
@@ -167,6 +187,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Timeframe
+	 */
 	public function realtimeExternal($timeframe=30):void{
 		$this->path.="realtimeexternal";
 		if($this->timeframeIsValid($timeframe)){
@@ -176,6 +199,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Timeframe
+	 */
 	public function realtimeCharts($timeframe=30):void{
 		$this->path.="realtimecharts";
 		if($this->timeframeIsValid($timeframe)){
@@ -185,6 +211,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Timeframe
+	 */
 	public function realtimeChartsExternal($timeframe=30):void{
 		$this->path.="realtimechartsexternal";
 		if($this->timeframeIsValid($timeframe)){
@@ -194,6 +223,9 @@ class statistics extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid KPI
+	 */
 	public function itemlist(string $kpi):void{
 		if(in_array($kpi,kpis::getAllTypes())){
 			$this->path.="itemlist";

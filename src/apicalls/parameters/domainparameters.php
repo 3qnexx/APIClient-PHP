@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\internals\parameters;

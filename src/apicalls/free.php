@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
@@ -17,6 +16,9 @@ class free extends \nexxomnia\internals\apicall{
 		$this->path=$path;
 	}
 
+	/**
+	 * @throws \Exception on undefined Verb
+	 */
 	public function setVerb(string $verb):void{
 		if(in_array($verb,defaults::getAllVerbs())){
 			$this->verb=$verb;

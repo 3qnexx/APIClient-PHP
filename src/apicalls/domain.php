@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\parameters\domainparameters;
@@ -27,6 +26,19 @@ class domain extends \nexxomnia\internals\apicall{
 
 	public function offlineConfiguration():void{
 		$this->path.="offlineconfiguration";
+	}
+
+	/**
+	 * @throws \Exception on empty Path
+	 */
+	public function uploadConfiguration(string $path):void{
+		if(!empty($path)){
+			$this->path.="uploadconfiguration";
+			$parts=pathinfo($path);
+			$this->getParameters()->set("file",$parts['basename']);
+		}else{
+			throw new \Exception("Filepath cannot be empty");
+		}
 	}
 
 	public function apps():void{

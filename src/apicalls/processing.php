@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
@@ -12,6 +11,9 @@ class processing extends \nexxomnia\internals\apicall{
 		$this->path="processing/";
 	}
 
+	/**
+	 * @throws \Exception on invalid Task Array
+	 */
 	public function multiTask(array $tasks=[]):void{
 		if(!empty($tasks)){
 			$finals=[];
@@ -34,6 +36,9 @@ class processing extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on empty Page ID
+	 */
 	public function getPage($pageID=0):void{
 		if(!empty($pageID)){
 			$this->path.="page/".$pageID;
@@ -42,6 +47,9 @@ class processing extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Row ID
+	 */
 	public function getRow($rowID=0):void{
 		if(!empty($rowID)){
 			$this->path.="row/".$rowID;

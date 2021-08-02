@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
@@ -35,6 +34,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function cloneForNetwork(string $title="",string $url="",string $networkmode=networkmodes::OWN,string $refnr=""):void{
 		$this->setStreamtype("domain");
 		$this->verb=defaults::VERB_POST;
@@ -59,6 +61,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Domain ID
+	 */
 	public function markForDeletion(int $domainid=0):void{
 		if(!empty($domainID)){
 			$this->setItem($domainid,"domain");
@@ -83,6 +88,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Channel ID
+	 */
 	public function updateChannel(int $channelID,array $attributes=[]):void{
 		if(!empty($channelID)){
 			$this->setItem($channelID,"channel");
@@ -101,6 +109,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Channel ID
+	 */
 	public function removeChannel(int $channelID):void{
 		if(!empty($channelID)){
 			$this->setItem($channelID,"channel");
@@ -125,6 +136,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Format ID
+	 */
 	public function updateFormat(int $formatID,array $attributes=[]):void{
 		if(!empty($formatID)){
 			$this->setItem($formatID,"format");
@@ -143,6 +157,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Format ID
+	 */
 	public function removeFormat(int $formatID):void{
 		if(!empty($formatID)){
 			$this->setItem($formatID,"format");
@@ -153,6 +170,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addUploadLink(string $title="",array $selectedStreamtypes=[],string $language="",int $maxUsages=0,string $code=""):void{
 		$this->setStreamtype("uploadlink");
 		$this->verb=defaults::VERB_POST;
@@ -188,6 +208,9 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid UploadLink ID
+	 */
 	public function deleteUploadLink($uploadLinkID=0):void{
 		if(!empty($uploadLinkID)){
 			$this->setItem($uploadLinkID,"uploadlink");
@@ -268,58 +291,100 @@ class domainmanagement extends \nexxomnia\internals\apicall{
 		$this->addCategory(streamtypes::PLACE,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updateVideoCategory(int $categoryID=0,$attributes=[]):void{
 		$this->updateCategory(streamtypes::VIDEO,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updateAudioCategory(int $categoryID=0,array $attributes=[]):void{
 		$this->updateCategory(streamtypes::AUDIO,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updateImageCategory(int $categoryID=0,array $attributes=[]):void{
 		$this->updateCategory(streamtypes::IMAGE,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updateFileCategory(int $categoryID=0,array $attributes=[]):void{
 		$this->updateCategory(streamtypes::FILE,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updateArticleCategory(int $categoryID=0,array $attributes=[]):void{
 		$this->updateCategory(streamtypes::ARTICLE,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updateEventCategory(int $categoryID=0,array $attributes=[]):void{
 		$this->updateCategory(streamtypes::EVENT,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function updatePlaceCategory(int $categoryID=0,array $attributes=[]):void{
 		$this->updateCategory(streamtypes::PLACE,$categoryID,$attributes);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteVideoCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::VIDEO,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteAudioCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::AUDIO,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteImageCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::IMAGE,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteFileCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::FILE,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteArticleCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::ARTICLE,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteEventCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::EVENT,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deletePlaceCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::PLACE,$categoryID);
 	}
