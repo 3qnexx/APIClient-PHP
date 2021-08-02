@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\ageclasses;
@@ -33,6 +32,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		return(parent::getPath());
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype
+	 */
 	public function setStreamtype(string $streamtype):void{
 		if(in_array($streamtype,streamtypes::getAllTypes())){
 			$this->streamtype=$streamtype;
@@ -41,6 +43,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype
+	 */
 	public function setItem(int $item=0, string $streamtype=""):void{
 		if(!empty($streamtype)){
 			$this->setStreamtype($streamtype);
@@ -64,6 +69,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createFromURL(string $url, bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0):void{
 		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if(substr($url,0,4)=="http"){
@@ -100,6 +108,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createFromData(string $title,string $refnr="",string $codename="",?bool $autoPublish=NULL,string $personGender="",string $personType=""):void{
 		if(!in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if((!empty($codename))||(!in_array($this->streamtype,streamtypes::getContainerTypes()))){
@@ -137,6 +148,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", string $searchFields="", int $channel=0, int $format=0):void{
 		if(in_array($this->streamtype,streamtypes::getSimpleContainerTypes())){
 			$this->verb=defaults::VERB_POST;
@@ -183,6 +197,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createHighlightVideoFromVideo(int $videoID,int $duration,bool $includeAudio=TRUE,string $purpose=""):void{
 		if($videoID>0){
 			$this->setStreamtype(streamtypes::VIDEO);
@@ -204,6 +221,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createLiveStreamFromLiveLink(int $liveLinkID=0,string $title="",string $type=livestreamtypes::EVENT):void{
 		if($liveLinkID>0){
 			$this->setStreamtype(streamtypes::LIVE);
@@ -220,6 +240,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createLiveStreamFromRemote(string $hlsURL,string $dashURL="",string $title="",string $type=livestreamtypes::EVENT):void{
 		if((!empty($hlsURL))&&(substr($hlsURL,0,4)=="http")){
 			$this->setStreamtype(streamtypes::LIVE);
@@ -240,6 +263,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createRadioFromLiveLink(int $liveLinkID=0,string $title="",string $type=livestreamtypes::EVENT):void{
 		if($liveLinkID>0){
 			$this->setStreamtype(streamtypes::RADIO);
@@ -256,6 +282,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createRadioFromRemote(string $url,string $title="",string $type=livestreamtypes::EVENT):void{
 		if((!empty($url))&&(substr($url,0,4)=="http")){
 			$this->setStreamtype(streamtypes::RADIO);
@@ -273,6 +302,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createSceneFromVideo(int $videoID=0,string $title="",float $from=0,float $until=0,string $purpose=scenepurposes::CHAPTER):void{
 		if($videoID>0){
 			$this->setStreamtype(streamtypes::SCENE);
@@ -295,6 +327,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createAudioFromVideo(int $videoID=0):void{
 		if($videoID>0){
 			$this->setStreamtype(streamtypes::AUDIO);
@@ -305,6 +340,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createAudioFromCaption(int $captionID=0):void{
 		if($captionID>0){
 			$this->setStreamtype(streamtypes::AUDIO);
@@ -315,6 +353,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createAudioFromText(string $text,string $language=""):void{
 		if(!empty($text)){
 			$this->setStreamtype(streamtypes::AUDIO);
@@ -329,6 +370,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createAudioFromArticle(int $articleID=0,bool $includeTitle=TRUE,bool $includeSubtitle=FALSE,bool $includeTeaser=FALSE,bool $useAsRepresentation=FALSE):void{
 		if($articleID>0){
 			$this->setStreamtype(streamtypes::AUDIO);
@@ -351,6 +395,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createImageFromVideo(int $videoID=0,float $from=0,float $until=0,string $title="",bool $useAsCover=FALSE):void{
 		if($videoID>0){
 			$this->setStreamtype(streamtypes::IMAGE);
@@ -373,6 +420,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function createPostFromText(int $accountID=0,string $postText="",int $postImage=0):void{
 		if($accountID>0){
 			$this->setStreamtype(streamtypes::POST);
@@ -392,6 +442,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function updateItemFile(string $url):void{
 		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if(substr($url,0,4)=="http"){
@@ -506,6 +559,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		$this->method="remove";
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function transferItemToDomain(int $targetDomain=0,bool $andDeleteOriginal=FALSE):void{
 		if($targetDomain>0){
 			$this->verb=defaults::VERB_POST;
@@ -518,6 +574,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function reorderItem(?array $itemlist=[],string $autoOrder="",string $autoOrderDirection=""):void{
 		if(in_array($this->streamtype,streamtypes::getContainerTypes())){
 			$this->verb=defaults::VERB_PUT;
@@ -537,6 +596,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function reencodeItem(string $reason=""):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			$this->verb=defaults::VERB_POST;
@@ -549,6 +611,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function analyzeItemDetails():void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			$this->verb=defaults::VERB_POST;
@@ -558,6 +623,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function archiveItem():void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO])){
 			$this->verb=defaults::VERB_POST;
@@ -567,6 +635,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
@@ -595,6 +666,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function exportItemAsPost(int $accountID,string $postURL="",string $postText="",string $postImage="",bool $postWithLink=FALSE):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
@@ -621,6 +695,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function updateItemExport(string $externalReference="",int $exportID=0,string $partToUpdate=""):void{
 		$this->verb=defaults::VERB_PUT;
 		$this->method="updateexport";
@@ -638,6 +715,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function deleteItemExport(string $externalReference="",int $exportID=0):void{
 		$this->verb=defaults::VERB_DELETE;
 		$this->method="removeexport";
@@ -650,6 +730,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addItemPreviewLink(string $language="",int $maxStarts=0,string $code="",bool $showAnnotations=TRUE,bool $allowAnnotations=TRUE,bool $allowSnapshots=FALSE,bool $allowSourceDownloads=FALSE):void{
 		if(in_array($this->streamtype,streamtypes::getPlayerTypes())){
 			$this->verb=defaults::VERB_POST;
@@ -680,6 +763,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function deleteItemPreviewLink(int $previewlinkID=0):void{
 		if($previewlinkID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -689,6 +775,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addItemToContainer(int $containerID=0):void{
 		if($containerID>0){
 			$this->verb=defaults::VERB_POST;
@@ -698,6 +787,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addItemToCollection(int $collectionID=0):void{
 		if($collectionID>0){
 			$this->verb=defaults::VERB_POST;
@@ -707,6 +799,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addItemToSet(int $setID=0):void{
 		if($setID>0){
 			$this->verb=defaults::VERB_POST;
@@ -716,6 +811,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addItemToBundle(int $bundleID=0):void{
 		if($bundleID>0){
 			$this->verb=defaults::VERB_POST;
@@ -725,6 +823,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeItemFromContainer(int $containerID=0):void{
 		if($containerID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -734,6 +835,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeItemFromCollection(int $collectionID=0):void{
 		if($collectionID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -743,6 +847,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeItemFromSet(int $setID=0):void{
 		if($setID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -752,6 +859,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeItemFromBundle(int $bundleID=0):void{
 		if($bundleID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -761,6 +871,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectLinkToItem(int $linkID=0):void{
 		if($linkID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -770,6 +883,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectPersonToItem(int $personID=0):void{
 		if($personID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -779,6 +895,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectGroupToItem(int $groupID=0):void{
 		if($groupID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -788,6 +907,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectShowToItem(int $showID=0):void{
 		if($showID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -797,6 +919,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectPlaceToItem(int $placeID=0):void{
 		if($placeID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -806,6 +931,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeLinkFromItem(int $linkID=0):void{
 		if($linkID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -815,6 +943,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removePersonFromItem(int $personID=0):void{
 		if($personID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -824,6 +955,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeGroupFromItem(int $groupID=0):void{
 		if($groupID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -833,6 +967,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeShowFromItem(int $showID=0):void{
 		if($showID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -842,6 +979,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removePlaceFromItem(int $placeID=0):void{
 		if($placeID>0){
 			$this->verb=defaults::VERB_DELETE;
@@ -851,34 +991,58 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCover(string $url="",float $fromTime=0):void{
 		$this->handleCover("cover",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCoverAlternative(string $url="",float $fromTime=0):void{
 		$this->handleCover("alternativecover",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCoverABTest(string $url="",float $fromTime=0):void{
 		$this->handleCover("abtestalternative",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCoverActionShot(string $url="",float $fromTime=0):void{
 		$this->handleCover("actionshot",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCoverQuad(string $url="",float $fromTime=0):void{
 		$this->handleCover("quadcover",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCoverBanner(string $url="",float $fromTime=0):void{
 		$this->handleCover("banner",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function setItemCoverFamilySafe(string $url="",float $fromTime=0):void{
 		$this->handleCover("familysafe",$url,$fromTime);
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addCaptionsFromURL(string $url="",string $language="",string $title="",bool $withAudioDescription=FALSE):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(substr($url,0,4)=="http"){
@@ -904,6 +1068,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addCaptionsFromSpeech():void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			$this->verb=defaults::VERB_POST;
@@ -913,6 +1080,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function translateCaptionsTo($targetLanguage=""):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(strlen($targetLanguage)==2){
@@ -926,6 +1096,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeCaptions(string $language="",bool $withAudioDescription=FALSE):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(strlen($language)==2){
@@ -943,6 +1116,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function translateMetadataTo(string $language):void{
 		if(strlen($language)==2){
 			$this->verb=defaults::VERB_POST;
@@ -952,6 +1128,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addTranslation(string $language,string $title="",string $subtitle="",string $teaser="",string $description="", string $orderhint=""):void{
 		if(strlen($language)==2){
 			$this->verb=defaults::VERB_POST;
@@ -977,6 +1156,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function updateTranslation(string $language,string $title="",string $subtitle="",string $teaser="",string $description="", string $orderhint=""):void{
 		if(strlen($language)==2){
 			$this->verb=defaults::VERB_PUT;
@@ -1002,6 +1184,9 @@ class mediamanagement extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeTranslation(string $language):void{
 		if(strlen($language)==2){
 			$this->verb=defaults::VERB_DELETE;

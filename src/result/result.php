@@ -102,6 +102,9 @@ class result{
 		return($toreturn);
 	}
 
+	/**
+	 * @throws \Exception if Result does not support Paging
+	 */
 	public function getResultIterator(bool $asMediaObjects=FALSE):iterator{
 		if($this->supportsPaging()){
 			$toreturn=new iterator($this->raw['result'],$asMediaObjects);

@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
@@ -23,20 +22,27 @@ class session extends \nexxomnia\internals\apicall{
 		return($this->modifiers);
 	}
 
+	/**
+	 * @throws \Exception on empty Device Hash
+	 */
 	public function init(string $deviceHash,string $userHash="",int $previousSession=0,bool $forcePersistantSession=FALSE,string $externalUserReference=""):void{
-		$this->path.="init";
-		$this->verb=defaults::VERB_POST;
-		$this->getParameters()->set('nxp_devh',$deviceHash);
-		if(!empty($userHash)){
-			$this->getParameters()->set('nxp_userh',$userHash);
-		}else if(!empty($externalUserReference)){
-			$this->getParameters()->set('externalUserReference',$externalUserReference);
-		}
-		if(!empty($previousSession)){
-			$this->getParameters()->set('precid',$previousSession);
-		}
-		if($forcePersistantSession){
-			$this->getParameters()->set('forcePersistantSession',1);
+		if(!empty($deviceHash)){
+			$this->path.="init";
+			$this->verb=defaults::VERB_POST;
+			$this->getParameters()->set('nxp_devh',$deviceHash);
+			if(!empty($userHash)){
+				$this->getParameters()->set('nxp_userh',$userHash);
+			}else if(!empty($externalUserReference)){
+				$this->getParameters()->set('externalUserReference',$externalUserReference);
+			}
+			if(!empty($previousSession)){
+				$this->getParameters()->set('precid',$previousSession);
+			}
+			if($forcePersistantSession){
+				$this->getParameters()->set('forcePersistantSession',1);
+			}
+		}else{
+			throw new \Exception("deviceHash cant be empty");
 		}
 	}
 

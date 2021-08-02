@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\enums\dimensioncodes;
@@ -39,6 +38,9 @@ class mediaparameters extends parameters{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Dimension
+	 */
 	public function restrictToDimension(string $dim,int $height=0):void{
 		if(in_array($dim,dimensioncodes::getAllTypes())){
 			$this->params['dimension']=$dim;

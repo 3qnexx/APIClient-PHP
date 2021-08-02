@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\modifiers\mediamodifiers;
@@ -28,6 +27,9 @@ class media extends \nexxomnia\internals\apicall{
 		return($this->parameters);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype
+	 */
 	public function setStreamtype(string $streamtype):void{
 		if(in_array($streamtype,streamtypes::getAllTypes())){
 			$this->streamtype=$streamtype;
@@ -193,10 +195,16 @@ class media extends \nexxomnia\internals\apicall{
 		$this->method="similarsfor/".$id;
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function captionsFor(int $id):void{
 		$this->verifyParameter("captionsfor",$id,[streamtypes::VIDEO,streamtypes::AUDIO,streamtypes::ALLMEDIA]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function stitchedManifestFor(int $id):void{
 		$this->verifyParameter("stitchedmanifestfor",$id,[streamtypes::PLAYLIST,streamtypes::SET,streamtypes::COLLECTION,streamtypes::ALLMEDIA]);
 	}
@@ -287,51 +295,87 @@ class media extends \nexxomnia\internals\apicall{
 		$this->method="byuser/".$userid;
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byPlaylist(int $playlistid):void{
 		$this->verifyParameter("byplaylist",$playlistid,[streamtypes::VIDEO]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byLiveLink(int $liveLinkID):void{
 		$this->verifyParameter("bylivelink",$liveLinkID,[streamtypes::VIDEO]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byAudioAlbum(int $albumid):void{
 		$this->verifyParameter("byaudioalbum",$albumid,[streamtypes::AUDIO]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byAlbum(int $albumid):void{
 		$this->verifyParameter("byalbum",$albumid,[streamtypes::IMAGE]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byFolder(int $folderid):void{
 		$this->verifyParameter("byfolder",$folderid,[streamtypes::FILE]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byMagazine(int $magazineid):void{
 		$this->verifyParameter("bymagazine",$magazineid,[streamtypes::ARTICLE]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byVideo(int $videoid):void{
 		$this->verifyParameter("byvideo",$videoid,[streamtypes::SCENE]);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function today():void{
 		$this->verifyParameter("today",0,[streamtypes::EVENT],TRUE);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function thisWeek():void{
 		$this->verifyParameter("thisweek",0,[streamtypes::EVENT],TRUE);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function thisMonth():void{
 		$this->verifyParameter("thismonth",0,[streamtypes::EVENT],TRUE);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function nextDays(int $days):void{
 		$this->getParameters()->set('days',$days);
 		$this->verifyParameter("nextdays",0,[streamtypes::EVENT],TRUE);
 	}
 
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function nextInSeries(int $videoid):void{
 		$this->verifyParameter("nextinseries",$videoid,[streamtypes::VIDEO]);
 	}

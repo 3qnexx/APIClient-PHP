@@ -1,5 +1,4 @@
 <?php
-
 namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\enums\defaults;
@@ -30,14 +29,20 @@ class statisticparameters extends parameters{
 		$this->set("timezone",$zone);
 	}
 
+	/**
+	 * @throws \Exception on invalid Gateway
+	 */
 	public function setGateway(string $gateway):void{
-		if(in_array($gateway,gateways::getAllGateways())){
+		if(in_array($gateway,gateways::getAllTypes())){
 			$this->set('gateway',$gateway);
 		}else{
 			throw new \Exception("Gateway string is unknown");
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Device
+	 */
 	public function setDevice(string $device):void{
 		if(in_array($device,devicetypes::getAllTypes())){
 			$this->set('device',$device);
@@ -62,6 +67,9 @@ class statisticparameters extends parameters{
 		$this->set("item",$item);
 	}
 
+	/**
+	 * @throws \Exception on invalid Reference
+	 */
 	public function setItemReference(string $reference):void{
 		if(in_array($reference,itemreferences::getAllTypes())){
 			$this->set('itemReference',$reference);
@@ -94,14 +102,20 @@ class statisticparameters extends parameters{
 		$this->set('licensor',$licensor);
 	}
 
-	public function restrictToPageIntegration(string $reference):void{
-		if(in_array($reference,pageintegrationtypes::getAllTypes())){
-			$this->set('pageIntegration',$reference);
+	/**
+	 * @throws \Exception on invalid pageIntegration
+	 */
+	public function restrictToPageIntegration(string $pageIntegration):void{
+		if(in_array($pageIntegration,pageintegrationtypes::getAllTypes())){
+			$this->set('pageIntegration',$pageIntegration);
 		}else{
 			throw new \Exception("pageIntegration string is unknown");
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Browser
+	 */
 	public function restrictToBrowser(string $browser):void{
 		if(in_array($browser,browsers::getAllTypes())){
 			$this->set('browser',$browser);
@@ -110,6 +124,9 @@ class statisticparameters extends parameters{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid OS
+	 */
 	public function restrictToOS(string $os):void{
 		if(in_array($os,operatingsystems::getAllTypes())){
 			$this->set('browser',$os);
@@ -118,6 +135,9 @@ class statisticparameters extends parameters{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Country Code
+	 */
 	public function restrictToCountry(string $code):void{
 		if(strlen($code)==2){
 			$this->set('countrycode',strtoupper($code));
@@ -138,6 +158,9 @@ class statisticparameters extends parameters{
 		$this->set('deliveryDomain',$domain);
 	}
 
+	/**
+	 * @throws \Exception on invalid environment String
+	 */
 	public function restrictToConsentEnvironment(string $environment):void{
 		if(in_array($environment,consentenvironments::getAllTypes())){
 			$this->set('consentEnvironment',$environment);
@@ -146,22 +169,31 @@ class statisticparameters extends parameters{
 		}
 	}
 
-	public function restrictToPlaybackMode(string $environment):void{
-		if(in_array($environment,playbackmodes::getAllTypes())){
-			$this->set('playbackMode',$environment);
+	/**
+	 * @throws \Exception on invalid playbackMode
+	 */
+	public function restrictToPlaybackMode(string $playbackMode):void{
+		if(in_array($playbackMode,playbackmodes::getAllTypes())){
+			$this->set('playbackMode',$playbackMode);
 		}else{
 			throw new \Exception("PlaybackMode string is unknown");
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Data Mode
+	 */
 	public function restrictToDataMode(string $mode):void{
 		if(in_array($mode,datamodes::getAllTypes())){
 			$this->set('dataMode',$mode);
 		}else{
-			throw new \Exception("dataMode string is unknown");
+			throw new \Exception("Data Mode string is unknown");
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Origin
+	 */
 	public function restrictToMediaOrigin(string $origin):void{
 		if(in_array($origin,mediaorigins::getAllTypes())){
 			$this->set('mediaOrigin',$origin);
@@ -170,6 +202,9 @@ class statisticparameters extends parameters{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid condition
+	 */
 	public function restrictToStartCondition(string $condition):void{
 		if(in_array($condition,startconditions::getAllTypes())){
 			$this->set('startCondition',$condition);

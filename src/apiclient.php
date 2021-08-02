@@ -1,6 +1,7 @@
 <?php
 namespace nexxomnia;
 
+use nexxomnia\apicalls\mediamanagement;
 use nexxomnia\apicalls\statistics;
 use nexxomnia\apicalls\media;
 use nexxomnia\enums\defaults;
@@ -79,7 +80,7 @@ class apiclient{
 	private function buildHost():string{
 		$host=defaults::API_URL;
 		if(!empty($this->customHost)){
-			$host=str_replace("api.","api".$this->customHost.".",$host);
+			$host=$this->customHost;
 		}
 		return("http".($this->useHTTPS?"s":"")."://".$host."/v".defaults::API_VERSION."/".$this->domain."/");
 	}
@@ -143,7 +144,7 @@ class apiclient{
 				$fetchAllPossibleResults=FALSE;
 			}
 		}
-		if($call instanceof statistics){
+		if(($call instanceof statistics)||($call instanceof mediamanagement)){
 			if($this->timeout<30){
 				$this->log("RAISING TIMEOUT TO 30 SECONDS AUTOMATICALLY");
 				$this->timeout=30;
