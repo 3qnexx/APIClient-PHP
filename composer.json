@@ -5,6 +5,11 @@
   "keywords": ["3q","3q nexx","nexxOMNIA","nexxtv","omnia"],
   "homepage": "https://3q.video/nexx-for-publishers",
   "license": "MIT",
+  "support": {
+	"email": "support.nexx@3q.video",
+	"docs": "https://api.docs.nexx.cloud",
+	"issues": "https://omnia.nexx.cloud/support"
+  },
   "require": {
 	"php": "^7.4 || ^8.0 || ^8.1",
 	"ext-json": "*",
