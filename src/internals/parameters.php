@@ -106,15 +106,29 @@ class parameters{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Limit
+	 */
 	public function setLimit(int $limit,int $start=0):void{
-		$this->set('limit',min($limit,defaults::MAX_RESULT_LIMIT));
-		if(!empty($start)){
-			$this->setStart($start);
+		if($limit>defaults::MAX_RESULT_LIMIT){
+			throw new \Exception("max Limit is ".defaults::MAX_RESULT_LIMIT);
+		}else{
+			$this->set('limit',abs($limit));
+			if(!empty($start)){
+				$this->setStart(abs($start));
+			}
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Limit
+	 */
 	public function setChildLimit(int $limit):void{
-		$this->set('childlimit',min($limit,defaults::MAX_RESULT_LIMIT));
+		if($limit>defaults::MAX_RESULT_LIMIT){
+			throw new \Exception("max Child Limit is ".defaults::MAX_RESULT_LIMIT);
+		}else{
+			$this->set('childlimit',abs($limit));
+		}
 	}
 
 	public function setStart(int $start):void{
