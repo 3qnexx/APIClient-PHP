@@ -32,7 +32,7 @@ class paging{
 	}
 
 	public function hasMoreResults():bool{
-		return($this->getStart()+$this->getSize()<$this->getTotalSize());
+		return(($this->getStart()+$this->getSize())<$this->getTotalSize());
 	}
 
 }
