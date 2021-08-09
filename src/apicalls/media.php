@@ -3,6 +3,8 @@ namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\modifiers\mediamodifiers;
 use nexxomnia\apicalls\parameters\mediaparameters;
+use nexxomnia\enums\defaults;
+use nexxomnia\enums\geoquerymodes;
 use nexxomnia\enums\querymodes;
 use nexxomnia\enums\streamtypes;
 
@@ -175,16 +177,17 @@ class media extends \nexxomnia\internals\apicall{
 		$this->method="recommendationsfor/".$id;
 	}
 
-	public function recommendationsForContext(string $context,string $title="",string $subtitle="",string $content="",string $language=""):void{
+	public function recommendationsForContext(string $context,string $content="",string $language="",string $title="",string $subtitle=""):void{
 		$this->method="recommendationsforcontext/".$context;
-		if(!empty($title)){
-			$this->getParameters()->set("title",$title);
-		}
-		if(!empty($subtitle)){
-			$this->getParameters()->set("subtitle",$subtitle);
-		}
 		if(!empty($content)){
+			$this->verb=defaults::VERB_POST;
 			$this->getParameters()->set("content",$content);
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
+			}
+			if(!empty($subtitle)){
+				$this->getParameters()->set("subtitle",$subtitle);
+			}
 		}
 		if(strlen($language)==2){
 			$this->getParameters()->set("language",$language);
@@ -229,7 +232,7 @@ class media extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	public function byGeo(string $geoQuery,string $geoMode="place",int $distance=10):void{
+	public function byGeo(string $geoQuery,string $geoMode=geoquerymodes::PLACE,int $distance=10):void{
 		if(!empty($geoQuery)){
 			$this->method="bygeo/".urlencode($geoQuery);
 			$this->getParameters()->set("geomode",$geoMode);
