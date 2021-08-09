@@ -212,37 +212,60 @@ class media extends \nexxomnia\internals\apicall{
 		$this->verifyParameter("stitchedmanifestfor",$id,[streamtypes::PLAYLIST,streamtypes::SET,streamtypes::COLLECTION,streamtypes::ALLMEDIA]);
 	}
 
+	/**
+	 * @throws \Exception on invalid QueryMode
+	 */
 	public function byQuery(string $query,string $queryMode=querymodes::FULLTEXT,string $queryFields="",int $minimalQueryScore=0,$includeSubsctringMatches=FALSE,$skipReporting=FALSE):void{
 		if(!empty($query)){
-			$this->method="byquery/".urlencode($query);
-			$this->getParameters()->set("querymode",$queryMode);
-			if(!empty($queryFields)){
-				$this->getParameters()->set("queryfields",$queryFields);
-			}
-			if($queryMode==querymodes::FULLTEXT){
-				if(!empty($minimalQueryScore)){
-					$this->getParameters()->set("minimalQueryScore",$minimalQueryScore);
+			if(in_array($queryMode,querymodes::getAllTypes())){
+				$this->method="byquery/".urlencode($query);
+				$this->getParameters()->set("querymode",$queryMode);
+				if(!empty($queryFields)){
+					$this->getParameters()->set("queryfields",$queryFields);
 				}
-			}else if($includeSubsctringMatches){
-				$this->getParameters()->set("includeSubstringMatches",1);
+				if($queryMode==querymodes::FULLTEXT){
+					if(!empty($minimalQueryScore)){
+						$this->getParameters()->set("minimalQueryScore",$minimalQueryScore);
+					}
+				}else if($includeSubsctringMatches){
+					$this->getParameters()->set("includeSubstringMatches",1);
+				}
+				if($skipReporting){
+					$this->getParameters()->set("skipReporting",1);
+				}
+			}else{
+				throw new \Exception("QueryMode is not supported");
 			}
-			if($skipReporting){
-				$this->getParameters()->set("skipReporting",1);
-			}
+		}else{
+			throw new \Exception("QueryMode cant be empty");
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid GeoMode
+	 */
 	public function byGeo(string $geoQuery,string $geoMode=geoquerymodes::PLACE,int $distance=10):void{
 		if(!empty($geoQuery)){
-			$this->method="bygeo/".urlencode($geoQuery);
-			$this->getParameters()->set("geomode",$geoMode);
-			$this->getParameters()->set("distance",$distance);
+			if(in_array($geoMode,geoquerymodes::getAllTypes())){
+				$this->method="bygeo/".urlencode($geoQuery);
+				$this->getParameters()->set("geomode",$geoMode);
+				$this->getParameters()->set("distance",$distance);
+			}else{
+				throw new \Exception("GeoMode not supported");
+			}
+		}else{
+			throw new \Exception("GeoMode cant be empty");
 		}
 	}
 
+	/**
+	 * @throws \Exception on empty List
+	 */
 	public function byItemList(array $items):void{
 		if(!empty($items)){
 			$this->method="byitemlist/".implode(",",$items);
+		}else{
+			throw new \Exception("Items cant be empty");
 		}
 	}
 
