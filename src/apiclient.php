@@ -157,10 +157,10 @@ class apiclient{
 				$start=defaults::MAX_RESULT_LIMIT;
 				while($callAgain){
 					$call->getParameters()->setStart($start);
-					$adds=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
-					if($adds->isSuccess()){
-						$result->addResults($adds->getResult());
-						if($result->getPaging()->hasMoreResults()){
+					$aresult=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
+					if($aresult->isSuccess()){
+						$result->addResults($aresult->getResult(),$aresult->getMetadata()->getProcessingTime());
+						if(($aresult->supportsPaging())&&($aresult->getPaging()->hasMoreResults())){
 							$start+=defaults::MAX_RESULT_LIMIT;
 						}else{
 							$callAgain=FALSE;

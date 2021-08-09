@@ -83,8 +83,11 @@ class result{
 		return($reason);
 	}
 
-	public function addResults(array $results):void{
+	public function addResults(array $results,float $additionalTime=0):void{
 		$this->raw['result']=array_merge($this->raw['result'],$results);
+		if(($additionalTime>0)&&($this->metadata)){
+			$this->metadata->updateProcessingTime($this->metadata->getProcessingTime()+$additionalTime);
+		}
 		if($this->paging){
 			$this->paging->updateSize(sizeof($this->raw['result']));
 		}
