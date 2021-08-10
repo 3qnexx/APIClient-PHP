@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.0.0
----
+1.2.0 (2021-08-11)
+-------------------
 
- * initial Version
+* IMPORTANT: renamed all APICall Classes to new names with "call" PostFix.

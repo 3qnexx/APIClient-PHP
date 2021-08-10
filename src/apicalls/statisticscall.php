@@ -8,7 +8,7 @@ use nexxomnia\enums\registrationproviders;
 use nexxomnia\enums\subscriptionterminationreasons;
 use nexxomnia\enums\revenuetypes;
 
-class statistics extends \nexxomnia\internals\apicall{
+class statisticscall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

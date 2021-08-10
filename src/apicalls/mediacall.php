@@ -8,7 +8,7 @@ use nexxomnia\enums\geoquerymodes;
 use nexxomnia\enums\querymodes;
 use nexxomnia\enums\streamtypes;
 
-class media extends \nexxomnia\internals\apicall{
+class mediacall extends \nexxomnia\internals\apicall{
 
 	private string $streamtype;
 	private string $method;

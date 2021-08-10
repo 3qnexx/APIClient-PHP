@@ -2,7 +2,7 @@
 namespace nexxomnia\apicalls;
 
 
-class domain extends \nexxomnia\internals\apicall{
+class domaincall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

@@ -4,7 +4,7 @@ namespace nexxomnia\apicalls;
 use nexxomnia\enums\defaults;
 use nexxomnia\apicalls\helpers\task;
 
-class processing extends \nexxomnia\internals\apicall{
+class processingcall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

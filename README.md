@@ -12,13 +12,13 @@ $ composer require nexxomnia/apiclient-php
 
 ```php
 use nexxomnia\apiclient;
-use nexxomnia\apicalls\media;
+use nexxomnia\apicalls\mediacall;
 use nexxomnia\enums\streamtypes;
 
 $apiclient = new apiclient();
 $apiclient->configure(999,"API-SECRET","SESSION-ID");
 
-$apicall = new media(streamtypes::VIDEO);
+$apicall = new mediacall(streamtypes::VIDEO);
 $apicall->latest();
 
 $result=$apiclient->call($apicall);

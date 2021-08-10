@@ -15,7 +15,7 @@ use nexxomnia\enums\rejectreasons;
 use nexxomnia\enums\scenepurposes;
 use nexxomnia\enums\streamtypes;
 
-class mediamanagement extends \nexxomnia\internals\apicall{
+class mediamanagementcall extends \nexxomnia\internals\apicall{
 
 	protected string $streamtype="";
 	protected string $method="";
