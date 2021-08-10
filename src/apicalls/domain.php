@@ -1,19 +1,12 @@
 <?php
 namespace nexxomnia\apicalls;
 
-use nexxomnia\apicalls\parameters\domainparameters;
 
 class domain extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();
-		$this->modifiers=NULL;
-		$this->parameters=new domainparameters();
 		$this->path="domain/";
-	}
-
-	public function getParameters():?domainparameters{
-		return($this->parameters);
 	}
 
 	public function publicInfo():void{
@@ -35,7 +28,7 @@ class domain extends \nexxomnia\internals\apicall{
 		if(!empty($path)){
 			$this->path.="uploadconfiguration";
 			$parts=pathinfo($path);
-			$this->getParameters()->set("file",$parts['basename']);
+			$this->getParameters()->set("file",urlencode($parts['basename']));
 		}else{
 			throw new \Exception("Filepath cannot be empty");
 		}
