@@ -97,22 +97,47 @@ class result{
 		return($this->raw['result']);
 	}
 
-	public function getResultObject():?resultobject{
-		$toreturn=NULL;
-		if($this->isSuccess()){
+	/**
+	 * @throws \Exception if Result does not support Object
+	 */
+	public function getResultObject():resultobject{
+		if($this->supportsResultObject()){
 			$toreturn=new resultobject($this->raw['result']);
+		}else{
+			throw new \Exception("result is not iterable");
 		}
 		return($toreturn);
 	}
 
 	/**
-	 * @throws \Exception if Result does not support Paging
+	 * @throws \Exception if Result does not support Iterator
 	 */
 	public function getResultIterator(bool $asMediaObjects=FALSE):iterator{
-		if($this->supportsPaging()){
+		if($this->supportsIterator()){
 			$toreturn=new iterator($this->raw['result'],$asMediaObjects);
 		}else{
-			throw new \Exception("result is not pageable");
+			throw new \Exception("result is not iterable");
+		}
+		return($toreturn);
+	}
+
+	public function supportsIterator():bool{
+		$toreturn=FALSE;
+		if($this->isSuccess()){
+			if((is_array($this->raw['result']))&&(is_array($this->raw['result'][0]))&&(is_array($this->raw['result'][0]['general']))){
+				$toreturn=TRUE;
+			}
+		}
+		return($toreturn);
+	}
+
+	public function supportsResultObject():bool{
+		$toreturn=FALSE;
+		if($this->isSuccess()){
+			print_r($this->raw);
+			if(($this->raw['result']['general'])||($this->raw['result']['itemupdate'])){
+				$toreturn=TRUE;
+			}
 		}
 		return($toreturn);
 	}
