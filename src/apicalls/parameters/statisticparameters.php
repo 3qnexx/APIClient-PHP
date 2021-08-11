@@ -13,6 +13,7 @@ use nexxomnia\enums\playbackmodes;
 use nexxomnia\enums\datamodes;
 use nexxomnia\enums\mediaorigins;
 use nexxomnia\enums\startconditions;
+use nexxomnia\enums\viewcount;
 use nexxomnia\internals\parameters;
 
 class statisticparameters extends parameters{
@@ -140,14 +141,14 @@ class statisticparameters extends parameters{
 	 */
 	public function restrictToCountry(string $code):void{
 		if(strlen($code)==2){
-			$this->set('countrycode',strtoupper($code));
+			$this->set('countryCode',strtoupper($code));
 		}else{
 			throw new \Exception("Country Code must be given in 2-Letter-Format");
 		}
 	}
 
 	public function restrictToRegion(int $region):void{
-		$this->set('regioncode',$region);
+		$this->set('regionCode',$region);
 	}
 
 	public function restrictToManufacturer(string $manufacturer):void{
@@ -210,6 +211,17 @@ class statisticparameters extends parameters{
 			$this->set('startCondition',$condition);
 		}else{
 			throw new \Exception("startCondition string is unknown");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid condition
+	 */
+	public function restrictToViewCount(string $viewcount):void{
+		if(in_array($viewcount,viewcount::getAllTypes())){
+			$this->set('viewCount',$viewcount);
+		}else{
+			throw new \Exception("viewCount string is unknown");
 		}
 	}
 

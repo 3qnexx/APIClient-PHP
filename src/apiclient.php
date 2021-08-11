@@ -1,9 +1,9 @@
 <?php
 namespace nexxomnia;
 
-use nexxomnia\apicalls\mediamanagement;
-use nexxomnia\apicalls\statistics;
-use nexxomnia\apicalls\media;
+use nexxomnia\apicalls\mediamanagementcall;
+use nexxomnia\apicalls\statisticscall;
+use nexxomnia\apicalls\mediacall;
 use nexxomnia\enums\defaults;
 use nexxomnia\internals\parameters;
 use nexxomnia\internals\modifiers;
@@ -137,14 +137,14 @@ class apiclient{
 
 	public function call(internals\apicall $call,bool $fetchAllPossibleResults=FALSE):result{
 		if($fetchAllPossibleResults){
-			if($call instanceof media){
+			if($call instanceof mediacall){
 				$this->log("PREPARING FOR CATCHING ALL RESULTS");
 				$call->getParameters()->setLimit(defaults::MAX_RESULT_LIMIT);
 			}else{
 				$fetchAllPossibleResults=FALSE;
 			}
 		}
-		if(($call instanceof statistics)||($call instanceof mediamanagement)){
+		if(($call instanceof statisticscall)||($call instanceof mediamanagementcall)){
 			if($this->timeout<30){
 				$this->log("RAISING TIMEOUT TO 30 SECONDS AUTOMATICALLY");
 				$this->timeout=30;
@@ -157,10 +157,10 @@ class apiclient{
 				$start=defaults::MAX_RESULT_LIMIT;
 				while($callAgain){
 					$call->getParameters()->setStart($start);
-					$adds=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
-					if($adds->isSuccess()){
-						$result->addResults($adds->getResult());
-						if($result->getPaging()->hasMoreResults()){
+					$aresult=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
+					if($aresult->isSuccess()){
+						$result->addResults($aresult->getResult(),$aresult->getMetadata()->getProcessingTime());
+						if(($aresult->supportsPaging())&&($aresult->getPaging()->hasMoreResults())){
 							$start+=defaults::MAX_RESULT_LIMIT;
 						}else{
 							$callAgain=FALSE;

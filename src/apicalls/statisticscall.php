@@ -8,7 +8,7 @@ use nexxomnia\enums\registrationproviders;
 use nexxomnia\enums\subscriptionterminationreasons;
 use nexxomnia\enums\revenuetypes;
 
-class statistics extends \nexxomnia\internals\apicall{
+class statisticscall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();
@@ -181,9 +181,9 @@ class statistics extends \nexxomnia\internals\apicall{
 	public function realtime($timeframe=30):void{
 		$this->path.="realtime";
 		if($this->timeframeIsValid($timeframe)){
-			$this->getParameters()->set("timeframe",$timeframe);
+			$this->getParameters()->set("timeFrame",$timeframe);
 		}else{
-			throw new \Exception("Timeframe not supported");
+			throw new \Exception("TimeFrame not supported");
 		}
 	}
 
@@ -193,9 +193,9 @@ class statistics extends \nexxomnia\internals\apicall{
 	public function realtimeExternal($timeframe=30):void{
 		$this->path.="realtimeexternal";
 		if($this->timeframeIsValid($timeframe)){
-			$this->getParameters()->set("timeframe",$timeframe);
+			$this->getParameters()->set("timeFrame",$timeframe);
 		}else{
-			throw new \Exception("Timeframe not supported");
+			throw new \Exception("TimeFrame not supported");
 		}
 	}
 
@@ -205,9 +205,9 @@ class statistics extends \nexxomnia\internals\apicall{
 	public function realtimeCharts($timeframe=30):void{
 		$this->path.="realtimecharts";
 		if($this->timeframeIsValid($timeframe)){
-			$this->getParameters()->set("timeframe",$timeframe);
+			$this->getParameters()->set("timeFrame",$timeframe);
 		}else{
-			throw new \Exception("Timeframe not supported");
+			throw new \Exception("TimeFrame not supported");
 		}
 	}
 
@@ -217,9 +217,9 @@ class statistics extends \nexxomnia\internals\apicall{
 	public function realtimeChartsExternal($timeframe=30):void{
 		$this->path.="realtimechartsexternal";
 		if($this->timeframeIsValid($timeframe)){
-			$this->getParameters()->set("timeframe",$timeframe);
+			$this->getParameters()->set("timeFrame",$timeframe);
 		}else{
-			throw new \Exception("Timeframe not supported");
+			throw new \Exception("TimeFrame not supported");
 		}
 	}
 

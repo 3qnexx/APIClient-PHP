@@ -3,7 +3,7 @@ namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\streamtypes;
 
-class system extends \nexxomnia\internals\apicall{
+class systemcall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

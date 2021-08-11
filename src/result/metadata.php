@@ -9,6 +9,10 @@ class metadata{
 		$this->data=$data;
 	}
 
+	public function updateProcessingTime(float $time):void{
+		$this->data['processingtime']=$time;
+	}
+
 	public function getCode():int{
 		return($this->data['status']);
 	}

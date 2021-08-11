@@ -5,7 +5,7 @@ use nexxomnia\enums\defaults;
 use nexxomnia\apicalls\parameters\sessionparameters;
 use nexxomnia\apicalls\modifiers\sessionmodifiers;
 
-class session extends \nexxomnia\internals\apicall{
+class sessioncall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();

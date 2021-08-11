@@ -22,7 +22,7 @@ class uploadhandler{
 
 	private function getConfig(string $localPath):?array{
 		$config=NULL;
-		$apicall=new apicalls\domain();
+		$apicall=new apicalls\domaincall();
 		$apicall->uploadConfiguration($localPath);
 		$result=$this->apiclient->call($apicall);
 		if($result->isSuccess()){
@@ -70,7 +70,7 @@ class uploadhandler{
 				if($config){
 					$success=$this->doUpload($localPath,$config);
 					if($success){
-						$uploadcall=new apicalls\mediamanagement();
+						$uploadcall=new apicalls\mediamanagementcall();
 						$uploadcall->setStreamtype($streamtype);
 						try{
 							$uploadcall->createFromURL($config['endpoint']."/".$config['file'],$useQueue,$autoPublish,$refnr,$queueStart,$asVariantFor,$asVariantOf);
@@ -112,7 +112,7 @@ class uploadhandler{
 						$success=$this->doUpload($localPath,$config);
 						if($success){
 							try{
-								$uploadcall=new apicalls\mediamanagement();
+								$uploadcall=new apicalls\mediamanagementcall();
 								$uploadcall->setItem($mediaid,$streamtype);
 								$uploadcall->updateItemFile($config['endpoint']."/".$config['file']);
 								$uploadresult=$this->apiclient->call($uploadcall);
@@ -151,7 +151,7 @@ class uploadhandler{
 						$success=$this->doUpload($localPath,$config);
 						if($success){
 							try{
-								$uploadcall=new apicalls\mediamanagement();
+								$uploadcall=new apicalls\mediamanagementcall();
 								$uploadcall->setItem($mediaid,$streamtype);
 								$url=$config['endpoint']."/".$config['file'];
 								switch($coverContext){
@@ -212,7 +212,7 @@ class uploadhandler{
 					if($config){
 						$success=$this->doUpload($localPath,$config);
 						if($success){
-							$uploadcall=new apicalls\mediamanagement();
+							$uploadcall=new apicalls\mediamanagementcall();
 							$uploadcall->setItem($mediaid,$streamtype);
 							try{
 								try{

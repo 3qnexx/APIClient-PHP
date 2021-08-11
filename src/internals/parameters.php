@@ -96,13 +96,13 @@ class parameters{
 		if(is_array($fields)){
 			$fields=implode(",",$fields);
 		}
-		$this->set('additionalfields',$fields);
+		$this->set('additionalFields',$fields);
 	}
 
 	public function setOrder(string $order,string $direction="DESC"):void{
 		$this->set('order',$order);
 		if(in_array(strtoupper($direction),['ASC','DESC'])){
-			$this->set('orderdir',strtoupper($direction));
+			$this->set('orderDir',strtoupper($direction));
 		}
 	}
 
@@ -127,7 +127,7 @@ class parameters{
 		if($limit>defaults::MAX_RESULT_LIMIT){
 			throw new \Exception("max Child Limit is ".defaults::MAX_RESULT_LIMIT);
 		}else{
-			$this->set('childlimit',abs($limit));
+			$this->set('childLimit',abs($limit));
 		}
 	}
 

@@ -5,7 +5,7 @@ use nexxomnia\enums\defaults;
 use nexxomnia\enums\networkmodes;
 use nexxomnia\enums\streamtypes;
 
-class domainmanagement extends \nexxomnia\internals\apicall{
+class domainmanagementcall extends \nexxomnia\internals\apicall{
 
 	protected string $streamtype="";
 	protected string $method="";

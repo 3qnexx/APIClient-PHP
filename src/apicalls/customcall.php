@@ -3,7 +3,7 @@ namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\defaults;
 
-class free extends \nexxomnia\internals\apicall{
+class customcall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();
