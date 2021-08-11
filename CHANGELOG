@@ -4,4 +4,5 @@ CHANGELOG
 1.2.0 (2021-08-11)
 -------------------
 
-* IMPORTANT: renamed all APICall Classes to new names with "call" PostFix.
+* BREAKING: renamed all APICall Classes to new names with "call" PostFix (apicalls/media becomes apicalls/mediacall)
+* BREAKING: renamed apicalls/freecall to apicalls/customcall
