@@ -17,6 +17,10 @@ class resultobject{
 			}else{
 				$toreturn=$this->data[$name];
 			}
+		}else if(isset($this->data['itemupdate'])){
+			if(isset($this->data['itemupdate'][$name])){
+				$toreturn=$this->data['itemupdate'][$name];
+			}
 		}
 		return($toreturn);
 	}
