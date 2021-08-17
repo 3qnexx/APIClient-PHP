@@ -10,23 +10,23 @@ class sessionmodifiers extends modifiers{
 		parent::__construct();
 	}
 
-	public function addDomainData(){
+	public function addDomainData():void{
 		$this->params['addDomainData']=1;
 	}
 
-	public function addTextTemplates(){
+	public function addTextTemplates():void{
 		$this->params['addTextTemplates']=1;
 	}
 
-	public function addPriceModel(){
+	public function addPriceModel():void{
 		$this->params['addPriceModel']=1;
 	}
 
-	public function addAdModel(){
+	public function addAdModel():void{
 		$this->params['addAdModel']=1;
 	}
 
-	public function addChannels(){
+	public function addChannels():void{
 		$this->params['addChannels']=1;
 	}
 
