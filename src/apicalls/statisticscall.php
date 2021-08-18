@@ -10,11 +10,12 @@ use nexxomnia\enums\revenuetypes;
 
 class statisticscall extends \nexxomnia\internals\apicall{
 
-	public function __construct(){
+	public function __construct(string $streamtype=streamtypes::VIDEO){
 		parent::__construct();
 		$this->modifiers=NULL;
 		$this->parameters=new statisticparameters();
 		$this->path="statistics/";
+		$this->setStreamtype($streamtype);
 		$this->setDates(date("Y-m-d",strtotime("-30 days")),date("Y-m-d",strtotime("-1 day")));
 	}
 

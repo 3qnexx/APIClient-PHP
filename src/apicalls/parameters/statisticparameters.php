@@ -26,8 +26,13 @@ class statisticparameters extends parameters{
 		$this->set("includeNetworkDomains",($include?1:0));
 	}
 
-	public function setTimeZone(string $zone):void{
-		$this->set("timezone",$zone);
+	public function setTimezone(string $zone,bool $applyLocalTimezone=TRUE):void{
+		if($applyLocalTimezone){
+			$zone=date_default_timezone_get();
+		}
+		if(!empty($zone)){
+			$this->set("timezone",$zone);
+		}
 	}
 
 	/**

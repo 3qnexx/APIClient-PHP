@@ -58,8 +58,11 @@ class parameters{
 		$this->set('richTextFormat',$format);
 	}
 
-	public function setDateFormat(string $format):void{
+	public function setDateFormat(string $format, bool $applyLocalTimezone=TRUE):void{
 		$this->set('dateFormat',$format);
+		if($applyLocalTimezone){
+			$this->setDateFormatTimezone(date_default_timezone_get());
+		}
 	}
 
 	public function setDateFormatTimezone(string $timezone):void{
