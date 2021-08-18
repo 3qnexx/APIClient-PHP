@@ -13,5 +13,6 @@ class playbackmodes extends \nexxomnia\internals\enum{
 	const PREMIERE="premiere";
 	const MINI="mini";
 	const MICRO="micro";
+	const HERO="hero";
 
 }
