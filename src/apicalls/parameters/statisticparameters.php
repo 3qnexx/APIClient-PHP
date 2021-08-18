@@ -141,7 +141,7 @@ class statisticparameters extends parameters{
 	 */
 	public function restrictToCountry(string $code):void{
 		if(strlen($code)==2){
-			$this->set('countryCode',strtoupper($code));
+			$this->set('countryCode',strtolower($code));
 		}else{
 			throw new \Exception("Country Code must be given in 2-Letter-Format");
 		}
