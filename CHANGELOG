@@ -4,7 +4,7 @@ CHANGELOG
 1.2.1 (2021-08-17)
 -------------------
 
-* the resultobject Class now also supports Access via Object Notation, not only via get* Classes as before
+* the resultobject Class now also supports Access via Object Notation, not only via get* Functions as before
 
 1.2.0 (2021-08-11)
 -------------------
