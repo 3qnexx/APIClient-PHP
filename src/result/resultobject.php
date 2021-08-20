@@ -9,6 +9,22 @@ class resultobject{
 		$this->data=$data;
 	}
 
+	public function __get(string $name){
+		$toreturn=NULL;
+		if(isset($this->data[$name])){
+			if(is_array($this->data[$name])){
+				$toreturn=new resultobject($this->data[$name]);
+			}else{
+				$toreturn=$this->data[$name];
+			}
+		}else if(isset($this->data['itemupdate'])){
+			if(isset($this->data['itemupdate'][$name])){
+				$toreturn=$this->data['itemupdate'][$name];
+			}
+		}
+		return($toreturn);
+	}
+
 	public function __call(string $name,array $arguments){
 		$toreturn=NULL;
 		$originalName=$name;

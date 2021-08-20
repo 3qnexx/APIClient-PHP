@@ -104,7 +104,7 @@ class result{
 		if($this->supportsResultObject()){
 			$toreturn=new resultobject($this->raw['result']);
 		}else{
-			throw new \Exception("result is not iterable");
+			throw new \Exception("result cannot be converted to object.");
 		}
 		return($toreturn);
 	}
@@ -116,7 +116,7 @@ class result{
 		if($this->supportsIterator()){
 			$toreturn=new iterator($this->raw['result'],$asMediaObjects);
 		}else{
-			throw new \Exception("result is not iterable");
+			throw new \Exception("result is not iterable.");
 		}
 		return($toreturn);
 	}
@@ -134,7 +134,6 @@ class result{
 	public function supportsResultObject():bool{
 		$toreturn=FALSE;
 		if($this->isSuccess()){
-			print_r($this->raw);
 			if(($this->raw['result']['general'])||($this->raw['result']['itemupdate'])){
 				$toreturn=TRUE;
 			}

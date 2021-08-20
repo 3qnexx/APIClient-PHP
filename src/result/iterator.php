@@ -39,7 +39,7 @@ class iterator implements \Iterator{
 		return(key($this->data)!==NULL);
 	}
 
-	public function rewind():bool{
-		return(reset($this->data));
+	public function rewind():void{
+		reset($this->data);
 	}
 }

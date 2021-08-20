@@ -240,6 +240,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	public function createLiveStreamFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT):void{
+		$this->setStreamtype(streamtypes::LIVE);
+		$this->verb=defaults::VERB_POST;
+		$this->method="fromautolivelink";
+		if(!empty($title)){
+			$this->getParameters()->set("title",$title);
+		}
+		if(in_array($type,livestreamtypes::getAllTypes())){
+			$this->getParameters()->set("type",$type);
+		}
+	}
+
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
@@ -279,6 +291,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 		}else{
 			throw new \Exception("the LiveLink ID must be given.");
+		}
+	}
+
+	public function createRadioFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT):void{
+		$this->setStreamtype(streamtypes::RADIO);
+		$this->verb=defaults::VERB_POST;
+		$this->method="fromautolivelink";
+		if(!empty($title)){
+			$this->getParameters()->set("title",$title);
+		}
+		if(in_array($type,livestreamtypes::getAllTypes())){
+			$this->getParameters()->set("type",$type);
 		}
 	}
 

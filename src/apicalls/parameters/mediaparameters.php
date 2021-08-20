@@ -1,6 +1,7 @@
 <?php
 namespace nexxomnia\apicalls\parameters;
 
+use nexxomnia\enums\captionformats;
 use nexxomnia\enums\dimensioncodes;
 use nexxomnia\internals\parameters;
 
@@ -29,7 +30,7 @@ class mediaparameters extends parameters{
 	}
 
 	public function restrictToSessionLanguage(bool $restrict):void{
-		$this->params['onylForSessionLanguage']=($restrict?1:0);
+		$this->params['onlyForSessionLanguage']=($restrict?1:0);
 	}
 
 	public function restrictToAudioLanguage(string $lang):void{
@@ -38,16 +39,10 @@ class mediaparameters extends parameters{
 		}
 	}
 
-	/**
-	 * @throws \Exception on invalid Dimension
-	 */
 	public function restrictToDimension(string $dim,int $height=0):void{
 		if(in_array($dim,dimensioncodes::getAllTypes())){
 			$this->params['dimension']=$dim;
-		}else{
-			throw new \Exception("Dimension string is unknown");
-		}
-		if(!empty($height)){
+		}else if(!empty($height)){
 			$this->params['dimension']=$height;
 		}
 	}
@@ -132,8 +127,15 @@ class mediaparameters extends parameters{
 		$this->params['reduceLinkedMediaToID']=1;
 	}
 
+	/**
+	 * @throws \Exception on invalid CaptionFormat
+	 */
 	public function setCaptionFormat(string $format):void{
-		$this->params['captionFormat']=$format;
+		if(in_array($format,captionformats::getAllTypes())){
+			$this->params['captionFormat']=$format;
+		}else{
+			throw new \Exception("CaptionFormat string is unknown");
+		}
 	}
 
 	public function setChannel(int $channel,bool $respectChannelHierarchy=FALSE):void{

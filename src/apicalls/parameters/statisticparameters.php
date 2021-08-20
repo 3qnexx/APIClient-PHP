@@ -13,7 +13,7 @@ use nexxomnia\enums\playbackmodes;
 use nexxomnia\enums\datamodes;
 use nexxomnia\enums\mediaorigins;
 use nexxomnia\enums\startconditions;
-use nexxomnia\enums\viewcount;
+use nexxomnia\enums\viewcounttypes;
 use nexxomnia\internals\parameters;
 
 class statisticparameters extends parameters{
@@ -26,8 +26,13 @@ class statisticparameters extends parameters{
 		$this->set("includeNetworkDomains",($include?1:0));
 	}
 
-	public function setTimeZone(string $zone):void{
-		$this->set("timezone",$zone);
+	public function setTimezone(string $zone,bool $applyLocalTimezone=TRUE):void{
+		if($applyLocalTimezone){
+			$zone=date_default_timezone_get();
+		}
+		if(!empty($zone)){
+			$this->set("timezone",$zone);
+		}
 	}
 
 	/**
@@ -141,7 +146,7 @@ class statisticparameters extends parameters{
 	 */
 	public function restrictToCountry(string $code):void{
 		if(strlen($code)==2){
-			$this->set('countryCode',strtoupper($code));
+			$this->set('countryCode',strtolower($code));
 		}else{
 			throw new \Exception("Country Code must be given in 2-Letter-Format");
 		}
@@ -218,7 +223,7 @@ class statisticparameters extends parameters{
 	 * @throws \Exception on invalid condition
 	 */
 	public function restrictToViewCount(string $viewcount):void{
-		if(in_array($viewcount,viewcount::getAllTypes())){
+		if(in_array($viewcount,viewcounttypes::getAllTypes())){
 			$this->set('viewCount',$viewcount);
 		}else{
 			throw new \Exception("viewCount string is unknown");

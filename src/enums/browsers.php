@@ -8,7 +8,7 @@ class browsers extends  \nexxomnia\internals\enum{
 	const EDGE='edge';
 	const EXPLORER='explorer';
 	const SAFARI='safari';
-	const OPERAT='opera';
+	const OPERA='opera';
 	const SAMSUNG='samsung browser';
 	const HUAWEI='huawei browser';
 

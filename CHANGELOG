@@ -1,7 +1,13 @@
 CHANGELOG
 =========
 
-1.0.0
----
+1.2.1 (2021-08-17)
+-------------------
 
- * initial Version
+* the resultobject Class now also supports Access via Object Notation, not only via get* Functions as before
+
+1.2.0 (2021-08-11)
+-------------------
+
+* BREAKING: renamed all APICall Classes to new names with "call" PostFix (apicalls/media becomes apicalls/mediacall)
+* BREAKING: renamed apicalls/freecall to apicalls/customcall
