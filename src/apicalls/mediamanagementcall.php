@@ -9,6 +9,7 @@ use nexxomnia\enums\exportparts;
 use nexxomnia\enums\externalplatforms;
 use nexxomnia\enums\externalstates;
 use nexxomnia\enums\highlightvideopurposes;
+use nexxomnia\enums\livesourcetypes;
 use nexxomnia\enums\livestreamtypes;
 use nexxomnia\enums\querymodes;
 use nexxomnia\enums\rejectreasons;
@@ -240,12 +241,20 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	public function createLiveStreamFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT):void{
+	public function createLiveStreamFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT,string $sourceType=livesourcetypes::RTMP,bool $enableDVR=FALSE):void{
 		$this->setStreamtype(streamtypes::LIVE);
 		$this->verb=defaults::VERB_POST;
 		$this->method="fromautolivelink";
 		if(!empty($title)){
 			$this->getParameters()->set("title",$title);
+		}
+		if(!empty($sourceType)){
+			if(in_array($type,livesourcetypes::getAllTypes())){
+				$this->getParameters()->set("sourceType",$type);
+			}
+		}
+		if($enableDVR){
+			$this->getParameters()->set("enableDVR",1);
 		}
 		if(in_array($type,livestreamtypes::getAllTypes())){
 			$this->getParameters()->set("type",$type);
