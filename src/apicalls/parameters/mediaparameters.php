@@ -233,12 +233,12 @@ class mediaparameters extends parameters{
 		$this->params['includeBonus']=($include?1:0);
 	}
 
-	public function includePremieres(bool $include,bool $onlyPremieres=FALSE):void{
-		if($onlyPremieres){
-			$include=1;
-			$this->params['onlyPremieres']=1;
-		}
+	public function includePremieres(bool $include):void{
 		$this->params['includePremieres']=($include?1:0);
+	}
+
+	public function includeAutoRecordings(bool $include):void{
+		$this->params['includeAutoRecordings']=($include?1:0);
 	}
 
 	public function includeEpisodes(bool $include,bool $onlyEpisodes=FALSE):void{
