@@ -373,6 +373,18 @@ class mediacall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Streamtype or Media ID
 	 */
+	public function byLinkedToItem(int $itemid,string $streamtype):void{
+		$this->verifyParameter("byvideo",0,[streamtypes::PLACE,streamtypes::SHOW,streamtypes::PERSON,streamtypes::LINK],TRUE);
+		if(empty($itemid)){
+			throw new \Exception("ItemID cant be empty");
+		}else if(empty($streamtype)){
+			throw new \Exception("Item Streamtype cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function today():void{
 		$this->verifyParameter("today",0,[streamtypes::EVENT],TRUE);
 	}
