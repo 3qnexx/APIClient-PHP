@@ -54,8 +54,8 @@ class mediamodifiers extends modifiers{
 		$this->params['addFaceDetails']=1;
 	}
 
-	public function addPostcastDetails():void{
-		$this->params['addPostcastDetails']=1;
+	public function addPodcastDetails():void{
+		$this->params['addPodcastDetails']=1;
 	}
 
 	public function addRenditionDetails():void{
