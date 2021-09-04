@@ -25,6 +25,7 @@ class streamtypes extends  \nexxomnia\internals\enum{
 	const LINK='link';
 	const POST='post';
 	const PERSON='person';
+	const PRODUCT='product';
 	const GROUP='group';
 	const SHOW='show';
 

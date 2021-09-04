@@ -1,19 +1,15 @@
 <?php
 namespace nexxomnia\result;
 
-use nexxomnia\enums\defaults;
-
 class result{
 
 	protected int $code=0;
-	protected string $endpoint="";
 	protected ?array $raw=NULL;
 	protected ?paging $paging=NULL;
 	protected ?metadata $metadata=NULL;
 
-	public function __construct(?\Psr\Http\Message\ResponseInterface $response, string $endpoint='',?\Psr\Log\LoggerInterface $logger=NULL){
+	public function __construct(?\Psr\Http\Message\ResponseInterface $response,?\Psr\Log\LoggerInterface $logger=NULL){
 		if($response){
-			$this->endpoint=$endpoint;
 			$this->code=$response->getStatusCode();
 			$this->raw=json_decode($response->getBody(),TRUE);
 			if($this->raw['metadata']){
@@ -29,34 +25,6 @@ class result{
 		}else if($logger){
 			$logger->error("API RESULT GOT NO RESPONSE");
 		}
-	}
-
-	private function isManageCall():bool{
-		return(strpos($this->endpoint,defaults::API_KIND_MANAGE)===0);
-	}
-
-	private function isProcessingCall():bool{
-		return(strpos($this->endpoint,defaults::API_KIND_PROCESSING)===0);
-	}
-
-	private function isSessionCall():bool{
-		return(strpos($this->endpoint,defaults::API_KIND_SESSION)===0);
-	}
-
-	private function isStatisticsCall():bool{
-		return(strpos($this->endpoint,defaults::API_KIND_STATISTICS)===0);
-	}
-
-	private function isDomainCall():bool{
-		return(strpos($this->endpoint,defaults::API_KIND_DOMAIN)===0);
-	}
-
-	private function isSystemCall():bool{
-		return(strpos($this->endpoint,defaults::API_KIND_SYSTEM)===0);
-	}
-
-	private function isMediaCall():bool{
-		return((!$this->isDomainCall())&&(!$this->isManageCall())&&(!$this->isSessionCall())&&(!$this->isStatisticsCall())&&(!$this->isSystemCall())&&(!$this->isProcessingCall()));
 	}
 
 	public function getRawResponse():?array{

@@ -7,6 +7,7 @@ class kpis extends \nexxomnia\internals\enum{
 	const PLAYERSTART="playerstart";
 	const VIEW="view";
 	const VIEWTIME="viewtime";
+	const VIEWTIMEAVERAGE="viewtimeaverage";
 	const VIEWEXTERNAL="viewexternal";
 	const DOWNLOAD="download";
 	const CLICK="click";

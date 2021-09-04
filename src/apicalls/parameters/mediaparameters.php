@@ -2,7 +2,9 @@
 namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\enums\captionformats;
+use nexxomnia\enums\connectedmediadetails;
 use nexxomnia\enums\dimensioncodes;
+use nexxomnia\enums\streamtypes;
 use nexxomnia\internals\parameters;
 
 class mediaparameters extends parameters{
@@ -111,69 +113,69 @@ class mediaparameters extends parameters{
 		}
 	}
 
-	public function setSelectedStreamtypes(array $list):void{
-		if(!empty($list)){
-			$this->params['selectedStreamtypes']=implode(",",$list);
-		}
-	}
-
-	public function setInsightFields(array $list):void{
-		if(!empty($list)){
-			$this->params['insightFields']=implode(",",$list);
-		}
-	}
-
-	public function setLinkedMediaFormatToID():void{
-		$this->params['reduceLinkedMediaToID']=1;
-	}
-
 	/**
-	 * @throws \Exception on invalid CaptionFormat
+	 * @throws \Exception on invalid DetailLevel
 	 */
-	public function setCaptionFormat(string $format):void{
-		if(in_array($format,captionformats::getAllTypes())){
-			$this->params['captionFormat']=$format;
+	public function setConnectedMediaDetails(string $level=connectedmediadetails::DEFAULT):void{
+		if(in_array($level,connectedmediadetails::getAllTypes())){
+			$this->params['connectedMediaDetails']=$level;
 		}else{
-			throw new \Exception("CaptionFormat string is unknown");
+			throw new \Exception("Detail Level is unknown");
 		}
 	}
 
-	public function setChannel(int $channel,bool $respectChannelHierarchy=FALSE):void{
+	public function restrictToChannel(int $channel,bool $respectChannelHierarchy=FALSE):void{
 		$this->params['channel']=$channel;
 		if($respectChannelHierarchy){
 			$this->params['respectChannelHierarchy']=1;
 		}
 	}
 
-	public function setFormat(int $format):void{
+	public function restrictToFormat(int $format):void{
 		$this->params['format']=$format;
 	}
 
-	public function setGenre(int $genre):void{
+	public function restrictToGenre(int $genre):void{
 		$this->params['genre']=$genre;
 	}
 
-	public function setType(string $type):void{
+	public function restrictToType(string $type):void{
 		$this->params['type']=$type;
 	}
 
-	public function setPurpose(string $purpose):void{
+	public function restrictToPurpose(string $purpose):void{
 		$this->params['purpose']=$purpose;
 	}
 
 	//only valid for POST
-	public function setPlatform(string $platform):void{
+	public function restrictToPlatform(string $platform):void{
 		$this->params['platform']=$platform;
 	}
 
 	//only valid for POST
-	public function setAccount(int $account):void{
+	public function restrictToAccount(int $account):void{
 		$this->params['account']=$account;
 	}
 
 	//only valid for FILE
-	public function setFileType(string $type):void{
-		$this->params['filetype']=$type;
+	public function restrictTotFileType(string $type):void{
+		$this->params['fileType']=$type;
+	}
+
+	//only valid for STUDIO
+	public function restrictToStreamtype(string $type=streamtypes::VIDEO):void{
+		if(in_array($type,[streamtypes::VIDEO,streamtypes::AUDIO])){
+			$this->params['forStreamtype']=$type;
+		}else{
+			throw new \Exception("Streamtype is not supported.");
+		}
+	}
+
+	//only valid for COLLECTIONS // ALLMEDIA
+	public function restrictToStreamtypes(array $list):void{
+		if(!empty($list)){
+			$this->params['selectedStreamtypes']=implode(",",$list);
+		}
 	}
 
 	public function includeUGC(bool $include,bool $onlyUGC=FALSE,$onlyForUser=0):void{
