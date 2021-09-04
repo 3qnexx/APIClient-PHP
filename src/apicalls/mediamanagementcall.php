@@ -924,6 +924,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function connectFileToItem(int $fileID=0):void{
+		if($fileID>0){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="connectfile/".$fileID;
+		}else{
+			throw new \Exception("the ID of the File must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectPersonToItem(int $personID=0):void{
 		if($personID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -972,12 +984,36 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function connectProductToItem(int $productID=0):void{
+		if($productID>0){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="connectproduct/".$productID;
+		}else{
+			throw new \Exception("the ID of the Product must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeLinkFromItem(int $linkID=0):void{
 		if($linkID>0){
 			$this->verb=defaults::VERB_DELETE;
 			$this->method="removelink/".$linkID;
 		}else{
 			throw new \Exception("the ID of the Link must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeFileFromItem(int $fileID=0):void{
+		if($fileID>0){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removefile/".$fileID;
+		}else{
+			throw new \Exception("the ID of the File must be given.");
 		}
 	}
 
@@ -1026,6 +1062,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->method="removeplace/".$placeID;
 		}else{
 			throw new \Exception("the ID of the Place must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeProductFromItem(int $productID=0):void{
+		if($productID>0){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removeproduct/".$productID;
+		}else{
+			throw new \Exception("the ID of the Product must be given.");
 		}
 	}
 
