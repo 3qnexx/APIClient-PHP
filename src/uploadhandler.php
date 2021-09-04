@@ -4,6 +4,7 @@ namespace nexxomnia;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use nexxomnia\enums\covercontexts;
 use nexxomnia\enums\streamtypes;
+use nexxomnia\result\result;
 
 class uploadhandler{
 
@@ -59,8 +60,8 @@ class uploadhandler{
 	/**
 	 * @throws \Exception on any Processing Error
 	 */
-	public function uploadMedia($localPath,$streamtype=streamtypes::VIDEO,bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0):int{
-		$mediaid=0;
+	public function uploadMedia($localPath,$streamtype=streamtypes::VIDEO,bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0):?result{
+		$media=NULL;
 		if($this->apiclient){
 			if(!$useQueue){
 				$this->apiclient->setTimeout(300);
@@ -77,7 +78,7 @@ class uploadhandler{
 							$uploadcall->getParameters()->set('filename',pathinfo($localPath)['basename']);
 							$uploadresult=$this->apiclient->call($uploadcall);
 							if($uploadresult->isSuccess()){
-								$mediaid=$uploadresult->getResultObject()->getGeneratedID();
+								$media=$uploadresult;
 							}else{
 								throw new \Exception("internal error.");
 							}
@@ -96,7 +97,7 @@ class uploadhandler{
 		}else{
 			throw new \Exception("APIClient must be configured and ready.");
 		}
-		return($mediaid);
+		return($media);
 	}
 
 	/**
