@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class rejectreasons extends \nexxomnia\internals\enum{
+class rejectactions extends \nexxomnia\internals\enum{
 
 	const DELETE='delete';
 	const ARCHIVE='archive';

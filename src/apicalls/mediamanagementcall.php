@@ -11,8 +11,9 @@ use nexxomnia\enums\externalstates;
 use nexxomnia\enums\highlightvideopurposes;
 use nexxomnia\enums\livesourcetypes;
 use nexxomnia\enums\livestreamtypes;
+use nexxomnia\enums\topicitemsources;
 use nexxomnia\enums\querymodes;
-use nexxomnia\enums\rejectreasons;
+use nexxomnia\enums\rejectactions;
 use nexxomnia\enums\scenepurposes;
 use nexxomnia\enums\streamtypes;
 
@@ -152,7 +153,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", string $searchFields="", int $channel=0, int $format=0):void{
+	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", array $searchFields=[], int $channel=0, int $format=0):void{
 		if(in_array($this->streamtype,streamtypes::getSimpleContainerTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="fromtopic";
@@ -165,7 +166,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			if(!empty($topic)){
 				$isSearch=TRUE;
 				if(!empty($searchFields)){
-					$this->getParameters()->set("searchFields",$searchFields);
+					$this->getParameters()->set("searchFields",implode(",",$searchFields));
 				}
 				if((!empty($searchMode))&&(in_array($searchMode,querymodes::getAllTypes()))){
 					$this->getParameters()->set("searchMode",$searchMode);
@@ -186,6 +187,10 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if((!$isSearch)&&(empty($itemSource))){
 				throw new \Exception("if no topic is given, an itemSource is necessary.");
+			}else if(in_array($itemSource,topicitemsources::getAllTypes())){
+				$this->getParameters()->set("itemSource",$itemSource);
+			}else{
+				throw new \Exception("if no topic is given, a valid itemSource is necessary.");
 			}
 			if(!empty($channel)){
 				$this->getParameters()->set("channel",$channel);
@@ -215,8 +220,8 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("includeAudio",1);
 			}
 			if(in_array($purpose,highlightvideopurposes::getAllTypes())){
-
-			}$this->getParameters()->set("purpose",$purpose);
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the Video ID must be given.");
 		}
@@ -352,7 +357,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
 			}
-			if(in_array($purpose,livestreamtypes::getAllTypes())){
+			if(in_array($purpose,scenepurposes::getAllTypes())){
 				$this->getParameters()->set("purpose",$purpose);
 			}
 		}else{
@@ -547,7 +552,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->getParameters()->set("reason",$reason);
 		}
 		if(!empty($action)){
-			if(in_array($action,rejectreasons::getAllTypes())){
+			if(in_array($action,rejectactions::getAllTypes())){
 				$this->getParameters()->set("action",$action);
 			}
 		}
