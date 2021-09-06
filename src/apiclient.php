@@ -1,12 +1,10 @@
 <?php
 namespace nexxomnia;
 
-use nexxomnia\apicalls\mediamanagementcall;
-use nexxomnia\apicalls\statisticscall;
-use nexxomnia\apicalls\mediacall;
 use nexxomnia\enums\defaults;
 use nexxomnia\internals\parameters;
 use nexxomnia\internals\modifiers;
+use nexxomnia\internals\tools;
 use nexxomnia\result\result;
 
 class apiclient{
@@ -132,23 +130,20 @@ class apiclient{
 		}catch(\Exception $e){
 			$this->log("APICLIENT EXCEPTION: ".$e->getMessage(),\Psr\Log\LogLevel::ERROR);
 		}
-		return(new result($request,$endpoint,$this->logger));
+		return(new result($request,$this->logger));
 	}
 
 	public function call(internals\apicall $call,bool $fetchAllPossibleResults=FALSE):result{
 		if($fetchAllPossibleResults){
-			if($call instanceof mediacall){
+			if(tools::isMediaCall($call->getPath())){
 				$this->log("PREPARING FOR CATCHING ALL RESULTS");
 				$call->getParameters()->setLimit(defaults::MAX_RESULT_LIMIT);
 			}else{
 				$fetchAllPossibleResults=FALSE;
 			}
 		}
-		if(($call instanceof statisticscall)||($call instanceof mediamanagementcall)){
-			if($this->timeout<30){
-				$this->log("RAISING TIMEOUT TO 30 SECONDS AUTOMATICALLY");
-				$this->timeout=30;
-			}
+		if(tools::callShouldIncreaseTimeout($call->getPath())){
+			$this->setTimeout(max($this->timeout,30));
 		}
 		$result=$this->callAPI($call->getVerb(),$call->getPath(),$call->getParameters(),$call->getModifiers());
 		if($result->isSuccess()){

@@ -219,9 +219,9 @@ class mediacall extends \nexxomnia\internals\apicall{
 		if(!empty($query)){
 			if(in_array($queryMode,querymodes::getAllTypes())){
 				$this->method="byquery/".urlencode($query);
-				$this->getParameters()->set("querymode",$queryMode);
+				$this->getParameters()->set("queryMode",$queryMode);
 				if(!empty($queryFields)){
-					$this->getParameters()->set("queryfields",$queryFields);
+					$this->getParameters()->set("queryFields",$queryFields);
 				}
 				if($queryMode==querymodes::FULLTEXT){
 					if(!empty($minimalQueryScore)){
@@ -248,7 +248,7 @@ class mediacall extends \nexxomnia\internals\apicall{
 		if(!empty($geoQuery)){
 			if(in_array($geoMode,geoquerymodes::getAllTypes())){
 				$this->method="bygeo/".urlencode($geoQuery);
-				$this->getParameters()->set("geomode",$geoMode);
+				$this->getParameters()->set("geoMode",$geoMode);
 				$this->getParameters()->set("distance",$distance);
 			}else{
 				throw new \Exception("GeoMode not supported");
@@ -317,6 +317,22 @@ class mediacall extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	public function byProduct(string $name,int $id):void{
+		if(!empty($name)){
+			$this->method="byproduct/".urlencode($name);
+		}else if(!empty($id)){
+			$this->method="byproductid/".$id;
+		}
+	}
+
+	public function byFile(string $name,int $id):void{
+		if(!empty($name)){
+			$this->method="byfile/".urlencode($name);
+		}else if(!empty($id)){
+			$this->method="byfileid/".$id;
+		}
+	}
+
 	public function byUser(int $userid):void{
 		$this->method="byuser/".$userid;
 	}
@@ -368,6 +384,21 @@ class mediacall extends \nexxomnia\internals\apicall{
 	 */
 	public function byVideo(int $videoid):void{
 		$this->verifyParameter("byvideo",$videoid,[streamtypes::SCENE]);
+	}
+
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
+	public function byConnectedToItem(int $itemid,string $streamtype):void{
+		$this->verifyParameter("connectedtoitem",0,[streamtypes::PLACE,streamtypes::SHOW,streamtypes::PERSON,streamtypes::LINK,streamtypes::PRODUCT,streamtypes::FILE],TRUE);
+		if(empty($itemid)){
+			throw new \Exception("ItemID cant be empty");
+		}else if(empty($streamtype)){
+			throw new \Exception("Item Streamtype cant be empty");
+		}else{
+			$this->getParameters()->set("item",$itemid);
+			$this->getParameters()->set("streamtype",$streamtype);
+		}
 	}
 
 	/**

@@ -65,7 +65,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	 * @throws \Exception on invalid Domain ID
 	 */
 	public function markForDeletion(int $domainid=0):void{
-		if(!empty($domainID)){
+		if(!empty($domainid)){
 			$this->setItem($domainid,"domain");
 			$this->verb=defaults::VERB_DELETE;
 			$this->method="markfordeletion";

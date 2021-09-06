@@ -9,9 +9,11 @@ use nexxomnia\enums\exportparts;
 use nexxomnia\enums\externalplatforms;
 use nexxomnia\enums\externalstates;
 use nexxomnia\enums\highlightvideopurposes;
+use nexxomnia\enums\livesourcetypes;
 use nexxomnia\enums\livestreamtypes;
+use nexxomnia\enums\topicitemsources;
 use nexxomnia\enums\querymodes;
-use nexxomnia\enums\rejectreasons;
+use nexxomnia\enums\rejectactions;
 use nexxomnia\enums\scenepurposes;
 use nexxomnia\enums\streamtypes;
 
@@ -151,7 +153,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", string $searchFields="", int $channel=0, int $format=0):void{
+	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", array $searchFields=[], int $channel=0, int $format=0):void{
 		if(in_array($this->streamtype,streamtypes::getSimpleContainerTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="fromtopic";
@@ -164,7 +166,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			if(!empty($topic)){
 				$isSearch=TRUE;
 				if(!empty($searchFields)){
-					$this->getParameters()->set("searchFields",$searchFields);
+					$this->getParameters()->set("searchFields",implode(",",$searchFields));
 				}
 				if((!empty($searchMode))&&(in_array($searchMode,querymodes::getAllTypes()))){
 					$this->getParameters()->set("searchMode",$searchMode);
@@ -185,6 +187,10 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if((!$isSearch)&&(empty($itemSource))){
 				throw new \Exception("if no topic is given, an itemSource is necessary.");
+			}else if(in_array($itemSource,topicitemsources::getAllTypes())){
+				$this->getParameters()->set("itemSource",$itemSource);
+			}else{
+				throw new \Exception("if no topic is given, a valid itemSource is necessary.");
 			}
 			if(!empty($channel)){
 				$this->getParameters()->set("channel",$channel);
@@ -214,8 +220,8 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("includeAudio",1);
 			}
 			if(in_array($purpose,highlightvideopurposes::getAllTypes())){
-
-			}$this->getParameters()->set("purpose",$purpose);
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the Video ID must be given.");
 		}
@@ -240,12 +246,20 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	public function createLiveStreamFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT):void{
+	public function createLiveStreamFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT,string $sourceType=livesourcetypes::RTMP,bool $enableDVR=FALSE):void{
 		$this->setStreamtype(streamtypes::LIVE);
 		$this->verb=defaults::VERB_POST;
 		$this->method="fromautolivelink";
 		if(!empty($title)){
 			$this->getParameters()->set("title",$title);
+		}
+		if(!empty($sourceType)){
+			if(in_array($type,livesourcetypes::getAllTypes())){
+				$this->getParameters()->set("sourceType",$type);
+			}
+		}
+		if($enableDVR){
+			$this->getParameters()->set("enableDVR",1);
 		}
 		if(in_array($type,livestreamtypes::getAllTypes())){
 			$this->getParameters()->set("type",$type);
@@ -343,7 +357,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
 			}
-			if(in_array($purpose,livestreamtypes::getAllTypes())){
+			if(in_array($purpose,scenepurposes::getAllTypes())){
 				$this->getParameters()->set("purpose",$purpose);
 			}
 		}else{
@@ -538,7 +552,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->getParameters()->set("reason",$reason);
 		}
 		if(!empty($action)){
-			if(in_array($action,rejectreasons::getAllTypes())){
+			if(in_array($action,rejectactions::getAllTypes())){
 				$this->getParameters()->set("action",$action);
 			}
 		}
@@ -910,6 +924,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function connectFileToItem(int $fileID=0):void{
+		if($fileID>0){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="connectfile/".$fileID;
+		}else{
+			throw new \Exception("the ID of the File must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function connectPersonToItem(int $personID=0):void{
 		if($personID>0){
 			$this->verb=defaults::VERB_PUT;
@@ -958,12 +984,36 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function connectProductToItem(int $productID=0):void{
+		if($productID>0){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="connectproduct/".$productID;
+		}else{
+			throw new \Exception("the ID of the Product must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function removeLinkFromItem(int $linkID=0):void{
 		if($linkID>0){
 			$this->verb=defaults::VERB_DELETE;
 			$this->method="removelink/".$linkID;
 		}else{
 			throw new \Exception("the ID of the Link must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeFileFromItem(int $fileID=0):void{
+		if($fileID>0){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removefile/".$fileID;
+		}else{
+			throw new \Exception("the ID of the File must be given.");
 		}
 	}
 
@@ -1012,6 +1062,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->method="removeplace/".$placeID;
 		}else{
 			throw new \Exception("the ID of the Place must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeProductFromItem(int $productID=0):void{
+		if($productID>0){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removeproduct/".$productID;
+		}else{
+			throw new \Exception("the ID of the Product must be given.");
 		}
 	}
 

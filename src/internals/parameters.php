@@ -95,7 +95,7 @@ class parameters{
 		}
 	}
 
-	public function setAdditionalReturnFields($fields):void{
+	public function setAdditionalReturnFields($fields='all'):void{
 		if(is_array($fields)){
 			$fields=implode(",",$fields);
 		}

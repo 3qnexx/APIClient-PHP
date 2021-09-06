@@ -2,6 +2,8 @@
 
 namespace nexxomnia\apicalls\modifiers;
 
+use nexxomnia\enums\captionformats;
+use nexxomnia\enums\connectedmediadetails;
 use nexxomnia\internals\modifiers;
 
 class mediamodifiers extends modifiers{
@@ -12,14 +14,6 @@ class mediamodifiers extends modifiers{
 
 	public function addGeoDetails():void{
 		$this->params['addGeoDetails']=1;
-	}
-
-	public function addPersonDetails():void{
-		$this->params['addPersonDetails']=1;
-	}
-
-	public function addShowDetails():void{
-		$this->params['addShowDetails']=1;
 	}
 
 	public function addAuthorDetails():void{
@@ -54,8 +48,8 @@ class mediamodifiers extends modifiers{
 		$this->params['addFaceDetails']=1;
 	}
 
-	public function addPostcastDetails():void{
-		$this->params['addPostcastDetails']=1;
+	public function addPodcastDetails():void{
+		$this->params['addPodcastDetails']=1;
 	}
 
 	public function addRenditionDetails():void{
@@ -74,8 +68,18 @@ class mediamodifiers extends modifiers{
 		$this->params['addInteractionOptions']=1;
 	}
 
-	public function addLinkedMedia():void{
-		$this->params['addLinkedMedia']=1;
+	public function addConnectedMedia($options="all",$connectedMediaDetails=""):void{
+		if(is_array($options)){
+			$options=implode(",",$options);
+		}
+		$this->params['addConnectedMedia']=$options;
+		if(!empty($connectedMediaDetails)){
+			if(in_array($connectedMediaDetails,connectedmediadetails::getAllTypes())){
+				$this->params['connectedMediaDetails']=$connectedMediaDetails;
+			}else{
+				throw new \Exception("Detail Level is unknown");
+			}
+		}
 	}
 
 	public function addComments(bool $onlyFromLoggedInUser=FALSE):void{
@@ -129,8 +133,8 @@ class mediamodifiers extends modifiers{
 		$this->params['addBroadcastLinks']=1;
 	}
 
-	public function addFileDetails():void{
-		$this->params['addFileDetails']=1;
+	public function addFileURLs():void{
+		$this->params['addFileURLs']=1;
 	}
 
 	public function addStreamingURLs():void{
@@ -141,8 +145,22 @@ class mediamodifiers extends modifiers{
 		$this->params['addFeatures']=1;
 	}
 
-	public function addInsights():void{
-		$this->params['addInsights']=1;
+	public function addInsights($options="all"):void{
+		if(is_array($options)){
+			$options=implode(",",$options);
+		}
+		$this->params['addInsights']=$options;
+	}
+
+	/**
+	 * @throws \Exception on invalid CaptionFormat
+	 */
+	public function addCaptions(string $format=captionformats::DATA):void{
+		if(in_array($format,captionformats::getAllTypes())){
+			$this->params['addCaptions']=$format;
+		}else{
+			throw new \Exception("CaptionFormat string is unknown");
+		}
 	}
 
 	public function addScenes():void{
