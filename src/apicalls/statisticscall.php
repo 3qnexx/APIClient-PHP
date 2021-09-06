@@ -230,6 +230,7 @@ class statisticscall extends \nexxomnia\internals\apicall{
 	public function itemlist(string $kpi):void{
 		if(in_array($kpi,kpis::getAllTypes())){
 			$this->path.="itemlist";
+			$this->getParameters()->set("kpi",$kpi);
 		}else{
 			throw new \Exception("KPI not supported");
 		}
