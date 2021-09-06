@@ -1,10 +1,6 @@
 <?php
 namespace nexxomnia;
 
-use nexxomnia\apicalls\customcall;
-use nexxomnia\apicalls\mediamanagementcall;
-use nexxomnia\apicalls\statisticscall;
-use nexxomnia\apicalls\mediacall;
 use nexxomnia\enums\defaults;
 use nexxomnia\internals\parameters;
 use nexxomnia\internals\modifiers;
