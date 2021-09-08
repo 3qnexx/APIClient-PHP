@@ -12,11 +12,11 @@ class result{
 		if($response){
 			$this->code=$response->getStatusCode();
 			$this->raw=json_decode($response->getBody(),TRUE);
-			if($this->raw['metadata']){
+			if(!empty($this->raw['metadata'])){
 				$this->metadata=new metadata($this->raw['metadata']);
 			}
 			if($this->isSuccess()){
-				if($this->raw['paging']){
+				if(!empty($this->raw['paging'])){
 					$this->paging=new paging($this->raw['paging'],sizeof($this->raw['result']));
 				}
 			}else if($logger){
