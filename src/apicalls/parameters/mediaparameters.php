@@ -235,6 +235,14 @@ class mediaparameters extends parameters{
 		$this->params['includeBonus']=($include?1:0);
 	}
 
+	public function includeLiveRepresentations(bool $include,bool $onlyRepresentations=FALSE):void{
+		if($onlyRepresentations){
+			$include=1;
+			$this->params['onlyLiveRepresentations']=1;
+		}
+		$this->params['includeLiveRepresentations']=($include?1:0);
+	}
+
 	public function includePremieres(bool $include):void{
 		$this->params['includePremieres']=($include?1:0);
 	}
