@@ -9,6 +9,7 @@ use nexxomnia\enums\exportparts;
 use nexxomnia\enums\externalplatforms;
 use nexxomnia\enums\externalstates;
 use nexxomnia\enums\highlightvideopurposes;
+use nexxomnia\enums\liveplaybackstates;
 use nexxomnia\enums\livesourcetypes;
 use nexxomnia\enums\livestreamtypes;
 use nexxomnia\enums\topicitemsources;
@@ -670,6 +671,35 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->method="archive";
 		}else{
 			throw new \Exception("Streamtype must be video");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function terminateStream():void{
+		if(in_array($this->streamtype,[streamtypes::LIVE])){
+			$this->verb=defaults::VERB_POST;
+			$this->method="terminate";
+		}else{
+			throw new \Exception("Streamtype must be live");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function updatePlaybackState(string $state):void{
+		if(in_array($this->streamtype,[streamtypes::LIVE])){
+			if(in_array($state,liveplaybackstates::getAllTypes())){
+				$this->verb=defaults::VERB_POST;
+				$this->method="updateplaybackstate";
+				$this->getParameters()->set('state',$state);
+			}else{
+				throw new \Exception("Live PlaybackState must be in on,pause");
+			}
+		}else{
+			throw new \Exception("Streamtype must be live");
 		}
 	}
 
