@@ -143,6 +143,12 @@ class mediaparameters extends parameters{
 		$this->params['type']=$type;
 	}
 
+	//only valid for VIDEO and IMAGE
+	public function restrictToContentType(string $type):void{
+		$this->params['contentType']=$type;
+	}
+
+	//only valid for SCENE and LINK
 	public function restrictToPurpose(string $purpose):void{
 		$this->params['purpose']=$purpose;
 	}
