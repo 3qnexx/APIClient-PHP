@@ -5,5 +5,6 @@ class liveplaybackstates extends \nexxomnia\internals\enum{
 
 	const ON='on';
 	const PAUSE='pause';
+	const END='end';
 
 }
