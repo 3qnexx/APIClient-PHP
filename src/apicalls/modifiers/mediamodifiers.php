@@ -3,6 +3,7 @@
 namespace nexxomnia\apicalls\modifiers;
 
 use nexxomnia\enums\captionformats;
+use nexxomnia\enums\commentcontexts;
 use nexxomnia\enums\connectedmediadetails;
 use nexxomnia\internals\modifiers;
 
@@ -82,10 +83,11 @@ class mediamodifiers extends modifiers{
 		}
 	}
 
-	public function addComments(bool $onlyFromLoggedInUser=FALSE):void{
-		$this->params['addComments']=1;
-		if($onlyFromLoggedInUser){
-			$this->params['addCommentsFromLoggedinUserOnly']=1;
+	public function addComments(string $context=commentcontexts::ALL):void{
+		if(in_array($context,commentcontexts::getAllTypes())){
+			$this->params['addComments']=$context;
+		}else{
+			throw new \Exception("Comment Context is unknown");
 		}
 	}
 

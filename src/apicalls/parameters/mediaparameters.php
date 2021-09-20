@@ -143,6 +143,12 @@ class mediaparameters extends parameters{
 		$this->params['type']=$type;
 	}
 
+	//only valid for VIDEO and IMAGE
+	public function restrictToContentType(string $type):void{
+		$this->params['contentType']=$type;
+	}
+
+	//only valid for SCENE and LINK
 	public function restrictToPurpose(string $purpose):void{
 		$this->params['purpose']=$purpose;
 	}
@@ -233,6 +239,14 @@ class mediaparameters extends parameters{
 			$this->params['onlyBonus']=1;
 		}
 		$this->params['includeBonus']=($include?1:0);
+	}
+
+	public function includeLiveRepresentations(bool $include,bool $onlyRepresentations=FALSE):void{
+		if($onlyRepresentations){
+			$include=1;
+			$this->params['onlyLiveRepresentations']=1;
+		}
+		$this->params['includeLiveRepresentations']=($include?1:0);
 	}
 
 	public function includePremieres(bool $include):void{
