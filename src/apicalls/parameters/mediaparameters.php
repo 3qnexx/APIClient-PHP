@@ -253,8 +253,8 @@ class mediaparameters extends parameters{
 		$this->params['includePremieres']=($include?1:0);
 	}
 
-	public function includeAutoRecordings(bool $include):void{
-		$this->params['includeAutoRecordings']=($include?1:0);
+	public function includeReLive(bool $include):void{
+		$this->params['includeReLive']=($include?1:0);
 	}
 
 	public function includeEpisodes(bool $include,bool $onlyEpisodes=FALSE):void{

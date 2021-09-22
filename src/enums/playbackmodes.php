@@ -11,7 +11,7 @@ class playbackmodes extends \nexxomnia\internals\enum{
 	const PRESENTATION="presentation";
 	const ENDLESS="endless";
 	const PREMIERE="premiere";
-	const AUTORECORDING="autorecording";
+	const RELIVE="relive";
 	const MINI="mini";
 	const MICRO="micro";
 	const HERO="hero";
