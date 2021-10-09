@@ -41,6 +41,10 @@ class mediamodifiers extends modifiers{
 		$this->params['addItemDetails']=1;
 	}
 
+	public function addAwards():void{
+		$this->params['addAwards']=1;
+	}
+
 	public function addFaceDetails():void{
 		$this->params['addFaceDetails']=1;
 	}
