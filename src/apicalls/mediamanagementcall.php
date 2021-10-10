@@ -9,6 +9,7 @@ use nexxomnia\enums\exportparts;
 use nexxomnia\enums\externalplatforms;
 use nexxomnia\enums\externalstates;
 use nexxomnia\enums\highlightvideopurposes;
+use nexxomnia\enums\hotspottypes;
 use nexxomnia\enums\liveplaybackstates;
 use nexxomnia\enums\livesourcetypes;
 use nexxomnia\enums\livestreamtypes;
@@ -17,6 +18,8 @@ use nexxomnia\enums\querymodes;
 use nexxomnia\enums\rejectactions;
 use nexxomnia\enums\scenepurposes;
 use nexxomnia\enums\streamtypes;
+use nexxomnia\enums\awardstates;
+use nexxomnia\internals\tools;
 
 class mediamanagementcall extends \nexxomnia\internals\apicall{
 
@@ -1310,6 +1313,221 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->getParameters()->set("language",$language);
 		}else{
 			throw new \Exception("Language must be given in 2-Letter-Code");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function addHotSpot(string $type,int $from,int $to, string $title,string $subtitle="",string $link="",string $detailTitle="",string $detailText="",bool $autoPosition=TRUE, int $xPos=0,int $yPos=0, int $maxWidth=0,int $linkedVideo=0,bool $showCover=TRUE,string $imageURL="",float $seekTarget=0):void{
+		if((!empty($type))&&(in_array($type,hotspottypes::getAllTypes()))){
+			$this->verb=defaults::VERB_POST;
+			$this->method="addhotspot";
+			if(!empty($from)){
+				$this->getParameters()->set("from",$from);
+			}
+			if(!empty($to)){
+				$this->getParameters()->set("from",$to);
+			}
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
+			}
+			if($autoPosition){
+				$this->getParameters()->set("autoPosition",1);
+			}else{
+				$this->getParameters()->set("autoPosition",0);
+				$this->getParameters()->set("xPos",$xPos);
+				$this->getParameters()->set("yPos",$yPos);
+			}
+			if($type==hotspottypes::LINK){
+				if(!empty($link)){
+					$this->getParameters()->set("link",$link);
+				}else{
+					throw new \Exception("A HotSpot of Type 'link' must have a link Target");
+				}
+			}
+			if($type==hotspottypes::VIDEO){
+				if(!empty($linkedVideo)){
+					$this->getParameters()->set("linkedVideo",$linkedVideo);
+					$this->getParameters()->set("showCover",($showCover?1:0));
+				}else{
+					throw new \Exception("A HotSpot of Type 'video' must have a linkedVideo");
+				}
+			}
+			if($type==hotspottypes::SEEK){
+				if(!empty($seekTarget)){
+					$this->getParameters()->set("seekTarget",$seekTarget);
+				}else{
+					throw new \Exception("A HotSpot of Type 'seek' must have a seekTarget");
+				}
+			}
+			if($type==hotspottypes::BANNER){
+				if(!empty($imageURL)){
+					$this->getParameters()->set("imageURL",$imageURL);
+					if(!empty($maxWidth)){
+						$this->getParameters()->set("maxWidth",$maxWidth);
+					}
+				}else{
+					throw new \Exception("A HotSpot of Type 'banner' must give an imageURL");
+				}
+			}
+			if($type==hotspottypes::INTERSTITIAL){
+				if(!empty($detailTitle)){
+					$this->getParameters()->set("detailTitle",$detailTitle);
+				}
+				if(!empty($detailText)){
+					$this->getParameters()->set("detailText",$detailText);
+				}else{
+					throw new \Exception("A HotSpot of Type 'interstitial' must have a detailText");
+				}
+			}else if(!empty($subtitle)){
+				$this->getParameters()->set("subtitle",$subtitle);
+			}
+		}else{
+			throw new \Exception("Type must be in ",implode(", ",hotspottypes::getAllTypes()));
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function updateHotSpot(int $hotspotid,int $from=0,int $to=0, string $title="",string $subtitle="",string $link="",string $detailTitle="",string $detailText="",bool $autoPosition=TRUE, int $xPos=0,int $yPos=0, int $maxWidth=0,int $linkedVideo=0,bool $showCover=TRUE,string $imageURL="",float $seekTarget=0):void{
+		if(!empty($hotspotid)){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="updatehotspot";
+			$this->getParameters()->set("hotspotid",$hotspotid);
+			if(!empty($from)){
+				$this->getParameters()->set("from",$from);
+			}
+			if(!empty($to)){
+				$this->getParameters()->set("from",$to);
+			}
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
+			}
+			if(!empty($subtitle)){
+				$this->getParameters()->set("subtitle",$subtitle);
+			}
+			if(!empty($link)){
+				$this->getParameters()->set("link",$link);
+			}
+			if(!empty($detailTitle)){
+				$this->getParameters()->set("detailTitle",$detailTitle);
+			}
+			if(!empty($detailText)){
+				$this->getParameters()->set("detailText",$detailText);
+			}
+			if(!empty($xPos)){
+				$this->getParameters()->set("xPos",$xPos);
+			}
+			if(!empty($yPos)){
+				$this->getParameters()->set("yPos",$yPos);
+			}
+			if(!empty($maxWidth)){
+				$this->getParameters()->set("maxWidth",$maxWidth);
+			}
+			if(!empty($linkedVideo)){
+				$this->getParameters()->set("linkedVideo",$linkedVideo);
+			}
+			if(!empty($imageURL)){
+				$this->getParameters()->set("imageURL",$imageURL);
+			}
+			if(!empty($seekTarget)){
+				$this->getParameters()->set("seekTarget",$seekTarget);
+			}
+			$this->getParameters()->set("autoPosition",($autoPosition?1:0));
+			$this->getParameters()->set("showCover",($showCover?1:0));
+		}else{
+			throw new \Exception("HotSpot ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeHotSpot(int $hotspotid):void{
+		if(!empty($hotspotid)){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removehotspot";
+			$this->getParameters()->set("hotspotid",$hotspotid);
+		}else{
+			throw new \Exception("HotSpot ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function addAward(string $award,string $category="",string $date="",string $state=""):void{
+		if(!empty($award)){
+			$this->verb=defaults::VERB_POST;
+			$this->method="addaward";
+			$this->getParameters()->set("award",$award);
+			if(!empty($category)){
+				$this->getParameters()->set("category",$category);
+			}
+			if(!empty($state)){
+				if(in_array($state,awardstates::getAllTypes())){
+					$this->getParameters()->set("state",$state);
+				}else{
+					throw new \Exception("state must be in ".implode(",",awardstates::getAllTypes()));
+				}
+			}
+			if(!empty($date)){
+				if(tools::dateIsValid($date)){
+					$this->getParameters()->set("date",$date);
+				}else{
+					throw new \Exception("Date must be in YYYY-MM-DD format");
+				}
+			}
+		}else{
+			throw new \Exception("Award cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function updateAward(int $awardid,string $award,string $category="",string $date="",string $state=""):void{
+		if(!empty($awardid)){
+			$this->verb=defaults::VERB_PUT;
+			$this->method="updateaward";
+			$this->getParameters()->set("awardid",$awardid);
+			if(!empty($award)){
+				$this->getParameters()->set("award",$award);
+			}
+			if(!empty($category)){
+				$this->getParameters()->set("category",$category);
+			}
+			if(!empty($state)){
+				if(in_array($state,awardstates::getAllTypes())){
+					$this->getParameters()->set("state",$state);
+				}else{
+					throw new \Exception("state must be in ".implode(",",awardstates::getAllTypes()));
+				}
+			}
+			if(!empty($date)){
+				if(tools::dateIsValid($date)){
+					$this->getParameters()->set("date",$date);
+				}else{
+					throw new \Exception("Date must be in YYYY-MM-DD format");
+				}
+			}
+		}else{
+			throw new \Exception("Award ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeAward(int $awardid):void{
+		if(!empty($awardid)){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removeaward";
+			$this->getParameters()->set("awardid",$awardid);
+		}else{
+			throw new \Exception("Award ID cant be empty");
 		}
 	}
 }

@@ -2,6 +2,7 @@
 namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\parameters\statisticparameters;
+use nexxomnia\internals\tools;
 use nexxomnia\enums\streamtypes;
 use nexxomnia\enums\kpis;
 use nexxomnia\enums\registrationproviders;
@@ -17,11 +18,6 @@ class statisticscall extends \nexxomnia\internals\apicall{
 		$this->path="statistics/";
 		$this->setStreamtype($streamtype);
 		$this->setDates(date("Y-m-d",strtotime("-30 days")),date("Y-m-d",strtotime("-1 day")));
-	}
-
-	private function dateIsValid(string $date):bool{
-		$dt=\DateTime::createFromFormat("Y-m-d",$date);
-		return (($dt!==FALSE)&&(!array_sum($dt::getLastErrors())));
 	}
 
 	private function timeframeIsValid(int $timeframe):bool{
@@ -47,12 +43,12 @@ class statisticscall extends \nexxomnia\internals\apicall{
 	 * @throws \Exception on invalid Date Format
 	 */
 	public function setDates(string $from,string $to):void{
-		if($this->dateIsValid($from)){
+		if(tools::dateIsValid($from)){
 			$this->getParameters()->setFrom($from);
 		}else{
 			throw new \Exception("from must be in YYYY-MM-DD format");
 		}
-		if($this->dateIsValid($to)){
+		if(tools::dateIsValid($to)){
 			$this->getParameters()->setTo($to);
 		}else{
 			throw new \Exception("to must be in YYYY-MM-DD format");
