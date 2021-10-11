@@ -38,4 +38,9 @@ class tools{
 		return((self::isManageCall($endpoint))||(self::isStatisticsCall($endpoint)));
 	}
 
+	public static function dateIsValid(string $date):bool{
+		$dt=\DateTime::createFromFormat("Y-m-d",$date);
+		return (($dt!==FALSE)&&(!array_sum($dt::getLastErrors())));
+	}
+
 }
