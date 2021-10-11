@@ -1367,6 +1367,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 					if(!empty($maxWidth)){
 						$this->getParameters()->set("maxWidth",$maxWidth);
 					}
+					if(!empty($link)){
+						$this->getParameters()->set("link",$link);
+					}
 				}else{
 					throw new \Exception("A HotSpot of Type 'banner' must give an imageURL");
 				}
