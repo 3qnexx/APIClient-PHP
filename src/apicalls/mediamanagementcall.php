@@ -29,12 +29,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
 		parent::__construct();
-		$this->path="manage/";
 		$this->setStreamtype(streamtypes::VIDEO);
 	}
 
 	public function getPath():string{
-		$this->path.=streamtypes::getPluralizedStreamtype($this->streamtype)."/".($this->item>0?$this->item."/":"").$this->method;
+		$this->path="manage/".streamtypes::getPluralizedStreamtype($this->streamtype)."/".($this->item>0?$this->item."/":"").$this->method;
 		return(parent::getPath());
 	}
 
@@ -1323,11 +1322,12 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		if((!empty($type))&&(in_array($type,hotspottypes::getAllTypes()))){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addhotspot";
+			$this->getParameters()->set("type",$type);
 			if(!empty($from)){
 				$this->getParameters()->set("from",$from);
 			}
 			if(!empty($to)){
-				$this->getParameters()->set("from",$to);
+				$this->getParameters()->set("to",$to);
 			}
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
@@ -1403,7 +1403,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("from",$from);
 			}
 			if(!empty($to)){
-				$this->getParameters()->set("from",$to);
+				$this->getParameters()->set("to",$to);
 			}
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
