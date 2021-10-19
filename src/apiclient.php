@@ -160,6 +160,8 @@ class apiclient{
 						}else{
 							$callAgain=FALSE;
 						}
+					}else{
+						$callAgain=FALSE;
 					}
 				}
 			}
