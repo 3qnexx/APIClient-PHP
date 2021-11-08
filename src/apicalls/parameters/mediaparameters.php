@@ -49,6 +49,10 @@ class mediaparameters extends parameters{
 		}
 	}
 
+	public function restrictToHDR():void{
+		$this->params['onlyHDR']=1;
+	}
+
 	public function restrictToPlanned():void{
 		$this->params['onlyPlanned']=1;
 	}
