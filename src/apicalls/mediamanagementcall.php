@@ -708,6 +708,30 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function startRecording():void{
+		if(in_array($this->streamtype,[streamtypes::LIVE])){
+			$this->verb=defaults::VERB_POST;
+			$this->method="startrecording";
+		}else{
+			throw new \Exception("Streamtype must be live");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function stopRecording():void{
+		if(in_array($this->streamtype,[streamtypes::LIVE])){
+			$this->verb=defaults::VERB_POST;
+			$this->method="stoprecording";
+		}else{
+			throw new \Exception("Streamtype must be live");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
