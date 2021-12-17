@@ -69,6 +69,9 @@ class mediamodifiers extends modifiers{
 		$this->params['addInteractionOptions']=1;
 	}
 
+	/**
+	 * @throws \Exception on invalid connectedMediaDetails Format
+	 */
 	public function addConnectedMedia($options="all",$connectedMediaDetails=""):void{
 		if(is_array($options)){
 			$options=implode(",",$options);
@@ -83,6 +86,9 @@ class mediamodifiers extends modifiers{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid Comment Context
+	 */
 	public function addComments(string $context=commentcontexts::ALL):void{
 		if(in_array($context,commentcontexts::getAllTypes())){
 			$this->params['addComments']=$context;
@@ -103,8 +109,38 @@ class mediamodifiers extends modifiers{
 		$this->params['addPaymentData']=1;
 	}
 
-	public function addParentReferences():void{
-		$this->params['addParentReferences']=1;
+	/**
+	 * @throws \Exception on invalid parentMediaDetails Format
+	 */
+	public function addParentMedia($options="all",$parentMediaDetails=""):void{
+		if(is_array($options)){
+			$options=implode(",",$options);
+		}
+		$this->params['addParentMedia']=$options;
+		if(!empty($parentMediaDetails)){
+			if(in_array($parentMediaDetails,connectedmediadetails::getAllTypes())){
+				$this->params['connectedMediaDetails']=$parentMediaDetails;
+			}else{
+				throw new \Exception("Detail Level is unknown");
+			}
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid referencingMediaDetails Format
+	 */
+	public function addReferencingMedia($options="all",$referencingMediaDetails=""):void{
+		if(is_array($options)){
+			$options=implode(",",$options);
+		}
+		$this->params['addReferencingMedia']=$options;
+		if(!empty($referencingMediaDetails)){
+			if(in_array($referencingMediaDetails,connectedmediadetails::getAllTypes())){
+				$this->params['referencingMediaDetails']=$referencingMediaDetails;
+			}else{
+				throw new \Exception("Detail Level is unknown");
+			}
+		}
 	}
 
 	public function addTranslations():void{
@@ -113,10 +149,6 @@ class mediamodifiers extends modifiers{
 
 	public function addItemData():void{
 		$this->params['addItemData']=1;
-	}
-
-	public function addReferencingMedia():void{
-		$this->params['addReferencingMedia']=1;
 	}
 
 	public function addCustomAttributes():void{
