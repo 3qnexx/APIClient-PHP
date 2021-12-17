@@ -732,12 +732,15 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0):void{
+	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
 				$this->verb=defaults::VERB_POST;
 				$this->method="export";
 				$this->getParameters()->set("account",$accountID);
+				if(!empty($list)){
+					$this->getParameters()->set("list",$list);
+				}
 				if(!empty($externalCategory)){
 					$this->getParameters()->set("externalCategory",$externalCategory);
 				}

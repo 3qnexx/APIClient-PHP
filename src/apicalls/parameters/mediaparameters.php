@@ -128,6 +128,28 @@ class mediaparameters extends parameters{
 		}
 	}
 
+	/**
+	 * @throws \Exception on invalid DetailLevel
+	 */
+	public function setParentMediaDetails(string $level=connectedmediadetails::DEFAULT):void{
+		if(in_array($level,connectedmediadetails::getAllTypes())){
+			$this->params['parentMediaDetails']=$level;
+		}else{
+			throw new \Exception("Detail Level is unknown");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid DetailLevel
+	 */
+	public function setReferencingMediaDetails(string $level=connectedmediadetails::DEFAULT):void{
+		if(in_array($level,connectedmediadetails::getAllTypes())){
+			$this->params['referencingMediaDetails']=$level;
+		}else{
+			throw new \Exception("Detail Level is unknown");
+		}
+	}
+
 	public function restrictToChannel(int $channel,bool $respectChannelHierarchy=FALSE):void{
 		$this->params['channel']=$channel;
 		if($respectChannelHierarchy){

@@ -45,4 +45,8 @@ class metadata{
 		return($this->data['errorhint']);
 	}
 
+	public function getNotice():?string{
+		return($this->data['notice']);
+	}
+
 }
