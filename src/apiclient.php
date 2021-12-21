@@ -19,12 +19,14 @@ class apiclient{
 	protected bool $useHTTPS=TRUE;
 	protected string $customHost="";
 	protected string $consumer="apiclient-php";
+	protected string $apiVersion="";
 
 	protected string $lastPath="";
 	protected array $lastParameters=[];
 
 	public function __construct(int $domain=0,string $secret="",string $session=""){
 		$this->configure($domain,$secret,$session);
+		$this->apiVersion=defaults::API_VERSION;
 	}
 
 	public function configure(int $domain=0,string $secret="",string $session=""):void{
@@ -59,6 +61,10 @@ class apiclient{
 		$this->consumer=$consumer;
 	}
 
+	public function setAPIVersion(string $version):void{
+		$this->apiVersion=$version;
+	}
+
 	public function setLogger(\Psr\Log\LoggerInterface $logger):void{
 		$this->logger=$logger;
 	}
@@ -80,7 +86,7 @@ class apiclient{
 		if(!empty($this->customHost)){
 			$host=$this->customHost;
 		}
-		return("http".($this->useHTTPS?"s":"")."://".$host."/v".defaults::API_VERSION."/".$this->domain."/");
+		return("http".($this->useHTTPS?"s":"")."://".$host."/v".$this->apiVersion."/".$this->domain."/");
 	}
 
 	public function log(string $message,string $level=\Psr\Log\LogLevel::INFO,array $context=[]):void{
