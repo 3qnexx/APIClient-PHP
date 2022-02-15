@@ -156,7 +156,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", array $searchFields=[], int $channel=0, int $format=0):void{
+	public function createFromTopic(string $title, string $topic="", string $itemSource="",int $duration=0,int $itemCount=0, string $searchMode="", array $searchFields=[], int $channel=0, int $format=0, int $category=0):void{
 		if(in_array($this->streamtype,streamtypes::getSimpleContainerTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="fromtopic";
@@ -200,6 +200,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if(!empty($format)){
 				$this->getParameters()->set("format",$format);
+			}
+			if(!empty($category)){
+				$this->getParameters()->set("category",$category);
 			}
 		}else{
 			throw new \Exception("Streamtype must be in ".implode(", ",streamtypes::getSimpleContainerTypes()));
