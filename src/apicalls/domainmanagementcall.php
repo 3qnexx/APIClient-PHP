@@ -122,6 +122,23 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on empty URL or invalid Channel ID
+	 */
+	public function setChannelCover(int $channelID,String $url):void{
+		if(!empty($channelID)){
+			if(!empty($url)){
+				$this->setItem($channelID,"channel");
+				$this->verb=defaults::VERB_POST;
+				$this->method="cover";
+			}else{
+				throw new \Exception("Cover URL cant be empty");
+			}
+		}else{
+			throw new \Exception("Channel ID cant be empty");
+		}
+	}
+
 	public function addFormat(array $attributes=[]):void{
 		$this->setStreamtype("format");
 		$this->verb=defaults::VERB_POST;
@@ -165,6 +182,23 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 			$this->setItem($formatID,"format");
 			$this->verb=defaults::VERB_DELETE;
 			$this->method="remove";
+		}else{
+			throw new \Exception("Format ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on empty URL or invalid Format ID
+	 */
+	public function setFormatCover(int $formatID,String $url):void{
+		if(!empty($formatID)){
+			if(!empty($url)){
+				$this->setItem($formatID,"format");
+				$this->verb=defaults::VERB_POST;
+				$this->method="cover";
+			}else{
+				throw new \Exception("Cover URL cant be empty");
+			}
 		}else{
 			throw new \Exception("Format ID cant be empty");
 		}
@@ -263,6 +297,20 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	private function setCategoryCover(string $streamtype="",int $categoryID=0,String $url=""):void{
+		if(!empty($categoryID)){
+			if(!empty($url)){
+				$this->setItem($categoryID,$streamtype."category");
+				$this->verb=defaults::VERB_POST;
+				$this->method="cover";
+			}else{
+				throw new \Exception("Cover URL cant be empty");
+			}
+		}else{
+			throw new \Exception("Category ID cant be empty");
+		}
+	}
+
 	public function addVideoCategory(array $attributes=[]):void{
 		$this->addCategory(streamtypes::VIDEO,$attributes);
 	}
@@ -289,6 +337,10 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 
 	public function addPlaceCategory(array $attributes=[]):void{
 		$this->addCategory(streamtypes::PLACE,$attributes);
+	}
+
+	public function addProductCategory(array $attributes=[]):void{
+		$this->addCategory(streamtypes::PRODUCT,$attributes);
 	}
 
 	/**
@@ -343,6 +395,13 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Category ID
 	 */
+	public function updateProductCategory(int $categoryID=0,array $attributes=[]):void{
+		$this->updateCategory(streamtypes::PRODUCT,$categoryID,$attributes);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
 	public function deleteVideoCategory(int $categoryID=0):void{
 		$this->deleteCategory(streamtypes::VIDEO,$categoryID);
 	}
@@ -389,4 +448,66 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		$this->deleteCategory(streamtypes::PLACE,$categoryID);
 	}
 
+	/**
+	 * @throws \Exception on invalid Category ID
+	 */
+	public function deleteProductCategory(int $categoryID=0):void{
+		$this->deleteCategory(streamtypes::PRODUCT,$categoryID);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setVideoCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::VIDEO,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setAudioCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::AUDIO,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setImageCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::IMAGE,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setArticleCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::ARTICLE,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setEventCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::EVENT,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setFileCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::FILE,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setPlaceCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::PLACE,$categoryID,$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Category ID or empty URL
+	 */
+	public function setProductCategoryCover(int $categoryID=0,String $url=""):void{
+		$this->setCategoryCover(streamtypes::PRODUCT,$categoryID,$url);
+	}
 }

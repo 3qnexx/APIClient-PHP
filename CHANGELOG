@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.4.3 (2022-02-26)
+-------------------
+
+* adding Domain Management Calls to set Channel/Format/Category Covers
+* adding Support for Product Categories
+
 1.4.2 (2022-02-15)
 -------------------
 
