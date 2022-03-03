@@ -1,7 +1,6 @@
 <?php
 namespace nexxomnia\apicalls;
 
-
 class domaincall extends \nexxomnia\internals\apicall{
 
 	public function __construct(){
@@ -9,8 +8,17 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path="domain/";
 	}
 
-	public function publicInfo():void{
+	public function publicInfo(bool $addCustomAttributes=FALSE,bool $addChannels=FALSE,bool $addFormats=FALSE):void{
 		$this->path.="publicinfo";
+		if($addCustomAttributes){
+			$this->getParameters()->set("addCustomAttributes",1);
+		}
+		if($addChannels){
+			$this->getParameters()->set("addChannels",1);
+		}
+		if($addFormats){
+			$this->getParameters()->set("addFormats",1);
+		}
 	}
 
 	public function instantConfiguration(string $token):void{
@@ -82,6 +90,10 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path.="placecategories";
 	}
 
+	public function productCategories():void{
+		$this->path.="productcategories";
+	}
+
 	public function tags():void{
 		$this->path.="tags";
 	}
@@ -151,7 +163,7 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path.="systemusers";
 	}
 
-	public function networkDomains(bool $addChannels=FALSE,bool $addFormats=FALSE,bool $addVideoCategories=FALSE,bool $addAudioCategories=FALSE,bool $addImageCategories=FALSE,bool $addFileCategories=FALSE,bool $addArticleCategories=FALSE,bool $addEventCategories=FALSE,bool $addPlaceCategories=FALSE,bool $addAccounts=FALSE,bool $addLiveLinks=FALSE,bool $addAutoUpdateFeeds=FALSE,bool $addTags=FALSE,bool $addCustomAttributes=FALSE):void{
+	public function networkDomains(bool $addChannels=FALSE,bool $addFormats=FALSE,bool $addVideoCategories=FALSE,bool $addAudioCategories=FALSE,bool $addImageCategories=FALSE,bool $addFileCategories=FALSE,bool $addArticleCategories=FALSE,bool $addEventCategories=FALSE,bool $addPlaceCategories=FALSE,$addProductCategories=FALSE,bool $addAccounts=FALSE,bool $addLiveLinks=FALSE,bool $addAutoUpdateFeeds=FALSE,bool $addTags=FALSE,bool $addCustomAttributes=FALSE):void{
 		$this->path.="networkdomains";
 		if($addChannels){
 			$this->getParameters()->set("addChannels",1);
@@ -179,6 +191,9 @@ class domaincall extends \nexxomnia\internals\apicall{
 		}
 		if($addPlaceCategories){
 			$this->getParameters()->set("addPlaceCategories",1);
+		}
+		if($addProductCategories){
+			$this->getParameters()->set("addProductCategories",1);
 		}
 		if($addAccounts){
 			$this->getParameters()->set("addAccounts",1);
