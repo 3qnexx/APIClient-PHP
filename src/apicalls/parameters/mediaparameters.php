@@ -174,7 +174,7 @@ class mediaparameters extends parameters{
 		$this->params['contentType']=$type;
 	}
 
-	//only valid for SCENE and LINK
+	//only valid for SCENE, RACK and LINK
 	public function restrictToPurpose(string $purpose):void{
 		$this->params['purpose']=$purpose;
 	}

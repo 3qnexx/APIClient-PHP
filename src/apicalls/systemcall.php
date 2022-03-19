@@ -78,4 +78,8 @@ class systemcall extends \nexxomnia\internals\apicall{
 		$this->path.="operationstate/".$id;
 	}
 
+	public function currentIncidents():void{
+		$this->path.="currentincidents";
+	}
+
 }

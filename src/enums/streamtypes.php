@@ -11,6 +11,7 @@ class streamtypes extends  \nexxomnia\internals\enum{
 	const RADIO='radio';
 	const COLLECTION='collection';
 	const SET='set';
+	const RACK='rack';
 	const SERIES='series';
 	const BUNDLE='bundle';
 	const IMAGE='image';
@@ -56,11 +57,11 @@ class streamtypes extends  \nexxomnia\internals\enum{
 	}
 
 	public static function getPlayerTypes():array{
-		return([self::VIDEO,self::PLAYLIST,self::SET,self::COLLECTION,self::AUDIO,self::RADIO,self::AUDIOALBUM,self::LIVE,self::SCENE]);
+		return([self::VIDEO,self::PLAYLIST,self::SET,self::COLLECTION,self::AUDIO,self::RADIO,self::AUDIOALBUM,self::LIVE,self::SCENE,self::RACK]);
 	}
 
 	public static function getContainerTypes():array{
-		return([self::PLAYLIST,self::SET,self::ALBUM,self::COLLECTION,self::AUDIOALBUM,self::FOLDER,self::MAGAZINE,self::GROUP,self::BUNDLE,self::SERIES]);
+		return([self::PLAYLIST,self::SET,self::ALBUM,self::COLLECTION,self::AUDIOALBUM,self::FOLDER,self::MAGAZINE,self::GROUP,self::BUNDLE,self::SERIES,self::RACK]);
 	}
 
 	public static function getSimpleContainerTypes():array{

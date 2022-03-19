@@ -914,6 +914,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function addItemToRack(int $rackID=0):void{
+		if($rackID>0){
+			$this->verb=defaults::VERB_POST;
+			$this->method="addtorack/".$rackID;
+		}else{
+			throw new \Exception("the ID of the Rack must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addItemToBundle(int $bundleID=0):void{
 		if($bundleID>0){
 			$this->verb=defaults::VERB_POST;
@@ -956,6 +968,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->method="removefromset/".$setID;
 		}else{
 			throw new \Exception("the ID of the Set must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeItemFromRack(int $rackID=0):void{
+		if($rackID>0){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removefromrack/".$rackID;
+		}else{
+			throw new \Exception("the ID of the Rack must be given.");
 		}
 	}
 
