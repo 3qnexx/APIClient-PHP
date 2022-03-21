@@ -902,10 +902,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemToSet(int $setID=0):void{
+	public function addItemToSet(int $setID=0, string $purpose=''):void{
 		if($setID>0){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addtoset/".$setID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Set must be given.");
 		}
@@ -914,10 +917,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemToRack(int $rackID=0):void{
+	public function addItemToRack(int $rackID=0, string $purpose=''):void{
 		if($rackID>0){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addtorack/".$rackID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Rack must be given.");
 		}
@@ -1022,10 +1028,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function connectPersonToItem(int $personID=0):void{
+	public function connectPersonToItem(int $personID=0, string $purpose=''):void{
 		if($personID>0){
 			$this->verb=defaults::VERB_PUT;
 			$this->method="connectperson/".$personID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Person must be given.");
 		}
@@ -1034,10 +1043,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function connectGroupToItem(int $groupID=0):void{
+	public function connectGroupToItem(int $groupID=0, string $purpose=''):void{
 		if($groupID>0){
 			$this->verb=defaults::VERB_PUT;
 			$this->method="connectgroup/".$groupID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Group must be given.");
 		}
