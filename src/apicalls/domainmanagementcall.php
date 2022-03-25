@@ -142,6 +142,26 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
+	/**
+	 * @throws \Exception on empty URL or invalid Channel ID
+	 */
+	public function setChannelCoverActionShot(int $channelID,String $url, String $description=""):void{
+		if(!empty($channelID)){
+			if(!empty($url)){
+				$this->setItem($channelID,"channel");
+				$this->verb=defaults::VERB_POST;
+				$this->method="actionshot";
+				if(!empty($description)){
+					$this->getParameters()->set("description",$description);
+				}
+			}else{
+				throw new \Exception("Cover URL cant be empty");
+			}
+		}else{
+			throw new \Exception("Channel ID cant be empty");
+		}
+	}
+
 	public function addFormat(array $attributes=[]):void{
 		$this->setStreamtype("format");
 		$this->verb=defaults::VERB_POST;
@@ -199,6 +219,26 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				$this->setItem($formatID,"format");
 				$this->verb=defaults::VERB_POST;
 				$this->method="cover";
+				if(!empty($description)){
+					$this->getParameters()->set("description",$description);
+				}
+			}else{
+				throw new \Exception("Cover URL cant be empty");
+			}
+		}else{
+			throw new \Exception("Format ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on empty URL or invalid Format ID
+	 */
+	public function setFormatCoverActionShot(int $formatID, String $url, String $description=""):void{
+		if(!empty($formatID)){
+			if(!empty($url)){
+				$this->setItem($formatID,"format");
+				$this->verb=defaults::VERB_POST;
+				$this->method="actionshot";
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
 				}
