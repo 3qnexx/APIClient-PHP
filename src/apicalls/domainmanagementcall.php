@@ -125,12 +125,15 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Channel ID
 	 */
-	public function setChannelCover(int $channelID,String $url):void{
+	public function setChannelCover(int $channelID,String $url, String $description=""):void{
 		if(!empty($channelID)){
 			if(!empty($url)){
 				$this->setItem($channelID,"channel");
 				$this->verb=defaults::VERB_POST;
 				$this->method="cover";
+				if(!empty($description)){
+					$this->getParameters()->set("description",$description);
+				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -190,12 +193,15 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Format ID
 	 */
-	public function setFormatCover(int $formatID,String $url):void{
+	public function setFormatCover(int $formatID, String $url, String $description=""):void{
 		if(!empty($formatID)){
 			if(!empty($url)){
 				$this->setItem($formatID,"format");
 				$this->verb=defaults::VERB_POST;
 				$this->method="cover";
+				if(!empty($description)){
+					$this->getParameters()->set("description",$description);
+				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -297,12 +303,15 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function setCategoryCover(string $streamtype="",int $categoryID=0,String $url=""):void{
+	private function setCategoryCover(string $streamtype="",int $categoryID=0,String $url="", String $description=""):void{
 		if(!empty($categoryID)){
 			if(!empty($url)){
 				$this->setItem($categoryID,$streamtype."category");
 				$this->verb=defaults::VERB_POST;
 				$this->method="cover";
+				if(!empty($description)){
+					$this->getParameters()->set("description",$description);
+				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -458,56 +467,56 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setVideoCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::VIDEO,$categoryID,$url);
+	public function setVideoCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::VIDEO,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setAudioCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::AUDIO,$categoryID,$url);
+	public function setAudioCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::AUDIO,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setImageCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::IMAGE,$categoryID,$url);
+	public function setImageCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::IMAGE,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setArticleCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::ARTICLE,$categoryID,$url);
+	public function setArticleCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::ARTICLE,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setEventCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::EVENT,$categoryID,$url);
+	public function setEventCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::EVENT,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setFileCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::FILE,$categoryID,$url);
+	public function setFileCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::FILE,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setPlaceCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::PLACE,$categoryID,$url);
+	public function setPlaceCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::PLACE,$categoryID,$url,$description);
 	}
 
 	/**
 	 * @throws \Exception on invalid Category ID or empty URL
 	 */
-	public function setProductCategoryCover(int $categoryID=0,String $url=""):void{
-		$this->setCategoryCover(streamtypes::PRODUCT,$categoryID,$url);
+	public function setProductCategoryCover(int $categoryID=0,String $url="", String $description=""):void{
+		$this->setCategoryCover(streamtypes::PRODUCT,$categoryID,$url,$description);
 	}
 }

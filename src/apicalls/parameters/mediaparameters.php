@@ -279,10 +279,6 @@ class mediaparameters extends parameters{
 		$this->params['includePremieres']=($include?1:0);
 	}
 
-	public function includeAutoRecordings(bool $include):void{
-		$this->params['includeAutoRecordings']=($include?1:0);
-	}
-
 	public function includeEpisodes(bool $include,bool $onlyEpisodes=FALSE):void{
 		if($onlyEpisodes){
 			$include=1;
@@ -313,5 +309,13 @@ class mediaparameters extends parameters{
 			$this->params['onlySeasons']=1;
 		}
 		$this->params['includeSeasons']=($include?1:0);
+	}
+
+	public function includeRackParts(bool $include,bool $onlyRackParts=FALSE):void{
+		if($onlyRackParts){
+			$include=1;
+			$this->params['onlyRackParts']=1;
+		}
+		$this->params['includeRackParts']=($include?1:0);
 	}
 }

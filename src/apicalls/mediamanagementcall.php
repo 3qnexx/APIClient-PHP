@@ -60,15 +60,21 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function handleCover(string $method,string $url="",float $fromTime=0):void{
+	private function handleCover(string $method,string $url="",string $description="",float $fromTime=0):void{
 		if(substr($url,0,4)=="http"){
 			$this->verb=defaults::VERB_POST;
 			$this->method=$method;
 			$this->getParameters()->set("url",$url);
+			if(!empty($description)){
+				$this->getParameters()->set("description",$description);
+			}
 		}else if(($fromTime>0)&&(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::SCENE,'variant']))){
 			$this->verb=defaults::VERB_POST;
 			$this->method=$method;
 			$this->getParameters()->set("fromTime",$fromTime);
+			if(!empty($description)){
+				$this->getParameters()->set("description",$description);
+			}
 		}else{
 			throw new \Exception("a valid Cover URL or TimeStamp (on Video Streamtypes only).");
 		}
@@ -902,10 +908,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemToSet(int $setID=0):void{
+	public function addItemToSet(int $setID=0, string $purpose=''):void{
 		if($setID>0){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addtoset/".$setID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Set must be given.");
 		}
@@ -914,10 +923,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemToRack(int $rackID=0):void{
+	public function addItemToRack(int $rackID=0, string $purpose=''):void{
 		if($rackID>0){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addtorack/".$rackID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Rack must be given.");
 		}
@@ -1022,10 +1034,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function connectPersonToItem(int $personID=0):void{
+	public function connectPersonToItem(int $personID=0, string $purpose=''):void{
 		if($personID>0){
 			$this->verb=defaults::VERB_PUT;
 			$this->method="connectperson/".$personID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Person must be given.");
 		}
@@ -1034,10 +1049,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function connectGroupToItem(int $groupID=0):void{
+	public function connectGroupToItem(int $groupID=0, string $purpose=''):void{
 		if($groupID>0){
 			$this->verb=defaults::VERB_PUT;
 			$this->method="connectgroup/".$groupID;
+			if(!empty($purpose)){
+				$this->getParameters()->set("purpose",$purpose);
+			}
 		}else{
 			throw new \Exception("the ID of the Group must be given.");
 		}
@@ -1166,50 +1184,50 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCover(string $url="",float $fromTime=0):void{
-		$this->handleCover("cover",$url,$fromTime);
+	public function setItemCover(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("cover",$url,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverAlternative(string $url="",float $fromTime=0):void{
-		$this->handleCover("alternativecover",$url,$fromTime);
+	public function setItemCoverAlternative(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("alternativecover",$url,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverABTest(string $url="",float $fromTime=0):void{
-		$this->handleCover("abtestalternative",$url,$fromTime);
+	public function setItemCoverABTest(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("abtestalternative",$url,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverActionShot(string $url="",float $fromTime=0):void{
-		$this->handleCover("actionshot",$url,$fromTime);
+	public function setItemCoverActionShot(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("actionshot",$url,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverQuad(string $url="",float $fromTime=0):void{
-		$this->handleCover("quadcover",$url,$fromTime);
+	public function setItemCoverQuad(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("quadcover",$url,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverBanner(string $url="",float $fromTime=0):void{
-		$this->handleCover("banner",$url,$fromTime);
+	public function setItemCoverBanner(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("banner",$url,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverFamilySafe(string $url="",float $fromTime=0):void{
-		$this->handleCover("familysafe",$url,$fromTime);
+	public function setItemCoverFamilySafe(string $url="",string $description="",float $fromTime=0):void{
+		$this->handleCover("familysafe",$url,$description,$fromTime);
 	}
 
 	/**
