@@ -247,6 +247,10 @@ class mediaparameters extends parameters{
 		$this->params['includeNotListables']=($include?1:0);
 	}
 
+	public function includeInvalidChildMedia(bool $include):void{
+		$this->params['includeInvalidChildMedia']=($include?1:0);
+	}
+
 	public function forceResults(bool $force):void{
 		$this->params['forceResults']=($force?1:0);
 	}
