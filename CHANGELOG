@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.4.7 (2022-03-25)
+-------------------
+
+* adding optional "description" Parameter for all Cover Upload Endpoints
+
 1.4.6 (2022-03-21)
 -------------------
 
