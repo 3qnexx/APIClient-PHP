@@ -1233,6 +1233,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function setItemCoverArtwork(string $url=""):void{
+		$this->handleCover("artwork",$url);
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addCaptionsFromURL(string $url="",string $language="",string $title="",bool $withAudioDescription=FALSE):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(substr($url,0,4)=="http"){
