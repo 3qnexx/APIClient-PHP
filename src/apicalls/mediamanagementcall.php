@@ -839,7 +839,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemPreviewLink(string $language="",int $maxStarts=0,string $code="",bool $showAnnotations=TRUE,bool $allowAnnotations=TRUE,bool $allowSnapshots=FALSE,bool $allowSourceDownloads=FALSE):void{
+	public function addItemPreviewLink(string $language="",int $maxStarts=0,string $code="",bool $showAnnotations=TRUE,bool $allowAnnotations=TRUE,bool $allowSnapshots=FALSE,bool $allowSourceDownloads=FALSE,bool $useDomainStyle=FALSE):void{
 		if(in_array($this->streamtype,streamtypes::getPlayerTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addpreviewlink";
@@ -863,6 +863,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if($allowSourceDownloads){
 				$this->getParameters()->set("allowSourceDownloads",1);
+			}
+			if($useDomainStyle){
+				$this->getParameters()->set("useDomainStyle",1);
 			}
 		}else{
 			throw new \Exception("Streamtype must be in ".implode(", ",streamtypes::getPlayerTypes()));
@@ -1228,6 +1231,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	 */
 	public function setItemCoverFamilySafe(string $url="",string $description="",float $fromTime=0):void{
 		$this->handleCover("familysafe",$url,$description,$fromTime);
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function setItemCoverArtwork(string $url=""):void{
+		$this->handleCover("artwork",$url);
 	}
 
 	/**

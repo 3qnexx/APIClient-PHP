@@ -253,7 +253,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addUploadLink(string $title="",array $selectedStreamtypes=[],string $language="",int $maxUsages=0,string $code=""):void{
+	public function addUploadLink(string $title="",array $selectedStreamtypes=[],string $language="",int $maxUsages=0,string $code="",bool $useDomainStyle=FALSE):void{
 		$this->setStreamtype("uploadlink");
 		$this->verb=defaults::VERB_POST;
 		$this->method="add";
@@ -285,6 +285,9 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 		if(!empty($code)){
 			$this->getParameters()->set("code",$code);
+		}
+		if($useDomainStyle){
+			$this->getParameters()->set("useDomainStyle",1);
 		}
 	}
 

@@ -63,6 +63,10 @@ class mediacall extends \nexxomnia\internals\apicall{
 		$this->method="byid/".$id;
 	}
 
+	public function byGlobalID(int $id):void{
+		$this->method="byglobalid/".$id;
+	}
+
 	public function byHash(string $hash):void{
 		$this->method="byhash/".$hash;
 	}
@@ -81,10 +85,6 @@ class mediacall extends \nexxomnia\internals\apicall{
 
 	public function byRemoteReference(string $ref):void{
 		$this->method="byremotereference/".$ref;
-	}
-
-	public function byGlobalID(int $id):void{
-		$this->verifyParameter("byglobalid",$id,[streamtypes::ALLMEDIA]);
 	}
 
 	public function all():void{
