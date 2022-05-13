@@ -124,7 +124,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	 */
 	public function createFromData(string $title,string $refnr="",string $codename="",?bool $autoPublish=NULL,string $personGender="",string $personType=""):void{
 		if(!in_array($this->streamtype,streamtypes::getUploadableTypes())){
-			if((!empty($codename))||(!in_array($this->streamtype,streamtypes::getContainerTypes()))){
+			if(!empty($title)){
 				$this->verb=defaults::VERB_POST;
 				$this->method="fromdata";
 				if(in_array($this->streamtype,[streamtypes::PERSON,streamtypes::GROUP])){
@@ -152,7 +152,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 					$this->getParameters()->set("autoPublish",($autoPublish?1:0));
 				}
 			}else{
-				throw new \Exception("Container Streamtypes need a valid Codename");
+				throw new \Exception("Title is mandatory");
 			}
 		}else{
 			throw new \Exception("Streamtype cannot be in ".implode(", ",streamtypes::getUploadableTypes()));
