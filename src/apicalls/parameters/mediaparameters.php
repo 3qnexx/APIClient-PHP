@@ -1,6 +1,7 @@
 <?php
 namespace nexxomnia\apicalls\parameters;
 
+use nexxomnia\enums\autofillresultmodes;
 use nexxomnia\enums\captionformats;
 use nexxomnia\enums\connectedmediadetails;
 use nexxomnia\enums\dimensioncodes;
@@ -194,7 +195,31 @@ class mediaparameters extends parameters{
 		$this->params['fileType']=$type;
 	}
 
-	//only valid for STUDIO
+	/**
+	 * @throws \Exception on invalid Country
+	 */
+	public function respectGeoRestrictions(string $country='auto'):void{
+		if(($country!='auto')&&(strlen($country)!=2)){
+			throw new \Exception("Country is not in correct Format");
+		}else{
+			$this->params['respectGeoRestrictions']=$country;
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid AutoFill Mode
+	 */
+	public function autoFillResults(string $mode):void{
+		if(in_array($mode,autofillresultmodes::getAllTypes())){
+			$this->params['autoFillResults']=$mode;
+		}else{
+			throw new \Exception("AutoFill Mode is not supported.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Streamtype
+	 */
 	public function restrictToStreamtype(string $type=streamtypes::VIDEO):void{
 		if(in_array($type,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			$this->params['forStreamtype']=$type;
@@ -249,10 +274,6 @@ class mediaparameters extends parameters{
 
 	public function includeInvalidChildMedia(bool $include):void{
 		$this->params['includeInvalidChildMedia']=($include?1:0);
-	}
-
-	public function forceResults(bool $force):void{
-		$this->params['forceResults']=($force?1:0);
 	}
 
 	public function includeTrailers(bool $include,bool $onlyTrailers=FALSE):void{
