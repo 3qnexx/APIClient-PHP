@@ -60,7 +60,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function handleCover(string $method,string $url="",string $description="",float $fromTime=0):void{
+	private function handleCover(string $method,string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
 		if(substr($url,0,4)=="http"){
 			$this->verb=defaults::VERB_POST;
 			$this->method=$method;
@@ -68,12 +68,18 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			if(!empty($description)){
 				$this->getParameters()->set("description",$description);
 			}
+			if(!empty($assetLanguage)){
+				$this->getParameters()->set("assetLanguage",$assetLanguage);
+			}
 		}else if(($fromTime>0)&&(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::SCENE,'variant']))){
 			$this->verb=defaults::VERB_POST;
 			$this->method=$method;
 			$this->getParameters()->set("fromTime",$fromTime);
 			if(!empty($description)){
 				$this->getParameters()->set("description",$description);
+			}
+			if(!empty($assetLanguage)){
+				$this->getParameters()->set("assetLanguage",$assetLanguage);
 			}
 		}else{
 			throw new \Exception("a valid Cover URL or TimeStamp (on Video Streamtypes only).");
@@ -406,42 +412,29 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createAudioFromText(string $text,string $language=""):void{
-		if(!empty($text)){
+	public function createAudioFromText(string $textcontent, string $title="", string $subtitle="", string $teaser="",string $language="",string $voice=""):void{
+		if(!empty($textcontent)){
 			$this->setStreamtype(streamtypes::AUDIO);
 			$this->verb=defaults::VERB_POST;
 			$this->method="fromtext";
-			$this->getParameters()->set("text",$text);
+			$this->getParameters()->set("textcontent",$textcontent);
 			if(strlen($language)==2){
 				$this->getParameters()->set("language",$language);
 			}
-		}else{
-			throw new \Exception("a non-empty Text must be given.");
-		}
-	}
-
-	/**
-	 * @throws \Exception on invalid Parameters
-	 */
-	public function createAudioFromArticle(int $articleID=0,bool $includeTitle=TRUE,bool $includeSubtitle=FALSE,bool $includeTeaser=FALSE,bool $useAsRepresentation=FALSE):void{
-		if($articleID>0){
-			$this->setStreamtype(streamtypes::AUDIO);
-			$this->verb=defaults::VERB_POST;
-			$this->method="fromarticle/".$articleID;
-			if($includeTitle){
-				$this->getParameters()->set('includeTitle',1);
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
 			}
-			if($includeSubtitle){
-				$this->getParameters()->set('includeSubtitle',1);
+			if(!empty($subtitle)){
+				$this->getParameters()->set("subtitle",$subtitle);
 			}
-			if($includeTeaser){
-				$this->getParameters()->set('includeTeaser',1);
+			if(!empty($teaser)){
+				$this->getParameters()->set("teaser",$teaser);
 			}
-			if($useAsRepresentation){
-				$this->getParameters()->set('useAsRepresentation',1);
+			if(!empty($voice)){
+				$this->getParameters()->set("voice",$voice);
 			}
 		}else{
-			throw new \Exception("the Article ID must be given.");
+			throw new \Exception("a non-empty Textcontent must be given.");
 		}
 	}
 
@@ -532,6 +525,49 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$value="";
 			}
 			$this->getParameters()->set($key,$value);
+		}
+	}
+
+	public function updateAudioContent(string $textcontent="", string $title="", string $subtitle="", string $teaser="",string $language="",string $voice=""):void{
+		$this->setStreamtype(streamtypes::AUDIO);
+		$this->verb=defaults::VERB_PUT;
+		$this->method="updatecontent";
+		$this->getParameters()->set("textcontent",$textcontent);
+		if(!empty($title)){
+			$this->getParameters()->set("title",$title);
+		}
+		if(!empty($subtitle)){
+			$this->getParameters()->set("subtitle",$subtitle);
+		}
+		if(!empty($teaser)){
+			$this->getParameters()->set("teaser",$teaser);
+		}
+		if(!empty($textcontent)){
+			$this->getParameters()->set("textcontent",$textcontent);
+		}
+		if(!empty($language)){
+			$this->getParameters()->set("language",$language);
+		}
+		if(!empty($voice)){
+			$this->getParameters()->set("voice",$voice);
+		}
+	}
+
+	public function updateAudioRepresentation(bool $includeTitle=FALSE,bool $includeSubtitle=FALSE,bool $includeTeaser=FALSE,bool $includeFragments=FALSE):void{
+		$this->setStreamtype(streamtypes::ARTICLE);
+		$this->verb=defaults::VERB_PUT;
+		$this->method="updateaudiorepresentation";
+		if($includeTitle){
+			$this->getParameters()->set("includeTitle",1);
+		}
+		if($includeSubtitle){
+			$this->getParameters()->set("includeSubtitle",1);
+		}
+		if($includeTeaser){
+			$this->getParameters()->set("includeTeaser",1);
+		}
+		if($includeFragments){
+			$this->getParameters()->set("includeFragments",1);
 		}
 	}
 
@@ -1187,57 +1223,57 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCover(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("cover",$url,$description,$fromTime);
+	public function setItemCover(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("cover",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverAlternative(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("alternativecover",$url,$description,$fromTime);
+	public function setItemCoverAlternative(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("alternativecover",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverABTest(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("abtestalternative",$url,$description,$fromTime);
+	public function setItemCoverABTest(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("abtestalternative",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverActionShot(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("actionshot",$url,$description,$fromTime);
+	public function setItemCoverActionShot(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("actionshot",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverQuad(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("quadcover",$url,$description,$fromTime);
+	public function setItemCoverQuad(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("quadcover",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverBanner(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("banner",$url,$description,$fromTime);
+	public function setItemCoverBanner(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("banner",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverFamilySafe(string $url="",string $description="",float $fromTime=0):void{
-		$this->handleCover("familysafe",$url,$description,$fromTime);
+	public function setItemCoverFamilySafe(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+		$this->handleCover("familysafe",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverArtwork(string $url=""):void{
-		$this->handleCover("artwork",$url);
+	public function setItemCoverArtwork(string $url="",string $assetLanguage=""):void{
+		$this->handleCover("artwork",$url,$assetLanguage);
 	}
 
 	/**

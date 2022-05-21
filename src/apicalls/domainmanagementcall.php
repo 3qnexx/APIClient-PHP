@@ -125,7 +125,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Channel ID
 	 */
-	public function setChannelCover(int $channelID,String $url, String $description=""):void{
+	public function setChannelCover(int $channelID,String $url, String $assetLanguage="", String $description=""):void{
 		if(!empty($channelID)){
 			if(!empty($url)){
 				$this->setItem($channelID,"channel");
@@ -133,6 +133,9 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				$this->method="cover";
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
+				}
+				if(!empty($assetLanguage)){
+					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
@@ -145,7 +148,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Channel ID
 	 */
-	public function setChannelCoverActionShot(int $channelID,String $url, String $description=""):void{
+	public function setChannelCoverActionShot(int $channelID,String $url, String $assetLanguage="", String $description=""):void{
 		if(!empty($channelID)){
 			if(!empty($url)){
 				$this->setItem($channelID,"channel");
@@ -153,6 +156,9 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				$this->method="actionshot";
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
+				}
+				if(!empty($assetLanguage)){
+					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
@@ -213,7 +219,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Format ID
 	 */
-	public function setFormatCover(int $formatID, String $url, String $description=""):void{
+	public function setFormatCover(int $formatID, String $url, String $assetLanguage="", String $description=""):void{
 		if(!empty($formatID)){
 			if(!empty($url)){
 				$this->setItem($formatID,"format");
@@ -221,6 +227,9 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				$this->method="cover";
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
+				}
+				if(!empty($assetLanguage)){
+					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
@@ -233,7 +242,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Format ID
 	 */
-	public function setFormatCoverActionShot(int $formatID, String $url, String $description=""):void{
+	public function setFormatCoverActionShot(int $formatID, String $url,String $assetLanguage="", String $description=""):void{
 		if(!empty($formatID)){
 			if(!empty($url)){
 				$this->setItem($formatID,"format");
@@ -241,6 +250,9 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				$this->method="actionshot";
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
+				}
+				if(!empty($assetLanguage)){
+					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
@@ -346,7 +358,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function setCategoryCover(string $streamtype="",int $categoryID=0,String $url="", String $description=""):void{
+	private function setCategoryCover(string $streamtype="",int $categoryID=0,String $url="",String $assetLanguage="",String $description=""):void{
 		if(!empty($categoryID)){
 			if(!empty($url)){
 				$this->setItem($categoryID,$streamtype."category");
@@ -354,6 +366,9 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				$this->method="cover";
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
+				}
+				if(!empty($assetLanguage)){
+					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
 			}else{
 				throw new \Exception("Cover URL cant be empty");
