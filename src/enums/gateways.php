@@ -17,7 +17,7 @@ class gateways extends \nexxomnia\internals\enum{
 	const podcast='podcast';
 
 	public static function getMediaGateways():array{
-		return([self::PC,self::MOBILE,self::SMARTTV]);
+		return([self::PC,self::MOBILE,self::SMARTTV,self::CAR]);
 	}
 
 }

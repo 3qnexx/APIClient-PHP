@@ -48,6 +48,10 @@ class systemcall extends \nexxomnia\internals\apicall{
 		$this->path.="persontypes";
 	}
 
+	public function ttsVoices():void{
+		$this->path.="ttsvoices";
+	}
+
 	/**
 	 * @throws \Exception on invalid Streamtype
 	 */

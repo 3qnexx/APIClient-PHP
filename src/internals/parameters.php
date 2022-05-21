@@ -46,6 +46,9 @@ class parameters{
 		$this->set('restrictToChildDomain',$dom);
 	}
 
+	/**
+	 * @throws \Exception on invalid ImageFormat
+	 */
 	public function setImageFormat(string $format):void{
 		if(in_array($format,imageformats::getAllTypes())){
 			$this->set('imageFormat',$format);

@@ -143,8 +143,8 @@ class mediamodifiers extends modifiers{
 		}
 	}
 
-	public function addTranslations():void{
-		$this->params['addTranslations']=1;
+	public function addMultiLanguageData():void{
+		$this->params['addMultiLanguageData']=1;
 	}
 
 	public function addItemData():void{
