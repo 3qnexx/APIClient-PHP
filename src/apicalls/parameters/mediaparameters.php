@@ -228,7 +228,7 @@ class mediaparameters extends parameters{
 		}
 	}
 
-	//only valid for COLLECTIONS // ALLMEDIA
+	//only valid for ALLMEDIA
 	public function restrictToStreamtypes(array $list):void{
 		if(!empty($list)){
 			$this->params['selectedStreamtypes']=implode(",",$list);

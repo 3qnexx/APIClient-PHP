@@ -89,7 +89,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createFromURL(string $url, bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0):void{
+	public function createFromURL(string $url, bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0, string $sourceLanguage=""):void{
 		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if(substr($url,0,4)=="http"){
 				$this->verb=defaults::VERB_POST;
@@ -106,6 +106,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				}
 				if($autoPublish!==NULL){
 					$this->getParameters()->set('autoPublish',($autoPublish?1:0));
+				}
+				if(($this->streamtype==streamtypes::VIDEO)||($this->streamtype==streamtypes::AUDIO)){
+					if(strlen($sourceLanguage)==2){
+						$this->getParameters()->set("language",$sourceLanguage);
+					}
 				}
 				if($this->streamtype==streamtypes::VIDEO){
 					if($asVariantOf>0){
