@@ -37,10 +37,6 @@ class mediamodifiers extends modifiers{
 		$this->params['addRestrictionDetails']=1;
 	}
 
-	public function addItemDetails():void{
-		$this->params['addItemDetails']=1;
-	}
-
 	public function addAwards():void{
 		$this->params['addAwards']=1;
 	}
@@ -70,23 +66,6 @@ class mediamodifiers extends modifiers{
 	}
 
 	/**
-	 * @throws \Exception on invalid connectedMediaDetails Format
-	 */
-	public function addConnectedMedia($options="all",$connectedMediaDetails=""):void{
-		if(is_array($options)){
-			$options=implode(",",$options);
-		}
-		$this->params['addConnectedMedia']=$options;
-		if(!empty($connectedMediaDetails)){
-			if(in_array($connectedMediaDetails,connectedmediadetails::getAllTypes())){
-				$this->params['connectedMediaDetails']=$connectedMediaDetails;
-			}else{
-				throw new \Exception("Detail Level is unknown");
-			}
-		}
-	}
-
-	/**
 	 * @throws \Exception on invalid Comment Context
 	 */
 	public function addComments(string $context=commentcontexts::ALL):void{
@@ -110,6 +89,23 @@ class mediamodifiers extends modifiers{
 	}
 
 	/**
+	 * @throws \Exception on invalid connectedMediaDetails Format
+	 */
+	public function addConnectedMedia($options="all",$connectedMediaDetails=""):void{
+		if(is_array($options)){
+			$options=implode(",",$options);
+		}
+		$this->params['addConnectedMedia']=$options;
+		if(!empty($connectedMediaDetails)){
+			if(in_array($connectedMediaDetails,connectedmediadetails::getAllTypes())){
+				$this->params['connectedMediaDetails']=$connectedMediaDetails;
+			}else{
+				throw new \Exception("Detail Level is unknown");
+			}
+		}
+	}
+
+	/**
 	 * @throws \Exception on invalid parentMediaDetails Format
 	 */
 	public function addParentMedia($options="all",$parentMediaDetails=""):void{
@@ -119,7 +115,24 @@ class mediamodifiers extends modifiers{
 		$this->params['addParentMedia']=$options;
 		if(!empty($parentMediaDetails)){
 			if(in_array($parentMediaDetails,connectedmediadetails::getAllTypes())){
-				$this->params['connectedMediaDetails']=$parentMediaDetails;
+				$this->params['parentMediaDetails']=$parentMediaDetails;
+			}else{
+				throw new \Exception("Detail Level is unknown");
+			}
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid childMediaDetails Format
+	 */
+	public function addChildMedia($options="all",$childMediaDetails=""):void{
+		if(is_array($options)){
+			$options=implode(",",$options);
+		}
+		$this->params['addChildMedia']=$options;
+		if(!empty($childMediaDetails)){
+			if(in_array($childMediaDetails,connectedmediadetails::getAllTypes())){
+				$this->params['childMediaDetails']=$childMediaDetails;
 			}else{
 				throw new \Exception("Detail Level is unknown");
 			}
@@ -145,10 +158,6 @@ class mediamodifiers extends modifiers{
 
 	public function addMultiLanguageData():void{
 		$this->params['addMultiLanguageData']=1;
-	}
-
-	public function addItemData():void{
-		$this->params['addItemData']=1;
 	}
 
 	public function addCustomAttributes():void{
@@ -195,14 +204,6 @@ class mediamodifiers extends modifiers{
 		}else{
 			throw new \Exception("CaptionFormat string is unknown");
 		}
-	}
-
-	public function addScenes():void{
-		$this->params['addScenes']=1;
-	}
-
-	public function addChapters():void{
-		$this->params['addChapters']=1;
 	}
 
 	public function addHotSpots():void{
