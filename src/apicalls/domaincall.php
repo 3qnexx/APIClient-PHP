@@ -50,8 +50,8 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path.="accounts";
 	}
 
-	public function liveLinks():void{
-		$this->path.="livelinks";
+	public function liveConnections():void{
+		$this->path.="liveconnections";
 	}
 
 	public function channels():void{
@@ -163,7 +163,7 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path.="systemusers";
 	}
 
-	public function networkDomains(bool $addChannels=FALSE,bool $addFormats=FALSE,bool $addVideoCategories=FALSE,bool $addAudioCategories=FALSE,bool $addImageCategories=FALSE,bool $addFileCategories=FALSE,bool $addArticleCategories=FALSE,bool $addEventCategories=FALSE,bool $addPlaceCategories=FALSE,$addProductCategories=FALSE,bool $addAccounts=FALSE,bool $addLiveLinks=FALSE,bool $addAutoUpdateFeeds=FALSE,bool $addTags=FALSE,bool $addCustomAttributes=FALSE):void{
+	public function networkDomains(bool $addChannels=FALSE,bool $addFormats=FALSE,bool $addVideoCategories=FALSE,bool $addAudioCategories=FALSE,bool $addImageCategories=FALSE,bool $addFileCategories=FALSE,bool $addArticleCategories=FALSE,bool $addEventCategories=FALSE,bool $addPlaceCategories=FALSE,$addProductCategories=FALSE,bool $addAccounts=FALSE,bool $addLiveConnections=FALSE,bool $addAutoUpdateFeeds=FALSE,bool $addTags=FALSE,bool $addCustomAttributes=FALSE):void{
 		$this->path.="networkdomains";
 		if($addChannels){
 			$this->getParameters()->set("addChannels",1);
@@ -198,8 +198,8 @@ class domaincall extends \nexxomnia\internals\apicall{
 		if($addAccounts){
 			$this->getParameters()->set("addAccounts",1);
 		}
-		if($addLiveLinks){
-			$this->getParameters()->set("addLiveLinks",1);
+		if($addLiveConnections){
+			$this->getParameters()->set("addLiveConnections",1);
 		}
 		if($addAutoUpdateFeeds){
 			$this->getParameters()->set("addAutoUpdateFeeds",1);

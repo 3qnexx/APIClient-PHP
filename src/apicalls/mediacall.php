@@ -347,8 +347,8 @@ class mediacall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Streamtype or Media ID
 	 */
-	public function byLiveLink(int $liveLinkID):void{
-		$this->verifyParameter("bylivelink",$liveLinkID,[streamtypes::VIDEO]);
+	public function byLiveConnection(int $liveConnectionID):void{
+		$this->verifyParameter("byliveconnection",$liveConnectionID,[streamtypes::VIDEO]);
 	}
 
 	/**
