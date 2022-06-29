@@ -253,11 +253,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createLiveStreamFromLiveLink(int $liveLinkID=0,string $title="",string $type=livestreamtypes::EVENT):void{
-		if($liveLinkID>0){
+	public function createLiveStreamFromLiveConnection(int $liveConnectionID=0,string $title="",string $type=livestreamtypes::EVENT):void{
+		if($liveConnectionID>0){
 			$this->setStreamtype(streamtypes::LIVE);
 			$this->verb=defaults::VERB_POST;
-			$this->method="fromlivelink/".$liveLinkID;
+			$this->method="fromliveconnection/".$liveConnectionID;
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
 			}
@@ -265,14 +265,14 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("type",$type);
 			}
 		}else{
-			throw new \Exception("the LiveLink ID must be given.");
+			throw new \Exception("the LiveConnection ID must be given.");
 		}
 	}
 
-	public function createLiveStreamFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT,string $sourceType=livesourcetypes::RTMP,bool $enableDVR=FALSE):void{
+	public function createLiveStreamFromAutoLiveConnection(string $title="",string $type=livestreamtypes::EVENT,string $sourceType=livesourcetypes::RTMP,bool $enableDVR=FALSE):void{
 		$this->setStreamtype(streamtypes::LIVE);
 		$this->verb=defaults::VERB_POST;
-		$this->method="fromautolivelink";
+		$this->method="fromautoliveconnection";
 		if(!empty($title)){
 			$this->getParameters()->set("title",$title);
 		}
@@ -315,11 +315,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createRadioFromLiveLink(int $liveLinkID=0,string $title="",string $type=livestreamtypes::EVENT):void{
-		if($liveLinkID>0){
+	public function createRadioFromLiveConnection(int $liveConnectionID=0,string $title="",string $type=livestreamtypes::EVENT):void{
+		if($liveConnectionID>0){
 			$this->setStreamtype(streamtypes::RADIO);
 			$this->verb=defaults::VERB_POST;
-			$this->method="fromlivelink/".$liveLinkID;
+			$this->method="fromliveconnection/".$liveConnectionID;
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
 			}
@@ -327,14 +327,14 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("type",$type);
 			}
 		}else{
-			throw new \Exception("the LiveLink ID must be given.");
+			throw new \Exception("the LiveConnection ID must be given.");
 		}
 	}
 
-	public function createRadioFromAutoLiveLink(string $title="",string $type=livestreamtypes::EVENT):void{
+	public function createRadioFromAutoLiveConnection(string $title="",string $type=livestreamtypes::EVENT):void{
 		$this->setStreamtype(streamtypes::RADIO);
 		$this->verb=defaults::VERB_POST;
-		$this->method="fromautolivelink";
+		$this->method="fromautoliveconnection";
 		if(!empty($title)){
 			$this->getParameters()->set("title",$title);
 		}
