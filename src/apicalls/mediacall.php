@@ -165,6 +165,10 @@ class mediacall extends \nexxomnia\internals\apicall{
 		$this->method="formatoverview";
 	}
 
+	public function currentViewsFor(int $id):void{
+		$this->method="currentviewsfor/".$id;
+	}
+
 	public function commentsFor(int $id):void{
 		$this->method="commentsfor/".$id;
 	}

@@ -6,6 +6,7 @@ use nexxomnia\enums\autoorderattributes;
 use nexxomnia\enums\contentmoderationaspects;
 use nexxomnia\enums\defaults;
 use nexxomnia\enums\exportparts;
+use nexxomnia\enums\externalplatformcontexts;
 use nexxomnia\enums\externalplatforms;
 use nexxomnia\enums\externalstates;
 use nexxomnia\enums\highlightvideopurposes;
@@ -782,7 +783,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0):void{
+	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext=""):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
 				$this->verb=defaults::VERB_POST;
@@ -799,6 +800,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				}
 				if(($publicationDate>0)&&($externalState==externalstates::PRIVATE)){
 					$this->getParameters()->set("publicationDate",$publicationDate);
+				}
+				if(($this->streamtype==streamtypes::VIDEO)&&(!empty($platformContext))&&(in_array($platformContext,externalplatformcontexts::getAllTypes()))){
+					$this->getParameters()->set("platformContext",$platformContext);
 				}
 				if(($this->streamtype==streamtypes::VIDEO)&&(!empty($inVariant))){
 					$this->getParameters()->set("inVariant",$inVariant);
