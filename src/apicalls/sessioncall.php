@@ -25,7 +25,7 @@ class sessioncall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty Device Hash
 	 */
-	public function init(string $deviceHash,string $userHash="",int $previousSession=0,bool $forcePersistantSession=FALSE,string $externalUserReference=""):void{
+	public function init(string $deviceHash,string $userHash="",int $previousSession=0,bool $forcePersistantSession=FALSE,string $externalUserReference="",$latitude=0,$longitude=0):void{
 		if(!empty($deviceHash)){
 			$this->path.="init";
 			$this->verb=defaults::VERB_POST;
@@ -40,6 +40,12 @@ class sessioncall extends \nexxomnia\internals\apicall{
 			}
 			if($forcePersistantSession){
 				$this->getParameters()->set('forcePersistantSession',1);
+			}
+			if(!empty($latitude)){
+				$this->getParameters()->set('lat',$latitude);
+			}
+			if(!empty($longitude)){
+				$this->getParameters()->set('lat',$longitude);
 			}
 		}else{
 			throw new \Exception("deviceHash cant be empty");
