@@ -105,8 +105,8 @@ class parameters{
 		$this->set('additionalFields',$fields);
 	}
 
-	public function setOrder(string $order,string $direction="DESC"):void{
-		$this->set('order',$order);
+	public function setOrder(string $orderBy,string $direction="DESC"):void{
+		$this->set('orderBy',$orderBy);
 		if(in_array(strtoupper($direction),['ASC','DESC'])){
 			$this->set('orderDir',strtoupper($direction));
 		}
