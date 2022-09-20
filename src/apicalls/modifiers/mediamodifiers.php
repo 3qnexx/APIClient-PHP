@@ -214,10 +214,6 @@ class mediamodifiers extends modifiers{
 		$this->params['addBumpers']=1;
 	}
 
-	public function addVariantDetails():void{
-		$this->params['addVariantDetails']=1;
-	}
-
 	//only valid for Persons
 	public function addTaggedImages():void{
 		$this->params['addTaggedImages']=1;

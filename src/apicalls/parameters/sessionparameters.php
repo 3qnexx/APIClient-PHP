@@ -11,7 +11,7 @@ class sessionparameters extends parameters{
 
 	public function setLanguage(string $language):void{
 		if(strlen($language)==2){
-			$this->set('explicitlanguage',strtolower($language));
+			$this->set('explicitLanguage',strtolower($language));
 		}
 	}
 
@@ -23,8 +23,12 @@ class sessionparameters extends parameters{
 		$this->set('deliveryPartner',$partner);
 	}
 
-	public function setAffiliatePartnerCode(string $code):void{
-		$this->set('code',$code);
+	public function setAffiliatePartner(int $partner):void{
+		$this->set('affiliatePartner',$partner);
+	}
+
+	public function setAffiliatePartnerCode(String $code):void{
+		$this->set('nxp_afpc',$code);
 	}
 
 	public function setDeviceName(string $name):void{
@@ -36,6 +40,6 @@ class sessionparameters extends parameters{
 	}
 
 	public function setLinkOrigin(string $origin):void{
-		$this->set('linkorigin',$origin);
+		$this->set('linkOrigin',$origin);
 	}
 }

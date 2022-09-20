@@ -105,8 +105,8 @@ class parameters{
 		$this->set('additionalFields',$fields);
 	}
 
-	public function setOrder(string $order,string $direction="DESC"):void{
-		$this->set('order',$order);
+	public function setOrder(string $orderBy,string $direction="DESC"):void{
+		$this->set('orderBy',$orderBy);
 		if(in_array(strtoupper($direction),['ASC','DESC'])){
 			$this->set('orderDir',strtoupper($direction));
 		}
@@ -130,8 +130,8 @@ class parameters{
 	 * @throws \Exception on invalid Limit
 	 */
 	public function setChildLimit(int $limit):void{
-		if($limit>defaults::MAX_RESULT_LIMIT){
-			throw new \Exception("max Child Limit is ".defaults::MAX_RESULT_LIMIT);
+		if($limit>defaults::MAX_RESULT_LIMIT_CHILDREN){
+			throw new \Exception("max Child Limit is ".defaults::MAX_RESULT_LIMIT_CHILDREN);
 		}else{
 			$this->set('childLimit',abs($limit));
 		}

@@ -3,7 +3,7 @@ namespace nexxomnia\enums;
 
 class defaults extends \nexxomnia\internals\enum{
 
-	const CLIENT_VERSION='1.5.2';
+	const CLIENT_VERSION='1.5.3';
 
 	const API_URL='api.nexx.cloud';
 	const API_VERSION='3.1';
@@ -22,6 +22,7 @@ class defaults extends \nexxomnia\internals\enum{
 	const VERB_DELETE="DELETE";
 
 	const MAX_RESULT_LIMIT=100;
+	const MAX_RESULT_LIMIT_CHILDREN=250;
 	const MAX_RESULT_LIMIT_STATISTICS=100000;
 
 	public static function getAllVerbs():array{
