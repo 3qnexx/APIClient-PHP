@@ -22,6 +22,7 @@ class defaults extends \nexxomnia\internals\enum{
 	const VERB_DELETE="DELETE";
 
 	const MAX_RESULT_LIMIT=100;
+	const MAX_RESULT_LIMIT_CHILDREN=250;
 	const MAX_RESULT_LIMIT_STATISTICS=100000;
 
 	public static function getAllVerbs():array{
