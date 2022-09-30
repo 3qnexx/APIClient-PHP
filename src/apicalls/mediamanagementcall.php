@@ -3,6 +3,7 @@ namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\ageclasses;
 use nexxomnia\enums\autoorderattributes;
+use nexxomnia\enums\captionroles;
 use nexxomnia\enums\contentmoderationaspects;
 use nexxomnia\enums\defaults;
 use nexxomnia\enums\exportparts;
@@ -1232,35 +1233,35 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCover(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+	public function setItemCover(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
 		$this->handleCover("cover",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverAlternative(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+	public function setItemCoverAlternative(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
 		$this->handleCover("alternativecover",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverABTest(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+	public function setItemCoverABTest(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
 		$this->handleCover("abtestalternative",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverActionShot(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+	public function setItemCoverActionShot(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
 		$this->handleCover("actionshot",$url,$assetLanguage,$description,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverQuad(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+	public function setItemCoverQuad(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
 		$this->handleCover("quadcover",$url,$assetLanguage,$description,$fromTime);
 	}
 
@@ -1288,7 +1289,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addCaptionsFromURL(string $url="",string $language="",string $title="",bool $withAudioDescription=FALSE):void{
+	public function addCaptionsFromURL(string $url="",string $language="",string $title="",string $role=captionroles::ROLE_SUBTITLES):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(substr($url,0,4)=="http"){
 				$this->verb=defaults::VERB_POST;
@@ -1302,8 +1303,8 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				if(!empty($title)){
 					$this->getParameters()->set("title",$title);
 				}
-				if($withAudioDescription){
-					$this->getParameters()->set("withAudioDescription",1);
+				if(!empty($role)){
+					$this->getParameters()->set("role",$role);
 				}
 			}else{
 				throw new \Exception("a valid Caption URL is missing.");
@@ -1328,11 +1329,14 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function translateCaptionsTo($targetLanguage=""):void{
+	public function translateCaptionsTo(string $targetLanguage="",string $role=captionroles::ROLE_SUBTITLES):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(strlen($targetLanguage)==2){
 				$this->verb=defaults::VERB_POST;
 				$this->method="translatecaptionsto/".$targetLanguage;
+				if(!empty($role)){
+					$this->getParameters()->set("role",$role);
+				}
 			}else{
 				throw new \Exception("Target Language must be given in 2-Letter-Code");
 			}
@@ -1344,15 +1348,13 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function removeCaptions(string $language="",bool $withAudioDescription=FALSE):void{
+	public function removeCaptions(string $language="",string $role=captionroles::ROLE_SUBTITLES):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(strlen($language)==2){
 				$this->verb=defaults::VERB_DELETE;
 				$this->method="removecaptions";
 				$this->getParameters()->set("language",$language);
-				if($withAudioDescription){
-					$this->getParameters()->set("withAudioDescription",1);
-				}
+				$this->getParameters()->set("role",$role);
 			}else{
 				throw new \Exception("Language must be given in 2-Letter-Code");
 			}

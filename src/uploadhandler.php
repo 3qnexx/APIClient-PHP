@@ -142,7 +142,7 @@ class uploadhandler{
 	/**
 	 * @throws \Exception on any Processing Error
 	 */
-	public function setMediaCover($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $coverContext=covercontexts::COVER):bool{
+	public function setMediaCover($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $coverContext=covercontexts::COVER,string $coverDescription="",string $assetLanguage=""):bool{
 		$isSuccess=FALSE;
 		if($this->apiclient){
 			if((file_exists($localPath))&&(filesize($localPath)>100)&&(!is_dir($localPath))){
@@ -157,25 +157,25 @@ class uploadhandler{
 								$url=$config['endpoint']."/".$config['file'];
 								switch($coverContext){
 									case covercontexts::COVER:
-										$uploadcall->setItemCover($url);
+										$uploadcall->setItemCover($url,$coverDescription,$assetLanguage);
 									break;
 									case covercontexts::ALTERNATIVE:
-										$uploadcall->setItemCoverAlternative($url);
+										$uploadcall->setItemCoverAlternative($url,$coverDescription,$assetLanguage);
 									break;
 									case covercontexts::ABTEST:
-										$uploadcall->setItemCoverABTest($url);
+										$uploadcall->setItemCoverABTest($url,$coverDescription,$assetLanguage);
 									break;
 									case covercontexts::ACTIONSHOT:
-										$uploadcall->setItemCoverActionShot($url);
+										$uploadcall->setItemCoverActionShot($url,$coverDescription,$assetLanguage);
 									break;
 									case covercontexts::BANNER:
-										$uploadcall->setItemCoverBanner($url);
+										$uploadcall->setItemCoverBanner($url,$coverDescription,$assetLanguage);
 									break;
 									case covercontexts::QUAD:
-										$uploadcall->setItemCoverQuad($url);
+										$uploadcall->setItemCoverQuad($url,$coverDescription,$assetLanguage);
 									break;
 									case covercontexts::FAMILYSAFE:
-										$uploadcall->setItemCoverFamilySafe($url);
+										$uploadcall->setItemCoverFamilySafe($url,$coverDescription,$assetLanguage);
 									break;
 								}
 								$uploadresult=$this->apiclient->call($uploadcall);
@@ -204,7 +204,7 @@ class uploadhandler{
 	/**
 	 * @throws \Exception on any Processing Error
 	 */
-	public function addMediaCaptions($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $language='',bool $withAudioDescription=FALSE):bool{
+	public function addMediaCaptions($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $language='',string $role=enums\captionroles::ROLE_SUBTITLES):bool{
 		$isSuccess=FALSE;
 		if($this->apiclient){
 			if((file_exists($localPath))&&(filesize($localPath)>100)&&(!is_dir($localPath))){
@@ -217,7 +217,7 @@ class uploadhandler{
 							$uploadcall->setItem($mediaid,$streamtype);
 							try{
 								try{
-									$uploadcall->addCaptionsFromURL($config['endpoint']."/".$config['file'],$language,"",$withAudioDescription);
+									$uploadcall->addCaptionsFromURL($config['endpoint']."/".$config['file'],$language,"",$role);
 									$uploadresult=$this->apiclient->call($uploadcall);
 									$isSuccess=$uploadresult->isSuccess();
 								}catch(\Exception $e){
