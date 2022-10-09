@@ -3,7 +3,7 @@ namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\modifiers\mediamodifiers;
 use nexxomnia\apicalls\parameters\mediaparameters;
-use nexxomnia\enums\captionroles;
+use nexxomnia\enums\texttrackroles;
 use nexxomnia\enums\defaults;
 use nexxomnia\enums\geoquerymodes;
 use nexxomnia\enums\querymodes;
@@ -206,8 +206,8 @@ class mediacall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Streamtype or Media ID
 	 */
-	public function captionsFor(int $id, string $role=captionroles::ROLE_SUBTITLES):void{
-		$this->verifyParameter("captionsfor",$id,[streamtypes::VIDEO,streamtypes::AUDIO,streamtypes::ALLMEDIA]);
+	public function textTrackDataFor(int $id, string $role=texttrackroles::ROLE_SUBTITLES):void{
+		$this->verifyParameter("texttrackdatafor",$id,[streamtypes::VIDEO,streamtypes::AUDIO,streamtypes::ALLMEDIA]);
 		if(!empty($role)){
 			$this->getParameters()->set("role",$role);
 		}

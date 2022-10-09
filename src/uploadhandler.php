@@ -204,7 +204,7 @@ class uploadhandler{
 	/**
 	 * @throws \Exception on any Processing Error
 	 */
-	public function addMediaCaptions($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $language='',string $role=enums\captionroles::ROLE_SUBTITLES):bool{
+	public function addMediaTextTrack($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $language='',string $role=enums\texttrackroles::ROLE_SUBTITLES):bool{
 		$isSuccess=FALSE;
 		if($this->apiclient){
 			if((file_exists($localPath))&&(filesize($localPath)>100)&&(!is_dir($localPath))){
@@ -217,7 +217,7 @@ class uploadhandler{
 							$uploadcall->setItem($mediaid,$streamtype);
 							try{
 								try{
-									$uploadcall->addCaptionsFromURL($config['endpoint']."/".$config['file'],$language,"",$role);
+									$uploadcall->addTextTrackFromURL($config['endpoint']."/".$config['file'],$language,"",$role);
 									$uploadresult=$this->apiclient->call($uploadcall);
 									$isSuccess=$uploadresult->isSuccess();
 								}catch(\Exception $e){

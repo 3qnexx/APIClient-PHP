@@ -1,7 +1,7 @@
 <?php
 namespace nexxomnia\enums;
 
-class captionformats extends \nexxomnia\internals\enum{
+class texttrackformats extends \nexxomnia\internals\enum{
 
 	const DATA='data';
 	const AUTO='auto';
