@@ -3,7 +3,7 @@ namespace nexxomnia\apicalls;
 
 use nexxomnia\enums\ageclasses;
 use nexxomnia\enums\autoorderattributes;
-use nexxomnia\enums\captionroles;
+use nexxomnia\enums\texttrackroles;
 use nexxomnia\enums\contentmoderationaspects;
 use nexxomnia\enums\defaults;
 use nexxomnia\enums\exportparts;
@@ -1289,11 +1289,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addCaptionsFromURL(string $url="",string $language="",string $title="",string $role=captionroles::ROLE_SUBTITLES):void{
+	public function addTextTrackFromURL(string $url="",string $language="",string $title="",string $role=texttrackroles::ROLE_SUBTITLES):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(substr($url,0,4)=="http"){
 				$this->verb=defaults::VERB_POST;
-				$this->method="captionsfromurl";
+				$this->method="texttrackfromurl";
 				$this->getParameters()->set("url",$url);
 				if(strlen($language)==2){
 					$this->getParameters()->set("language",$language);
@@ -1307,7 +1307,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 					$this->getParameters()->set("role",$role);
 				}
 			}else{
-				throw new \Exception("a valid Caption URL is missing.");
+				throw new \Exception("a valid TextTrack URL is missing.");
 			}
 		}else{
 			throw new \Exception("Streamtype must be in video,audio");
@@ -1317,10 +1317,10 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addCaptionsFromSpeech():void{
+	public function addTextTrackFromSpeech():void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			$this->verb=defaults::VERB_POST;
-			$this->method="captionsfromspeech";
+			$this->method="texttrackfromspeech";
 		}else{
 			throw new \Exception("Streamtype must be in video,audio");
 		}
@@ -1329,11 +1329,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function translateCaptionsTo(string $targetLanguage="",string $role=captionroles::ROLE_SUBTITLES):void{
+	public function translateTextTrackTo(string $targetLanguage="",string $role=texttrackroles::ROLE_SUBTITLES):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(strlen($targetLanguage)==2){
 				$this->verb=defaults::VERB_POST;
-				$this->method="translatecaptionsto/".$targetLanguage;
+				$this->method="translatetexttrackto/".$targetLanguage;
 				if(!empty($role)){
 					$this->getParameters()->set("role",$role);
 				}
@@ -1348,11 +1348,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function removeCaptions(string $language="",string $role=captionroles::ROLE_SUBTITLES):void{
+	public function removeTextTrack(string $language="",string $role=texttrackroles::ROLE_SUBTITLES):void{
 		if(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::AUDIO])){
 			if(strlen($language)==2){
 				$this->verb=defaults::VERB_DELETE;
-				$this->method="removecaptions";
+				$this->method="removetexttrack";
 				$this->getParameters()->set("language",$language);
 				$this->getParameters()->set("role",$role);
 			}else{

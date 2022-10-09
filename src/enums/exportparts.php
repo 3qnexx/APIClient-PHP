@@ -5,7 +5,7 @@ class exportparts extends \nexxomnia\internals\enum{
 
 	const ALL="all";
 	const METADATA="metadata";
-	const CAPTIONS="captions";
+	const TEXTTRACKS="texttracks";
 	const COVER="cover";
 	const VIDEO="video";
 

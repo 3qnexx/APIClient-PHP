@@ -2,7 +2,7 @@
 namespace nexxomnia\apicalls\parameters;
 
 use nexxomnia\enums\autofillresultmodes;
-use nexxomnia\enums\captionformats;
+use nexxomnia\enums\texttrackformats;
 use nexxomnia\enums\connectedmediadetails;
 use nexxomnia\enums\dimensioncodes;
 use nexxomnia\enums\streamtypes;

@@ -2,7 +2,7 @@
 
 namespace nexxomnia\apicalls\modifiers;
 
-use nexxomnia\enums\captionformats;
+use nexxomnia\enums\texttrackformats;
 use nexxomnia\enums\commentcontexts;
 use nexxomnia\enums\connectedmediadetails;
 use nexxomnia\internals\modifiers;
@@ -198,11 +198,11 @@ class mediamodifiers extends modifiers{
 	/**
 	 * @throws \Exception on invalid CaptionFormat
 	 */
-	public function addCaptions(string $format=captionformats::DATA):void{
-		if(in_array($format,captionformats::getAllTypes())){
-			$this->params['addCaptions']=$format;
+	public function addTextTracks(string $format=texttrackformats::DATA):void{
+		if(in_array($format,texttrackformats::getAllTypes())){
+			$this->params['addTextTracks']=$format;
 		}else{
-			throw new \Exception("CaptionFormat string is unknown");
+			throw new \Exception("TextTrack Format string is unknown");
 		}
 	}
 
