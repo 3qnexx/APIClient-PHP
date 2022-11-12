@@ -91,7 +91,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createFromURL(string $url, bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0, string $sourceLanguage=""):void{
+	public function createFromURL(string $url, bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0, string $sourceLanguage="", string $notes=""):void{
 		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if(substr($url,0,4)=="http"){
 				$this->verb=defaults::VERB_POST;
@@ -99,6 +99,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("url",$url);
 				if(!empty($refnr)){
 					$this->getParameters()->set("refnr",$refnr);
+				}
+				if(!empty($notes)){
+					$this->getParameters()->set("notes",$notes);
 				}
 				if($useQueue){
 					$this->getParameters()->set("useQueue",1);
@@ -885,10 +888,12 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemPreviewLink(string $language="",int $maxStarts=0,string $code="",bool $showAnnotations=TRUE,bool $allowAnnotations=TRUE,bool $allowSnapshots=FALSE,bool $allowSourceDownloads=FALSE,bool $useDomainStyle=FALSE):void{
+	public function addItemPreviewLink(string $title, string $language="",int $maxStarts=0,string $code="",bool $showAnnotations=TRUE,bool $allowAnnotations=TRUE,bool $allowSnapshots=FALSE,bool $allowSourceDownloads=FALSE,bool $useDomainStyle=FALSE):void{
 		if(in_array($this->streamtype,streamtypes::getPlayerTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="addpreviewlink";
+
+			$this->getParameters()->set("title",$title);
 			if((!empty($language))&&(strlen($language)==2)){
 				$this->getParameters()->set("language",$language);
 			}
@@ -927,6 +932,44 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->method="removepreviewlink/".$previewlinkID;
 		}else{
 			throw new \Exception("the ID of the PreviewLink must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function addItemDownloadLink(string $title, string $language="",int $maxStarts=0,string $code="",bool $useDomainStyle=FALSE):void{
+		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
+			$this->verb=defaults::VERB_POST;
+			$this->method="adddownloadlink";
+
+			$this->getParameters()->set("title",$title);
+			if((!empty($language))&&(strlen($language)==2)){
+				$this->getParameters()->set("language",$language);
+			}
+			if($maxStarts>0){
+				$this->getParameters()->set("maxStarts",$maxStarts);
+			}
+			if(!empty($code)){
+				$this->getParameters()->set("code",$code);
+			}
+			if($useDomainStyle){
+				$this->getParameters()->set("useDomainStyle",1);
+			}
+		}else{
+			throw new \Exception("Streamtype must be in ".implode(", ",streamtypes::getUploadableTypes()));
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function deleteItemDownloadLink(int $downloadlinkID=0):void{
+		if($downloadlinkID>0){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removedownloadlink/".$downloadlinkID;
+		}else{
+			throw new \Exception("the ID of the DownloadLink must be given.");
 		}
 	}
 

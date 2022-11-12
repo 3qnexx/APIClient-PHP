@@ -41,6 +41,10 @@ class metadata{
 		return($this->data['calledfor']);
 	}
 
+	public function getIsFromCache():?int{
+		return($this->data['fromCache']);
+	}
+
 	public function getErrorHint():?string{
 		return($this->data['errorhint']);
 	}

@@ -172,6 +172,10 @@ class mediamodifiers extends modifiers{
 		$this->params['addPreviewLinks']=1;
 	}
 
+	public function addDownloadLinks():void{
+		$this->params['addDownloadLinks']=1;
+	}
+
 	public function addBroadcastLinks():void{
 		$this->params['addBroadcastLinks']=1;
 	}
