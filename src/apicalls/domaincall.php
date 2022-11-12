@@ -119,12 +119,16 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path.="previewlinks";
 	}
 
+	public function downloadLinks():void{
+		$this->path.="downloadlinks";
+	}
+
 	public function broadcastLinks():void{
-		$this->path.="previewlinks";
+		$this->path.="broadcastlinks";
 	}
 
 	public function uploadLinks():void{
-		$this->path.="previewlinks";
+		$this->path.="uploadlinks";
 	}
 
 	public function prices():void{
