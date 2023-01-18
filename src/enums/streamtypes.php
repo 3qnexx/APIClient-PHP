@@ -29,6 +29,10 @@ class streamtypes extends  \nexxomnia\internals\enum{
 	const PRODUCT='product';
 	const GROUP='group';
 	const SHOW='show';
+	const POLL='poll';
+	const FORM='form';
+	const VOTING='voting';
+	const VARIANT='variant';
 
 	const ALLMEDIA='allmedia';
 
@@ -56,8 +60,12 @@ class streamtypes extends  \nexxomnia\internals\enum{
 		return([self::VIDEO,self::AUDIO,self::IMAGE,self::FILE]);
 	}
 
+	public static function getDownloadLinkTypes():array{
+		return([self::VIDEO,self::AUDIO,self::IMAGE,self::FILE,self::SCENE,self::VARIANT]);
+	}
+
 	public static function getPlayerTypes():array{
-		return([self::VIDEO,self::PLAYLIST,self::SET,self::COLLECTION,self::AUDIO,self::RADIO,self::AUDIOALBUM,self::LIVE,self::SCENE,self::RACK]);
+		return([self::VIDEO,self::PLAYLIST,self::SET,self::COLLECTION,self::AUDIO,self::RADIO,self::AUDIOALBUM,self::LIVE,self::SCENE,self::RACK,self::VARIANT]);
 	}
 
 	public static function getContainerTypes():array{
@@ -70,5 +78,16 @@ class streamtypes extends  \nexxomnia\internals\enum{
 
 	public static function getExportableTypes():array{
 		return([self::VIDEO,self::LIVE,self::IMAGE,self::SCENE]);
+	}
+
+	public static function getAllTypes():array{
+		$toreturn=[];
+		$reflect=new \ReflectionClass(static::class);
+		foreach(array_values($reflect->getConstants()) as $type){
+			if($type!=self::VARIANT){
+				array_push($toreturn,$type);
+			}
+		}
+		return($toreturn);
 	}
 }

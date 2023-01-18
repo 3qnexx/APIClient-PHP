@@ -74,14 +74,6 @@ class systemcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	public function openOperations():void{
-		$this->path.="openoperations";
-	}
-
-	public function operationStateFor(int $id):void{
-		$this->path.="operationstate/".$id;
-	}
-
 	public function currentIncidents():void{
 		$this->path.="currentincidents";
 	}

@@ -2,8 +2,6 @@
 
 namespace nexxomnia\internals;
 
-use nexxomnia\internals\modifiers;
-use nexxomnia\internals\parameters;
 use nexxomnia\enums\defaults;
 
 class apicall{

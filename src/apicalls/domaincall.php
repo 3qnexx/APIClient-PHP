@@ -46,6 +46,10 @@ class domaincall extends \nexxomnia\internals\apicall{
 		$this->path.="apps";
 	}
 
+	public function campaigns():void{
+		$this->path.="campaigns";
+	}
+
 	public function accounts():void{
 		$this->path.="accounts";
 	}
@@ -121,6 +125,10 @@ class domaincall extends \nexxomnia\internals\apicall{
 
 	public function downloadLinks():void{
 		$this->path.="downloadlinks";
+	}
+
+	public function dashboardLinks():void{
+		$this->path.="dashboardlinks";
 	}
 
 	public function broadcastLinks():void{
@@ -213,6 +221,17 @@ class domaincall extends \nexxomnia\internals\apicall{
 		}
 		if($addCustomAttributes){
 			$this->getParameters()->set("addCustomAttributes",1);
+		}
+	}
+
+	/**
+	 * @throws \Exception on empty Path
+	 */
+	public function textTemplate($reference){
+		if(!empty($reference)){
+			$this->path.="texttemplates/".$reference;
+		}else{
+			throw new \Exception("TextTemplates need a Reference");
 		}
 	}
 }

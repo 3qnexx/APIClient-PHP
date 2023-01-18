@@ -371,12 +371,16 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createSceneFromVideo(int $videoID=0,string $title="",float $from=0,float $until=0,string $purpose=scenepurposes::CHAPTER):void{
+	public function createSceneFromVideo(int $videoID,float $from,float $until=0,string $title="",string $purpose=scenepurposes::CHAPTER):void{
 		if($videoID>0){
 			$this->setStreamtype(streamtypes::SCENE);
 			$this->verb=defaults::VERB_POST;
 			$this->method="fromvideo/".$videoID;
-			$this->getParameters()->set("from",$from);
+			if(!empty($from)){
+				$this->getParameters()->set("from",$from);
+			}else{
+				throw new \Exception("a valid start time for the Scene must be given");
+			}
 			if(!empty($until)){
 				$this->getParameters()->set("until",$until);
 			}else{
@@ -387,6 +391,32 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if(in_array($purpose,scenepurposes::getAllTypes())){
 				$this->getParameters()->set("purpose",$purpose);
+			}
+		}else{
+			throw new \Exception("the Video ID must be given.");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function createLivestreamFromVideo(int $videoID,int $liveConnection, int $startAt,string $title=""):void{
+		if($videoID>0){
+			$this->setStreamtype(streamtypes::LIVE);
+			$this->verb=defaults::VERB_POST;
+			$this->method="fromvideo/".$videoID;
+			if(!empty($liveConnection)){
+				$this->getParameters()->set("liveConnection",$liveConnection);
+			}else{
+				throw new \Exception("a valid liveConnection must be given");
+			}
+			if(!empty($startAt)){
+				$this->getParameters()->set("start",$startAt);
+			}else{
+				throw new \Exception("a valid start time for the LiveStream must be given");
+			}
+			if(!empty($title)){
+				$this->getParameters()->set("title",$title);
 			}
 		}else{
 			throw new \Exception("the Video ID must be given.");
@@ -787,7 +817,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext=""):void{
+	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext="", string $metadataLanguage=""):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
 				$this->verb=defaults::VERB_POST;
@@ -804,6 +834,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				}
 				if(($publicationDate>0)&&($externalState==externalstates::PRIVATE)){
 					$this->getParameters()->set("publicationDate",$publicationDate);
+				}
+				if((!empty($metadataLanguage))&&(strlen($metadataLanguage)==2)){
+					$this->getParameters()->set("metadataLanguage",$metadataLanguage);
 				}
 				if(($this->streamtype==streamtypes::VIDEO)&&(!empty($platformContext))&&(in_array($platformContext,externalplatformcontexts::getAllTypes()))){
 					$this->getParameters()->set("platformContext",$platformContext);
@@ -938,8 +971,8 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemDownloadLink(string $title, string $language="",int $maxStarts=0,string $code="",bool $useDomainStyle=FALSE):void{
-		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
+	public function addItemDownloadLink(string $title, string $language="",int $maxStarts=0,string $code="",bool $useDomainStyle=FALSE, string $fileType=''):void{
+		if(in_array($this->streamtype,streamtypes::getDownloadLinkTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="adddownloadlink";
 
@@ -952,6 +985,9 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if(!empty($code)){
 				$this->getParameters()->set("code",$code);
+			}
+			if(!empty($fileType)){
+				$this->getParameters()->set("fileType",$fileType);
 			}
 			if($useDomainStyle){
 				$this->getParameters()->set("useDomainStyle",1);

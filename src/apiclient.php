@@ -100,6 +100,7 @@ class apiclient{
 	}
 
 	private function callAPI(string $verb,string $endpoint,?parameters $params=NULL,?modifiers $modifiers=NULL):result{
+		$request=NULL;
 		$callparams=[];
 		$clientconfig=[
 			'timeout'=>$this->timeout,
