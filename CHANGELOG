@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.5.7 (2023-01-18)
+-------------------
+
+* adding Support for "campaigns"
+* adding Support for VOD2Live Workflows
+* adding Support for Interaction Streamtypes
+
 1.5.6 (2022-11-13)
 -------------------
 

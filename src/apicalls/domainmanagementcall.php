@@ -359,7 +359,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function setCategoryCover(string $streamtype="",int $categoryID=0,String $url="",String $assetLanguage="",String $description=""):void{
+	private function setCategoryCover(string $streamtype="",int $categoryID=0,string $url="",string $assetLanguage="",string $description=""):void{
 		if(!empty($categoryID)){
 			if(!empty($url)){
 				$this->setItem($categoryID,$streamtype."category");

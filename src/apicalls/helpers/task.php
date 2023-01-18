@@ -6,7 +6,7 @@ use nexxomnia\enums\streamtypes;
 
 class task{
 
-	protected $data=[];
+	protected array $data=[];
 
 	public function __construct(string $name="",string $endpoint="",string $method="",int $item=0,array $parameters=[]){
 		if(!empty($name)){

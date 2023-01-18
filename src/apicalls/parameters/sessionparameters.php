@@ -31,6 +31,14 @@ class sessionparameters extends parameters{
 		$this->set('nxp_afpc',$code);
 	}
 
+	public function setCampaign(int $campaign):void{
+		$this->set('campaign',$campaign);
+	}
+
+	public function setCampaignCode(String $code):void{
+		$this->set('nxp_cmpc',$code);
+	}
+
 	public function setDeviceName(string $name):void{
 		$this->set('deviceName',$name);
 	}

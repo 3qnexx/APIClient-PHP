@@ -108,6 +108,10 @@ class statisticparameters extends parameters{
 		$this->set('licensor',$licensor);
 	}
 
+	public function restrictToCampaign(int $campaign):void{
+		$this->set('campaign',$campaign);
+	}
+
 	/**
 	 * @throws \Exception on invalid pageIntegration
 	 */

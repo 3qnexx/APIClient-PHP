@@ -72,8 +72,8 @@ class mediacall extends \nexxomnia\internals\apicall{
 		$this->method="byhash/".$hash;
 	}
 
-	public function byRefNr(string $refnr):void{
-		$this->method="byrefnr/".$refnr;
+	public function byReference(string $refnr):void{
+		$this->method="byreference/".$refnr;
 	}
 
 	public function bySlug(string $slug):void{
@@ -390,6 +390,20 @@ class mediacall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Streamtype or Media ID
 	 */
+	public function byRack(int $rackid):void{
+		$this->verifyParameter("byrack",$rackid,[streamtypes::VIDEO,streamtypes::LIVE,streamtypes::SCENE]);
+	}
+
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
+	public function byVariant(int $variantid):void{
+		$this->verifyParameter("byvariant",$variantid,[streamtypes::VIDEO]);
+	}
+
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
 	public function byVideo(int $videoid):void{
 		$this->verifyParameter("byvideo",$videoid,[streamtypes::SCENE]);
 	}
@@ -443,6 +457,13 @@ class mediacall extends \nexxomnia\internals\apicall{
 	 */
 	public function nextInSeries(int $videoid):void{
 		$this->verifyParameter("nextinseries",$videoid,[streamtypes::VIDEO]);
+	}
+
+	/**
+	 * @throws \Exception on invalid Streamtype or Media ID
+	 */
+	public function latestOpen():void{
+		$this->verifyParameter("latestopen",0,[streamtypes::POLL,streamtypes::VOTING],TRUE);
 	}
 
 	public function userHistory(bool $excludeCompleted=FALSE):void{
