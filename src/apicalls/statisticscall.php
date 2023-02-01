@@ -284,8 +284,8 @@ class statisticscall extends \nexxomnia\internals\apicall{
 		$this->path.="distributionbybrowser";
 	}
 
-	public function distributionByURL():void{
-		$this->path.="distributionbyurl";
+	public function distributionByDeliveryDomain():void{
+		$this->path.="distributionbydeliverydomain";
 	}
 
 	public function distributionBySlug():void{

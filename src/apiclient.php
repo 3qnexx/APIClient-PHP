@@ -14,6 +14,7 @@ class apiclient{
 	protected string $session="";
 
 	protected ?\Psr\Log\LoggerInterface $logger=NULL;
+	protected ?array $loggingContext=NULL;
 
 	protected int $timeout=10;
 	protected bool $useHTTPS=TRUE;
@@ -65,8 +66,9 @@ class apiclient{
 		$this->apiVersion=$version;
 	}
 
-	public function setLogger(\Psr\Log\LoggerInterface $logger):void{
+	public function setLogger(\Psr\Log\LoggerInterface $logger,?array $loggingContext=NULL):void{
 		$this->logger=$logger;
+		$this->loggingContext=$loggingContext;
 	}
 
 	public function setTimeout(int $timeout):void{
@@ -91,6 +93,9 @@ class apiclient{
 
 	public function log(string $message,string $level=\Psr\Log\LogLevel::INFO,array $context=[]):void{
 		if($this->logger){
+			if((empty($context))&&(!empty($this->loggingContext))){
+				$context=$this->loggingContext;
+			}
 			$this->logger->log($level,$message,$context);
 		}
 	}
