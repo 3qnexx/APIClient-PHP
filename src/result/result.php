@@ -16,8 +16,9 @@ class result{
 				$this->metadata=new metadata($this->raw['metadata']);
 			}
 			if($this->isSuccess()){
-				if(!empty($this->raw['paging'])){
-					$this->paging=new paging($this->raw['paging'],sizeof($this->raw['result']));
+				$pagingKey=($this->metadata->getAPIVersion()=='4.0'?'pagination':'paging');
+				if(array_key_exists($pagingKey,$this->raw)){
+					$this->paging=new paging($this->raw[$pagingKey],sizeof($this->raw['result']),$this->metadata->getAPIVersion());
 				}
 			}else if($logger){
 				$logger->error("API CALL ERROR: ".$this->code." (".($this->metadata?$this->metadata->getErrorHint():'NO RESPONSE').")");

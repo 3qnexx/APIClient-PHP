@@ -4,13 +4,19 @@ namespace nexxomnia\result;
 class metadata{
 
 	protected ?array $data=NULL;
+	protected ?string $apiVersion="";
 
 	public function __construct($data){
 		$this->data=$data;
+		if(($data)&&(array_key_exists('version',$this->data))){
+			$this->apiVersion="4.0";
+		}else{
+			$this->apiVersion=$this->getAPIVersion();
+		}
 	}
 
 	public function updateProcessingTime(float $time):void{
-		$this->data['processingtime']=$time;
+		$this->data[($this->apiVersion=='4.0'?'processingTime':'processingtime')]=$time;
 	}
 
 	public function getCode():int{
@@ -18,7 +24,7 @@ class metadata{
 	}
 
 	public function getAPIVersion():string{
-		return($this->data['apiversion']);
+		return(($this->apiVersion=='4.0'?'version':'apiversion'));
 	}
 
 	public function getVerb():string{
@@ -26,19 +32,19 @@ class metadata{
 	}
 
 	public function getProcessingTime():float{
-		return($this->data['processingtime']);
+		return($this->data[($this->apiVersion=='4.0'?'processingTime':'processingtime')]);
 	}
 
 	public function getCalledWithPath():string{
-		return($this->data['calledwith']);
+		return($this->data[($this->apiVersion=='4.0'?'calledWith':'calledwith')]);
 	}
 
 	public function getCalledForDomain():int{
-		return($this->data['fordomain']);
+		return($this->data[($this->apiVersion=='4.0'?'forDomain':($this->apiVersion=='3.0'?'forclient':'fordomain'))]);
 	}
 
 	public function getCalledForContext():?string{
-		return($this->data['calledfor']);
+		return($this->data[($this->apiVersion=='4.0'?'calledFor':'calledfor')]);
 	}
 
 	public function getIsFromCache():?int{
@@ -46,7 +52,7 @@ class metadata{
 	}
 
 	public function getErrorHint():?string{
-		return($this->data['errorhint']);
+		return($this->data[($this->apiVersion=='4.0'?'errorHint':'errorhint')]);
 	}
 
 	public function getNotice():?string{
