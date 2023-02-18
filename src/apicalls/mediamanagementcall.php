@@ -1354,13 +1354,6 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverFamilySafe(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
-		$this->handleCover("familysafe",$url,$assetLanguage,$description,$fromTime);
-	}
-
-	/**
-	 * @throws \Exception on invalid Parameters
-	 */
 	public function setItemCoverArtwork(string $url="",string $assetLanguage=""):void{
 		$this->handleCover("artwork",$url,$assetLanguage);
 	}

@@ -174,9 +174,6 @@ class uploadhandler{
 									case covercontexts::QUAD:
 										$uploadcall->setItemCoverQuad($url,$coverDescription,$assetLanguage);
 									break;
-									case covercontexts::FAMILYSAFE:
-										$uploadcall->setItemCoverFamilySafe($url,$coverDescription,$assetLanguage);
-									break;
 								}
 								$uploadresult=$this->apiclient->call($uploadcall);
 								$isSuccess=$uploadresult->isSuccess();

@@ -9,5 +9,4 @@ class covercontexts extends  \nexxomnia\internals\enum{
 	const BANNER='banner';
 	const ACTIONSHOT='actionshot';
 	const QUAD='quad';
-	const FAMILYSAFE='familysafe';
 }
