@@ -817,7 +817,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext="", string $metadataLanguage=""):void{
+	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext=""):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
 				$this->verb=defaults::VERB_POST;
@@ -834,9 +834,6 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				}
 				if(($publicationDate>0)&&($externalState==externalstates::PRIVATE)){
 					$this->getParameters()->set("publicationDate",$publicationDate);
-				}
-				if((!empty($metadataLanguage))&&(strlen($metadataLanguage)==2)){
-					$this->getParameters()->set("metadataLanguage",$metadataLanguage);
 				}
 				if(($this->streamtype==streamtypes::VIDEO)&&(!empty($platformContext))&&(in_array($platformContext,externalplatformcontexts::getAllTypes()))){
 					$this->getParameters()->set("platformContext",$platformContext);
