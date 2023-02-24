@@ -227,6 +227,10 @@ class mediaparameters extends parameters{
 		}
 	}
 
+	public function applyContentModerationFilters():void{
+		$this->params['applyContentModerationFilters']=1;
+	}
+
 	//only valid for ALLMEDIA
 	public function restrictToStreamtypes(array $list):void{
 		if(!empty($list)){
