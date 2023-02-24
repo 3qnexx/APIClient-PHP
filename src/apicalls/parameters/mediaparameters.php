@@ -227,15 +227,15 @@ class mediaparameters extends parameters{
 		}
 	}
 
-	public function applyContentModerationFilters():void{
-		$this->params['applyContentModerationFilters']=1;
-	}
-
 	//only valid for ALLMEDIA
 	public function restrictToStreamtypes(array $list):void{
 		if(!empty($list)){
 			$this->params['selectedStreamtypes']=implode(",",$list);
 		}
+	}
+
+	public function applyContentModerationFilters():void{
+		$this->params['applyContentModerationFilters']=1;
 	}
 
 	public function includeUGC(bool $include,bool $onlyUGC=FALSE,$onlyForUser=0):void{
