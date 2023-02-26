@@ -9,6 +9,8 @@ class externalplatforms extends \nexxomnia\internals\enum{
 	const TWITTER='twitter';
 	const VIMEO='vimeo';
 	const YOUTUBE='youtube';
+	const MASTODON='mastodon';
+	const LINKEDIN='linkedin';
 	const EXTERNALVIEW='externalview';
 
 }
