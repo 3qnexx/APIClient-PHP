@@ -1659,6 +1659,32 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
+	public function addLicenseNote(string $note):void{
+		if(!empty($note)){
+			$this->verb=defaults::VERB_POST;
+			$this->method="addlicensenote";
+			$this->getParameters()->set("note",$note);
+		}else{
+			throw new \Exception("Note cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeLicenseNote(int $licensenoteid):void{
+		if(!empty($licensenoteid)){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removelicensenote";
+			$this->getParameters()->set("licensenoteid",$licensenoteid);
+		}else{
+			throw new \Exception("LicenseNote ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
 	public function addAward(string $award,string $category="",string $date="",string $state=""):void{
 		if(!empty($award)){
 			$this->verb=defaults::VERB_POST;
