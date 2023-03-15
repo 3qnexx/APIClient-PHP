@@ -651,11 +651,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		$this->method="publish";
 	}
 
-	public function unpublishItem(?bool $blockFuturePublishing=NULL):void{
+	public function unpublishItem(bool $blockFuturePublishing=FALSE):void{
 		$this->verb=defaults::VERB_PUT;
 		$this->method="unpublish";
-		if($blockFuturePublishing!==NULL){
-			$this->getParameters()->set("blockFuturePublishing",($blockFuturePublishing?1:0));
+		if($blockFuturePublishing){
+			$this->getParameters()->set("blockFuturePublishing",1);
 		}
 	}
 
