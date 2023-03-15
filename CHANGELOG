@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.5.8 (2023-03-15)
+-------------------
+
+* adding Support for LicenseNotes
+* adding Support for additional Export Platform
+* adding Support for ContentModeration Filters
+
 1.5.7 (2023-01-18)
 -------------------
 
