@@ -5,10 +5,12 @@ class paging{
 
 	protected array $data;
 	protected int $size;
+	protected string $apiVersion;
 
-	public function __construct(array $data,int $size){
+	public function __construct(array $data,int $size,string $apiVersion=""){
 		$this->data=$data;
 		$this->size=$size;
+		$this->apiVersion=$apiVersion;
 	}
 
 	public function updateSize(int $size):void{
@@ -16,7 +18,11 @@ class paging{
 	}
 
 	public function getStart():int{
-		return($this->data['start']);
+		return($this->data[($this->apiVersion=='4.0'?'offset':'start')]);
+	}
+
+	public function getOffset():int{
+		return($this->getStart());
 	}
 
 	public function getLimit():int{
@@ -28,7 +34,7 @@ class paging{
 	}
 
 	public function getTotalSize():int{
-		return($this->data['resultcount']);
+		return($this->data[($this->apiVersion=='4.0'?'total':'resultcount')]);
 	}
 
 	public function hasMoreResults():bool{

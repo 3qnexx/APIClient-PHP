@@ -234,6 +234,10 @@ class mediaparameters extends parameters{
 		}
 	}
 
+	public function applyContentModerationFilters():void{
+		$this->params['applyContentModerationFilters']=1;
+	}
+
 	public function includeUGC(bool $include,bool $onlyUGC=FALSE,$onlyForUser=0):void{
 		if(!empty($onlyForUser)){
 			$onlyUGC=TRUE;

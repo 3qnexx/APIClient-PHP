@@ -139,6 +139,7 @@ class parameters{
 
 	public function setStart(int $start):void{
 		$this->set('start',$start);
+		$this->set('offset',$start);
 	}
 
 	public function get():array{

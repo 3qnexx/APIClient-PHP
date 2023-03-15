@@ -651,11 +651,11 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		$this->method="publish";
 	}
 
-	public function unpublishItem(?bool $blockFuturePublishing=NULL):void{
+	public function unpublishItem(bool $blockFuturePublishing=FALSE):void{
 		$this->verb=defaults::VERB_PUT;
 		$this->method="unpublish";
-		if($blockFuturePublishing!==NULL){
-			$this->getParameters()->set("blockFuturePublishing",($blockFuturePublishing?1:0));
+		if($blockFuturePublishing){
+			$this->getParameters()->set("blockFuturePublishing",1);
 		}
 	}
 
@@ -817,7 +817,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext="", string $metadataLanguage=""):void{
+	public function exportItem(int $accountID,string $externalCategory="",string $externalState=externalstates::PUBLIC, string $postText="",int $publicationDate=0,int $inVariant=0,int $list=0, string $platformContext=""):void{
 		if($accountID>0){
 			if(in_array($this->streamtype,streamtypes::getExportableTypes())){
 				$this->verb=defaults::VERB_POST;
@@ -834,9 +834,6 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				}
 				if(($publicationDate>0)&&($externalState==externalstates::PRIVATE)){
 					$this->getParameters()->set("publicationDate",$publicationDate);
-				}
-				if((!empty($metadataLanguage))&&(strlen($metadataLanguage)==2)){
-					$this->getParameters()->set("metadataLanguage",$metadataLanguage);
 				}
 				if(($this->streamtype==streamtypes::VIDEO)&&(!empty($platformContext))&&(in_array($platformContext,externalplatformcontexts::getAllTypes()))){
 					$this->getParameters()->set("platformContext",$platformContext);
@@ -1354,13 +1351,6 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverFamilySafe(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
-		$this->handleCover("familysafe",$url,$assetLanguage,$description,$fromTime);
-	}
-
-	/**
-	 * @throws \Exception on invalid Parameters
-	 */
 	public function setItemCoverArtwork(string $url="",string $assetLanguage=""):void{
 		$this->handleCover("artwork",$url,$assetLanguage);
 	}
@@ -1663,6 +1653,32 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			$this->getParameters()->set("hotspotid",$hotspotid);
 		}else{
 			throw new \Exception("HotSpot ID cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function addLicenseNote(string $note):void{
+		if(!empty($note)){
+			$this->verb=defaults::VERB_POST;
+			$this->method="addlicensenote";
+			$this->getParameters()->set("note",$note);
+		}else{
+			throw new \Exception("Note cant be empty");
+		}
+	}
+
+	/**
+	 * @throws \Exception on invalid Parameters
+	 */
+	public function removeLicenseNote(int $licensenoteid):void{
+		if(!empty($licensenoteid)){
+			$this->verb=defaults::VERB_DELETE;
+			$this->method="removelicensenote";
+			$this->getParameters()->set("licensenoteid",$licensenoteid);
+		}else{
+			throw new \Exception("LicenseNote ID cant be empty");
 		}
 	}
 

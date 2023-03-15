@@ -104,6 +104,10 @@ class mediacall extends \nexxomnia\internals\apicall{
 		$this->method="evergreens";
 	}
 
+	public function topSlider():void{
+		$this->method="topslider";
+	}
+
 	public function forKids():void{
 		$this->method="forkids";
 	}
