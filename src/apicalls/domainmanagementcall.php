@@ -125,7 +125,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Channel ID
 	 */
-	public function setChannelCover(int $channelID,String $url, String $assetLanguage="", String $description=""):void{
+	public function setChannelCover(int $channelID,String $url, String $assetLanguage="", String $description="",string $copyright="",bool $isAIGenerated=FALSE):void{
 		if(!empty($channelID)){
 			if(!empty($url)){
 				$this->setItem($channelID,"channel");
@@ -134,9 +134,13 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
 				}
+				if(!empty($copyright)){
+					$this->getParameters()->set("copyright",$copyright);
+				}
 				if(!empty($assetLanguage)){
 					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
+				$this->getParameters()->set('isAIGenerated',($isAIGenerated?1:0));
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -148,7 +152,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Channel ID
 	 */
-	public function setChannelCoverActionShot(int $channelID,String $url, String $assetLanguage="", String $description=""):void{
+	public function setChannelCoverActionShot(int $channelID,String $url, String $assetLanguage="", String $description="",string $copyright="",bool $isAIGenerated=FALSE):void{
 		if(!empty($channelID)){
 			if(!empty($url)){
 				$this->setItem($channelID,"channel");
@@ -157,9 +161,13 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
 				}
+				if(!empty($copyright)){
+					$this->getParameters()->set("copyright",$copyright);
+				}
 				if(!empty($assetLanguage)){
 					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
+				$this->getParameters()->set('isAIGenerated',($isAIGenerated?1:0));
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -219,7 +227,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Format ID
 	 */
-	public function setFormatCover(int $formatID, String $url, String $assetLanguage="", String $description=""):void{
+	public function setFormatCover(int $formatID, String $url, String $assetLanguage="", String $description="",string $copyright="",bool $isAIGenerated=FALSE):void{
 		if(!empty($formatID)){
 			if(!empty($url)){
 				$this->setItem($formatID,"format");
@@ -228,9 +236,13 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
 				}
+				if(!empty($copyright)){
+					$this->getParameters()->set("copyright",$copyright);
+				}
 				if(!empty($assetLanguage)){
 					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
+				$this->getParameters()->set('isAIGenerated',($isAIGenerated?1:0));
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -242,7 +254,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty URL or invalid Format ID
 	 */
-	public function setFormatCoverActionShot(int $formatID, String $url,String $assetLanguage="", String $description=""):void{
+	public function setFormatCoverActionShot(int $formatID, String $url,String $assetLanguage="", String $description="",string $copyright="",bool $isAIGenerated=FALSE):void{
 		if(!empty($formatID)){
 			if(!empty($url)){
 				$this->setItem($formatID,"format");
@@ -251,9 +263,13 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
 				}
+				if(!empty($copyright)){
+					$this->getParameters()->set("copyright",$copyright);
+				}
 				if(!empty($assetLanguage)){
 					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
+				$this->getParameters()->set('isAIGenerated',($isAIGenerated?1:0));
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}
@@ -359,7 +375,7 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function setCategoryCover(string $streamtype="",int $categoryID=0,string $url="",string $assetLanguage="",string $description=""):void{
+	private function setCategoryCover(string $streamtype="",int $categoryID=0,string $url="",string $assetLanguage="",string $description="",string $copyright="",bool $isAIGenerated=FALSE):void{
 		if(!empty($categoryID)){
 			if(!empty($url)){
 				$this->setItem($categoryID,$streamtype."category");
@@ -368,9 +384,13 @@ class domainmanagementcall extends \nexxomnia\internals\apicall{
 				if(!empty($description)){
 					$this->getParameters()->set("description",$description);
 				}
+				if(!empty($copyright)){
+					$this->getParameters()->set("copyright",$copyright);
+				}
 				if(!empty($assetLanguage)){
 					$this->getParameters()->set("assetLanguage",$assetLanguage);
 				}
+				$this->getParameters()->set('isAIGenerated',($isAIGenerated?1:0));
 			}else{
 				throw new \Exception("Cover URL cant be empty");
 			}

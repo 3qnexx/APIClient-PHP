@@ -2,6 +2,7 @@
 namespace nexxomnia\apicalls;
 
 use nexxomnia\apicalls\parameters\statisticparameters;
+use nexxomnia\enums\statistictimescales;
 use nexxomnia\internals\tools;
 use nexxomnia\enums\streamtypes;
 use nexxomnia\enums\kpis;
@@ -55,16 +56,24 @@ class statisticscall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	public function displayByDay():void{
-		$this->path.="displaysbyday";
+	public function displayBy($scale=statistictimescales::DAY):void{
+		$this->path.="displaysby".strtolower($scale);
 	}
 
-	public function playerStartsByDay():void{
-		$this->path.="playerstartsbyday";
+	public function playerStartsBy($scale=statistictimescales::DAY):void{
+		$this->path.="playerstartsby".strtolower($scale);
 	}
 
-	public function viewsByDay():void{
-		$this->path.="viewsbyday";
+	public function viewsBy($scale=statistictimescales::DAY):void{
+		$this->path.="viewsby".strtolower($scale);
+	}
+
+	public function downloadsBy($scale=statistictimescales::DAY):void{
+		$this->path.="downloadsby".strtolower($scale);
+	}
+
+	public function clicksBy($scale=statistictimescales::DAY):void{
+		$this->path.="viewsby".strtolower($scale);
 	}
 
 	public function viewsExternalByDay():void{
@@ -83,24 +92,20 @@ class statisticscall extends \nexxomnia\internals\apicall{
 		$this->path.="viewprogressbyday";
 	}
 
-	public function downloadsByDay():void{
-		$this->path.="downloadsbyday";
+	public function adRequestsByDay($scale=statistictimescales::DAY):void{
+		$this->path.="adrequestsby".strtolower($scale);
 	}
 
-	public function clicksByDay():void{
-		$this->path.="viewsbyday";
+	public function adImpressionsByDay($scale=statistictimescales::DAY):void{
+		$this->path.="adimpressionsby".strtolower($scale);
 	}
 
-	public function adRequestsByDay():void{
-		$this->path.="adrequestsbyday";
+	public function adClicksByDay($scale=statistictimescales::DAY):void{
+		$this->path.="adclicksby".strtolower($scale);
 	}
 
-	public function adImpressionsByDay():void{
-		$this->path.="adimpressionsbyday";
-	}
-
-	public function adClicksByDay():void{
-		$this->path.="adclicksbyday";
+	public function adErrorsByDay($scale=statistictimescales::DAY):void{
+		$this->path.="aderrorsby".strtolower($scale);
 	}
 
 	/**

@@ -62,7 +62,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 		}
 	}
 
-	private function handleCover(string $method,string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
+	private function handleCover(string $method,string $url="",string $description="",string $copyright="",string $assetLanguage="",bool $isAIGenerated=FALSE,float $fromTime=0):void{
 		if(substr($url,0,4)=="http"){
 			$this->verb=defaults::VERB_POST;
 			$this->method=$method;
@@ -70,19 +70,27 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			if(!empty($description)){
 				$this->getParameters()->set("description",$description);
 			}
+			if(!empty($copyright)){
+				$this->getParameters()->set("copyright",$copyright);
+			}
 			if(!empty($assetLanguage)){
 				$this->getParameters()->set("assetLanguage",$assetLanguage);
 			}
-		}else if(($fromTime>0)&&(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::SCENE,'variant']))){
+			$this->getParameters()->set("isAIGenerated",($isAIGenerated?1:0));
+		}else if(($fromTime>0)&&(in_array($this->streamtype,[streamtypes::VIDEO,streamtypes::SCENE,streamtypes::VARIANT]))){
 			$this->verb=defaults::VERB_POST;
 			$this->method=$method;
 			$this->getParameters()->set("fromTime",$fromTime);
 			if(!empty($description)){
 				$this->getParameters()->set("description",$description);
 			}
+			if(!empty($copyright)){
+				$this->getParameters()->set("description",$description);
+			}
 			if(!empty($assetLanguage)){
 				$this->getParameters()->set("assetLanguage",$assetLanguage);
 			}
+			$this->getParameters()->set("isAIGenerated",($isAIGenerated?1:0));
 		}else{
 			throw new \Exception("a valid Cover URL or TimeStamp (on Video Streamtypes only).");
 		}
@@ -1309,50 +1317,50 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCover(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
-		$this->handleCover("cover",$url,$assetLanguage,$description,$fromTime);
+	public function setItemCover(string $url="",string $description="",string $copyright="",bool $isAIGenerated=FALSE,string $assetLanguage="",float $fromTime=0):void{
+		$this->handleCover("cover",$url,$description,$copyright,$assetLanguage,$isAIGenerated,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverAlternative(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
-		$this->handleCover("alternativecover",$url,$assetLanguage,$description,$fromTime);
+	public function setItemCoverAlternative(string $url="",string $description="",string $copyright="",bool $isAIGenerated=FALSE,string $assetLanguage="",float $fromTime=0):void{
+		$this->handleCover("alternativecover",$url,$description,$copyright,$assetLanguage,$isAIGenerated,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverABTest(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
-		$this->handleCover("abtestalternative",$url,$assetLanguage,$description,$fromTime);
+	public function setItemCoverABTest(string $url="",string $description="",string $copyright="",bool $isAIGenerated=FALSE,string $assetLanguage="",float $fromTime=0):void{
+		$this->handleCover("abtestalternative",$url,$description,$copyright,$assetLanguage,$isAIGenerated,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverActionShot(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
-		$this->handleCover("actionshot",$url,$assetLanguage,$description,$fromTime);
+	public function setItemCoverActionShot(string $url="",string $description="",string $copyright="",bool $isAIGenerated=FALSE,string $assetLanguage="",float $fromTime=0):void{
+		$this->handleCover("actionshot",$url,$description,$copyright,$assetLanguage,$isAIGenerated,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverQuad(string $url="",string $description="",string $assetLanguage="",float $fromTime=0):void{
-		$this->handleCover("quadcover",$url,$assetLanguage,$description,$fromTime);
+	public function setItemCoverQuad(string $url="",string $description="",string $copyright="",bool $isAIGenerated=FALSE,string $assetLanguage="",float $fromTime=0):void{
+		$this->handleCover("quadcover",$url,$description,$copyright,$assetLanguage,$isAIGenerated,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverBanner(string $url="",string $assetLanguage="",string $description="",float $fromTime=0):void{
-		$this->handleCover("banner",$url,$assetLanguage,$description,$fromTime);
+	public function setItemCoverBanner(string $url="",string $assetLanguage="",string $description="",string $copyright="",bool $isAIGenerated=FALSE,float $fromTime=0):void{
+		$this->handleCover("banner",$url,$description,$copyright,$assetLanguage,$isAIGenerated,$fromTime);
 	}
 
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function setItemCoverArtwork(string $url="",string $assetLanguage=""):void{
-		$this->handleCover("artwork",$url,$assetLanguage);
+	public function setItemCoverArtwork(string $url="",string $assetLanguage="",string $description="",string $copyright="",bool $isAIGenerated=FALSE):void{
+		$this->handleCover("artwork",$url,$description,$copyright,$assetLanguage,$isAIGenerated);
 	}
 
 	/**
