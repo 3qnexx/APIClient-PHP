@@ -30,7 +30,7 @@ class sessionmodifiers extends modifiers{
 		$this->params['addChannels']=1;
 	}
 
-	public function addFormats(){
+	public function addFormats():void{
 		$this->params['addFormats']=1;
 	}
 }

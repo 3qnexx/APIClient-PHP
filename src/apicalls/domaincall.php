@@ -227,7 +227,7 @@ class domaincall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on empty Path
 	 */
-	public function textTemplate($reference){
+	public function textTemplate($reference):void{
 		if(!empty($reference)){
 			$this->path.="texttemplates/".$reference;
 		}else{

@@ -10,7 +10,7 @@ class customcall extends \nexxomnia\internals\apicall{
 	}
 
 	public function setPath(string $path):void{
-		if(substr($path,0,1)=="/"){
+		if(str_starts_with($path,"/")){
 			$path=substr($path,1);
 		}
 		$this->path=$path;
