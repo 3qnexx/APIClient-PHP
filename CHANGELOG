@@ -1,7 +1,15 @@
 CHANGELOG
 =========
 
-1.5.9 (2023-06-17)
+1.6.0 (2023-06-17)
+-------------------
+
+* adding Support for Statistic KPI Distributions 'Hour' and 'Weekday'
+* this feature introduces a breaking Change, if any Calls to Statistic Methods are used, which ended by "ByDay".
+  - all these Methods were renamed to "By" with an optional "scale" Parameter [one of "day", "hour", "weekday"], which defaults to day
+  - so, for example: $provider->displaysByDay(); becomes $provider->displaysBy() OR $provider->displaysBy('day');
+
+1.5.9 (2023-06-15)
 -------------------
 
 * adding Support for Asset Copyright
