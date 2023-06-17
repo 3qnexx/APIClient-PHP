@@ -92,19 +92,19 @@ class statisticscall extends \nexxomnia\internals\apicall{
 		$this->path.="viewprogressbyday";
 	}
 
-	public function adRequestsByDay($scale=statistictimescales::DAY):void{
+	public function adRequestsBy($scale=statistictimescales::DAY):void{
 		$this->path.="adrequestsby".strtolower($scale);
 	}
 
-	public function adImpressionsByDay($scale=statistictimescales::DAY):void{
+	public function adImpressionsBy($scale=statistictimescales::DAY):void{
 		$this->path.="adimpressionsby".strtolower($scale);
 	}
 
-	public function adClicksByDay($scale=statistictimescales::DAY):void{
+	public function adClicksBy($scale=statistictimescales::DAY):void{
 		$this->path.="adclicksby".strtolower($scale);
 	}
 
-	public function adErrorsByDay($scale=statistictimescales::DAY):void{
+	public function adErrorsBy($scale=statistictimescales::DAY):void{
 		$this->path.="aderrorsby".strtolower($scale);
 	}
 
