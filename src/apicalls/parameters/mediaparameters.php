@@ -346,4 +346,12 @@ class mediaparameters extends parameters{
 		}
 		$this->params['includeRackParts']=($include?1:0);
 	}
+
+	public function includePodcastSources(bool $include,bool $onlyEpisodes=FALSE):void{
+		if($onlyEpisodes){
+			$include=1;
+			$this->params['onlyPodcastSources']=1;
+		}
+		$this->params['includePodcastSources']=($include?1:0);
+	}
 }
