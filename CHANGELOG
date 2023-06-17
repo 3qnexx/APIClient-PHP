@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.5.9 (2023-06-17)
+-------------------
+
+* adding Support for Asset Copyright
+* adding Support for ContentType Filtering
+* adding Support for Podcast Filtering Parameters
+
 1.5.8 (2023-03-15)
 -------------------
 

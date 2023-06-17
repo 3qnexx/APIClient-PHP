@@ -18,6 +18,14 @@ class systemcall extends \nexxomnia\internals\apicall{
 		$this->path.="audiogenres";
 	}
 
+	public function videoContentTypes():void{
+		$this->path.="videocontenttypes";
+	}
+
+	public function imageContentTypes():void{
+		$this->path.="imagecontenttypes";
+	}
+
 	public function youtubeCategories():void{
 		$this->path.="youtubecategories";
 	}

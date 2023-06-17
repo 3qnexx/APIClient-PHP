@@ -142,7 +142,7 @@ class uploadhandler{
 	/**
 	 * @throws \Exception on any Processing Error
 	 */
-	public function setMediaCover($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $coverContext=covercontexts::COVER,string $coverDescription="",string $assetLanguage=""):bool{
+	public function setMediaCover($localPath,$streamtype=streamtypes::VIDEO,$mediaid=0,string $coverContext=covercontexts::COVER,string $coverDescription="",string $coverCopyright="",string $assetLanguage=""):bool{
 		$isSuccess=FALSE;
 		if($this->apiclient){
 			if((file_exists($localPath))&&(filesize($localPath)>100)&&(!is_dir($localPath))){
@@ -157,22 +157,22 @@ class uploadhandler{
 								$url=$config['endpoint']."/".$config['file'];
 								switch($coverContext){
 									case covercontexts::COVER:
-										$uploadcall->setItemCover($url,$coverDescription,$assetLanguage);
+										$uploadcall->setItemCover($url,$coverDescription,$coverCopyright,$assetLanguage);
 									break;
 									case covercontexts::ALTERNATIVE:
-										$uploadcall->setItemCoverAlternative($url,$coverDescription,$assetLanguage);
+										$uploadcall->setItemCoverAlternative($url,$coverDescription,$coverCopyright,$assetLanguage);
 									break;
 									case covercontexts::ABTEST:
-										$uploadcall->setItemCoverABTest($url,$coverDescription,$assetLanguage);
+										$uploadcall->setItemCoverABTest($url,$coverDescription,$coverCopyright,$assetLanguage);
 									break;
 									case covercontexts::ACTIONSHOT:
-										$uploadcall->setItemCoverActionShot($url,$coverDescription,$assetLanguage);
+										$uploadcall->setItemCoverActionShot($url,$coverDescription,$coverCopyright,$assetLanguage);
 									break;
 									case covercontexts::BANNER:
-										$uploadcall->setItemCoverBanner($url,$coverDescription,$assetLanguage);
+										$uploadcall->setItemCoverBanner($url,$coverDescription,$coverCopyright,$assetLanguage);
 									break;
 									case covercontexts::QUAD:
-										$uploadcall->setItemCoverQuad($url,$coverDescription,$assetLanguage);
+										$uploadcall->setItemCoverQuad($url,$coverDescription,$coverCopyright,$assetLanguage);
 									break;
 								}
 								$uploadresult=$this->apiclient->call($uploadcall);

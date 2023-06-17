@@ -102,7 +102,7 @@ class mediaparameters extends parameters{
 		$this->params['onlyDownloadable']=1;
 	}
 
-	public function restrictToDuration(int $minDur=-1,int $maxDur=-1){
+	public function restrictToDuration(int $minDur=-1,int $maxDur=-1):void{
 		if($minDur>0){
 			$this->params['minDuration']=$minDur;
 		}
@@ -258,7 +258,7 @@ class mediaparameters extends parameters{
 		$this->params['includeRemote']=($include?1:0);
 	}
 
-	public function includePay(bool $onlyFree=FALSE,bool $onlyPayed=FALSE, bool $onlyPremium=FALSE, bool $onlyStandard=FALSE){
+	public function includePay(bool $onlyFree=FALSE,bool $onlyPayed=FALSE, bool $onlyPremium=FALSE, bool $onlyStandard=FALSE):void{
 		if($onlyFree){
 			$this->params['onlyFree']=1;
 		}else if($onlyPayed){
@@ -345,5 +345,13 @@ class mediaparameters extends parameters{
 			$this->params['onlyRackParts']=1;
 		}
 		$this->params['includeRackParts']=($include?1:0);
+	}
+
+	public function includePodcastSources(bool $include,bool $onlyPodcastSources=FALSE):void{
+		if($onlyPodcastSources){
+			$include=1;
+			$this->params['onlyPodcastSources']=1;
+		}
+		$this->params['includePodcastSources']=($include?1:0);
 	}
 }
