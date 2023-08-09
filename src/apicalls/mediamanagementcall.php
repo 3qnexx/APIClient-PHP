@@ -305,7 +305,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createLiveStreamFromRemote(string $hlsURL,string $dashURL="",string $title="",string $type=livestreamtypes::EVENT):void{
+	public function createLiveStreamFromRemote(string $hlsURL,string $dashURL="",string $title="",string $type=livestreamtypes::EVENT,bool $supportsDVR=FALSE,bool $supportsLowLatency=FALSE):void{
 		if((!empty($hlsURL))&&(substr($hlsURL,0,4)=="http")){
 			$this->setStreamtype(streamtypes::LIVE);
 			$this->verb=defaults::VERB_POST;
@@ -319,6 +319,12 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 			}
 			if(in_array($type,livestreamtypes::getAllTypes())){
 				$this->getParameters()->set("type",$type);
+			}
+			if($supportsDVR){
+				$this->getParameters()->set("supportsDVR",1);
+			}
+			if($supportsLowLatency){
+				$this->getParameters()->set("supportsLowLatency",1);
 			}
 		}else{
 			throw new \Exception("a valid HLS URL must be given.");
@@ -359,20 +365,26 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createRadioFromRemote(string $url,string $title="",string $type=livestreamtypes::EVENT):void{
-		if((!empty($url))&&(substr($url,0,4)=="http")){
+	public function createRadioFromRemote(string $mp3URL,string $title="",string $type=livestreamtypes::EVENT,string $aacURL="",string $opusURL=""):void{
+		if((!empty($mp3URL))&&(substr($mp3URL,0,4)=="http")){
 			$this->setStreamtype(streamtypes::RADIO);
 			$this->verb=defaults::VERB_POST;
 			$this->method="fromremote";
-			$this->getParameters()->set("url",$url);
+			$this->getParameters()->set("mp3URL",$mp3URL);
 			if(!empty($title)){
 				$this->getParameters()->set("title",$title);
+			}
+			if(!empty($aacURL)){
+				$this->getParameters()->set("aacURL",$aacURL);
+			}
+			if(!empty($opusURL)){
+				$this->getParameters()->set("opusURL",$opusURL);
 			}
 			if(in_array($type,livestreamtypes::getAllTypes())){
 				$this->getParameters()->set("type",$type);
 			}
 		}else{
-			throw new \Exception("a valid URL must be given.");
+			throw new \Exception("a valid MP3 URL must be given.");
 		}
 	}
 
