@@ -8,7 +8,6 @@ class gateways extends \nexxomnia\internals\enum{
 	const TABLET='tablet';
 	const CAR='car';
 	const AMP='amp';
-	const FBIA='fbia';
 	const IOS='ios';
 	const ANDROID='android';
 	const SMARTTV='smarttv';
