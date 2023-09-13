@@ -988,7 +988,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function addItemDownloadLink(string $title, string $language="",int $maxStarts=0,string $code="",bool $useDomainStyle=FALSE, string $fileType='',bool $includeTextTracks=FALSE):void{
+	public function addItemDownloadLink(string $title, string $language="",int $maxStarts=0,string $code="",bool $useDomainStyle=FALSE, string $fileType='',bool $includeTextTracks=TRUE):void{
 		if(in_array($this->streamtype,streamtypes::getDownloadLinkTypes())){
 			$this->verb=defaults::VERB_POST;
 			$this->method="adddownloadlink";
