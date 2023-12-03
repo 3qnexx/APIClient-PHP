@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.6.1 (2023-12-03)
+-------------------
+
+* adding Support for PHP 8.3, removing Support for PHP 8.0
+* adding Support for new "withawards" Media Endpoints
+
 1.6.0 (2023-06-17)
 -------------------
 

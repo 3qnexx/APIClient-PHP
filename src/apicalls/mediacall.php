@@ -112,6 +112,10 @@ class mediacall extends \nexxomnia\internals\apicall{
 		$this->method="forkids";
 	}
 
+	public function withAwards():void{
+		$this->method="withawards";
+	}
+
 	public function random():void{
 		$this->method="random";
 	}
