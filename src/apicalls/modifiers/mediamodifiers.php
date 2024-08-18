@@ -80,10 +80,6 @@ class mediamodifiers extends modifiers{
 		$this->params['addAnnotations']=1;
 	}
 
-	public function addStatistics():void{
-		$this->params['addStatistics']=1;
-	}
-
 	public function addPaymentData():void{
 		$this->params['addPaymentData']=1;
 	}
