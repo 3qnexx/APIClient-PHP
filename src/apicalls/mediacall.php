@@ -146,26 +146,6 @@ class mediacall extends \nexxomnia\internals\apicall{
 		$this->method="topitemsexternal";
 	}
 
-	public function bestRated(int $timeFrame=5):void{
-		$this->method="bestrated";
-		$this->getParameters()->set("timeframe",$timeFrame);
-	}
-
-	public function mostLiked(int $timeFrame=5):void{
-		$this->method="mostliked";
-		$this->getParameters()->set("timeframe",$timeFrame);
-	}
-
-	public function mostReacted(int $timeFrame=5):void{
-		$this->method="mostreacted";
-		$this->getParameters()->set("timeframe",$timeFrame);
-	}
-
-	public function mostCommented(int $timeFrame=5):void{
-		$this->method="mostcommented";
-		$this->getParameters()->set("timeframe",$timeFrame);
-	}
-
 	public function channelOverview():void{
 		$this->method="channeloverview";
 	}
