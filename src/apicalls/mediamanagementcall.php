@@ -99,7 +99,7 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 	/**
 	 * @throws \Exception on invalid Parameters
 	 */
-	public function createFromURL(string $url, bool $useQueue=TRUE,?bool $autoPublish=NULL, string $refnr="",int $queueStart=0, string $asVariantFor="", int $asVariantOf=0, string $sourceLanguage="", string $notes=""):void{
+	public function createFromURL(string $url,?bool $autoPublish=NULL, string $refnr="", string $origin="", string $originReference="", string $asVariantFor="", int $asVariantOf=0, string $sourceLanguage="", string $notes="", bool $useQueue=TRUE,int $queueStart=0):void{
 		if(in_array($this->streamtype,streamtypes::getUploadableTypes())){
 			if(substr($url,0,4)=="http"){
 				$this->verb=defaults::VERB_POST;
@@ -107,6 +107,12 @@ class mediamanagementcall extends \nexxomnia\internals\apicall{
 				$this->getParameters()->set("url",$url);
 				if(!empty($refnr)){
 					$this->getParameters()->set("refnr",$refnr);
+				}
+				if(!empty($origin)){
+					$this->getParameters()->set("origin",$origin);
+					if(!empty($originReference)){
+						$this->getParameters()->set("originReference",$originReference);
+					}
 				}
 				if(!empty($notes)){
 					$this->getParameters()->set("notes",$notes);
