@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.6.5 (2024-11-25)
+-------------------
+
+* adding Support for PHP 8.4
+* remove /topslider API Methods, as this Model is not handled differently
+
 1.6.4 (2024-11-07)
 -------------------
 
