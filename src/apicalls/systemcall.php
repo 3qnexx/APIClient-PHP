@@ -34,10 +34,6 @@ class systemcall extends \nexxomnia\internals\apicall{
 		$this->path.="facebookcategories";
 	}
 
-	public function rokuCategories():void{
-		$this->path.="rokucategories";
-	}
-
 	public function countryCodes():void{
 		$this->path.="countrycodes";
 	}
