@@ -156,6 +156,10 @@ class mediamodifiers extends modifiers{
 		$this->params['addMultiLanguageData']=1;
 	}
 
+	public function addHTMLTexts():void{
+		$this->params['addHTMLTexts']=1;
+	}
+
 	public function addCustomAttributes():void{
 		$this->params['addCustomAttributes']=1;
 	}
