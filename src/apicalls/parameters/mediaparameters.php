@@ -258,6 +258,14 @@ class mediaparameters extends parameters{
 		$this->params['includeRemote']=($include?1:0);
 	}
 
+	public function includeAIGenerated(bool $include,bool $onlyAIGenerated=FALSE):void{
+		if($onlyAIGenerated){
+			$include=1;
+			$this->params['onlyAIGenerated']=1;
+		}
+		$this->params['includeAIGenerated']=($include?1:0);
+	}
+
 	public function includePay(bool $onlyFree=FALSE,bool $onlyPayed=FALSE, bool $onlyPremium=FALSE, bool $onlyStandard=FALSE):void{
 		if($onlyFree){
 			$this->params['onlyFree']=1;
