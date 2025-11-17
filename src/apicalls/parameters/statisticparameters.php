@@ -156,8 +156,8 @@ class statisticparameters extends parameters{
 		}
 	}
 
-	public function restrictToRegion(int $region):void{
-		$this->set('regionCode',$region);
+	public function restrictToSubdivision(string $subdivision):void{
+		$this->set('subdivisionCode',$subdivision);
 	}
 
 	public function restrictToManufacturer(string $manufacturer):void{

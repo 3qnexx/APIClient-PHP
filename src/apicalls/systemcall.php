@@ -42,12 +42,6 @@ class systemcall extends \nexxomnia\internals\apicall{
 		$this->path.="languagecodes";
 	}
 
-	public function regionCodesForCountry(string $country):void{
-		if(strlen($country)==2){
-			$this->path.="regioncodesfor/".$country;
-		}
-	}
-
 	public function personTypes():void{
 		$this->path.="persontypes";
 	}
